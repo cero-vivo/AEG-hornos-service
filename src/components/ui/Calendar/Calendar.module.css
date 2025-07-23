@@ -1,0 +1,325 @@
+.calendarContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendarHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.calendarTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+
+.calendarSubtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+.dateSelector {
+  margin-bottom: 2rem;
+}
+
+.dateLabel {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.slotsContainer {
+  margin-bottom: 2rem;
+}
+
+.slotsHeader {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.slotButton {
+  padding: 10px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+}
+
+.slotButton:hover {
+  border-color: #2563eb;
+  background: #f8fafc;
+}
+
+.slotButton.selected {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+.slotButton:disabled {
+  background: #f1f5f9;
+  border-color: #e1e5e9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.appointmentForm {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.selectedServices {
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.selectedServicesTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #166534;
+  font-size: 0.9rem;
+}
+
+.selectedServicesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selectedServiceItem {
+  color: #166534;
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
+}
+
+.selectedServiceItem::before {
+  content: "✓ ";
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.buttonSecondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.buttonSecondary:hover {
+  background: #e2e8f0;
+}
+
+.buttonPrimary {
+  background: #2563eb;
+  color: white;
+}
+
+.buttonPrimary:hover {
+  background: #1d4ed8;
+}
+
+.buttonPrimary:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.loadingState {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.errorState {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #dc2626;
+  text-align: center;
+}
+
+.successState {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: #166534;
+}
+
+.successIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.successTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.successMessage {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.meetLink {
+  background: white;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+  color: #166534;
+}
+
+.noSlotsMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .calendarContainer {
+    padding: 1rem;
+  }
+  
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .slotsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .actionButtons {
+    flex-direction: column;
+  }
+} 

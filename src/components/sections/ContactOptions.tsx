@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { 
   Phone, 
   MessageSquare, 
@@ -11,6 +14,8 @@ import {
 } from "lucide-react";
 import styles from "../../app/landing.module.css";
 import content from "../../data/content.json";
+import Modal from "../ui/Modal";
+import CalendarBooking from "../ui/Calendar";
 
 const iconMap = {
   Phone,
@@ -33,6 +38,15 @@ interface ContactOptionsProps {
 
 export default function ContactOptions({ selectedServices, generateWhatsAppMessage }: ContactOptionsProps) {
   const { contactOptions, company } = content;
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  const handleOpenCalendar = () => {
+    setIsCalendarOpen(true);
+  };
+
+  const handleCloseCalendar = () => {
+    setIsCalendarOpen(false);
+  };
 
   return (
     <section id="contacto" className={styles.contactOptions}>
@@ -128,7 +142,10 @@ export default function ContactOptions({ selectedServices, generateWhatsAppMessa
               
               {/* Acción para agendar */}
               {option.type === 'schedule' && option.action && (
-                <button className={styles.optionButton}>
+                <button 
+                  className={styles.optionButton}
+                  onClick={handleOpenCalendar}
+                >
                   {(() => {
                     const ButtonIcon = iconMap[option.action.icon as IconType];
                     return <ButtonIcon size={18} />;
@@ -140,6 +157,14 @@ export default function ContactOptions({ selectedServices, generateWhatsAppMessa
           );
         })}
       </div>
+
+      {/* Modal del calendario */}
+      <Modal isOpen={isCalendarOpen} onClose={handleCloseCalendar}>
+        <CalendarBooking
+          selectedServices={selectedServices}
+          onClose={handleCloseCalendar}
+        />
+      </Modal>
     </section>
   );
 } 

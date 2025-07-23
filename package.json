@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "date-fns": "^4.1.0",
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^153.0.0",
     "lucide-react": "^0.525.0",
     "next": "15.4.3",
     "react": "19.1.0",
@@ -16,7 +19,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
+    "@types/node": "^20.19.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
