@@ -7,7 +7,6 @@ interface ContactFormProps {
   selectedServices?: string[];
 }
 
-type UrgencyLevel = 'low' | 'medium' | 'high' | 'urgent';
 type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
@@ -17,11 +16,9 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     telefono: "",
     zona: "" as ServiceZone | "",
     direccion: "",
-    urgencia: "" as UrgencyLevel | "",
-    fechaPreferida: "",
-    horarioPreferido: "",
     descripcionProblema: "",
-    mensaje: ""
+    mensaje: "",
+    fotos: [] as File[]
   });
   const [enviado, setEnviado] = useState(false);
   const [step, setStep] = useState(1);
@@ -44,6 +41,18 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setForm(prev => ({ ...prev, fotos: [...prev.fotos, ...files] }));
+  };
+
+  const removePhoto = (index: number) => {
+    setForm(prev => ({
+      ...prev,
+      fotos: prev.fotos.filter((_, i) => i !== index)
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setEnviado(true);
@@ -57,16 +66,6 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     if (step > 1) setStep(step - 1);
   };
 
-  const getUrgencyColor = (urgency: UrgencyLevel) => {
-    switch (urgency) {
-      case 'low': return '#22c55e';
-      case 'medium': return '#f59e0b';
-      case 'high': return '#ef4444';
-      case 'urgent': return '#dc2626';
-      default: return '#6b7280';
-    }
-  };
-
   if (enviado) {
     return (
       <div className={styles.success}>
@@ -75,8 +74,6 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
         <p>Te contactaremos en las próximas <strong>24 horas</strong> para coordinar la visita.</p>
         <div className={styles.successDetails}>
           <p><strong>Zona:</strong> {form.zona?.toUpperCase()}</p>
-          <p><strong>Urgencia:</strong> {form.urgencia}</p>
-          {form.fechaPreferida && <p><strong>Fecha preferida:</strong> {form.fechaPreferida}</p>}
         </div>
       </div>
     );
@@ -139,28 +136,16 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
 
         {step === 2 && (
           <div className={styles.step}>
-            <h3>Ubicación y urgencia</h3>
-            <div className={styles.row}>
-              <label>
-                Zona de servicio *
-                <select name="zona" value={form.zona} onChange={handleChange} required>
-                  <option value="">Seleccionar zona</option>
-                  <option value="caba">CABA</option>
-                  <option value="amba">AMBA</option>
-                  <option value="interior">Interior (videollamada)</option>
-                </select>
-              </label>
-              <label>
-                Nivel de urgencia *
-                <select name="urgencia" value={form.urgencia} onChange={handleChange} required>
-                  <option value="">¿Qué tan urgente es?</option>
-                  <option value="low">📅 Planificado (dentro de 2 semanas)</option>
-                  <option value="medium">⚡ Importante (esta semana)</option>
-                  <option value="high">🔥 Urgente (1-2 días)</option>
-                  <option value="urgent">🚨 Emergencia (hoy mismo)</option>
-                </select>
-              </label>
-            </div>
+            <h3>Ubicación</h3>
+            <label>
+              Zona de servicio *
+              <select name="zona" value={form.zona} onChange={handleChange} required>
+                <option value="">Seleccionar zona</option>
+                <option value="caba">CABA</option>
+                <option value="amba">AMBA</option>
+                <option value="interior">Interior (videollamada)</option>
+              </select>
+            </label>
             <label>
               Dirección completa
               <input
@@ -171,27 +156,6 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
                 placeholder="Calle, número, piso, depto (opcional)"
               />
             </label>
-            <div className={styles.row}>
-              <label>
-                Fecha preferida
-                <input
-                  type="date"
-                  name="fechaPreferida"
-                  value={form.fechaPreferida}
-                  onChange={handleChange}
-                  min={new Date().toISOString().split('T')[0]}
-                />
-              </label>
-              <label>
-                Horario preferido
-                <select name="horarioPreferido" value={form.horarioPreferido} onChange={handleChange}>
-                  <option value="">Cualquier horario</option>
-                  <option value="mañana">Mañana (9-12hs)</option>
-                  <option value="tarde">Tarde (13-17hs)</option>
-                  <option value="noche">Noche (18-20hs)</option>
-                </select>
-              </label>
-            </div>
           </div>
         )}
 
@@ -209,6 +173,49 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
                 placeholder="Ej: No enciende, no llega a temperatura, se corta durante la cocción, hace ruidos raros..."
               />
             </label>
+            
+            <div className={styles.photoSection}>
+              <label>
+                Adjuntar fotos del horno (opcional)
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                  className={styles.fileInput}
+                />
+              </label>
+              {form.fotos.length > 0 && (
+                <div className={styles.photoPreview}>
+                  {form.fotos.map((foto, index) => (
+                    <div key={index} className={styles.photoItem}>
+                      <div className={styles.photoThumbnail}>
+                        <img 
+                          src={URL.createObjectURL(foto)} 
+                          alt={`Foto ${index + 1}`}
+                          className={styles.thumbnailImage}
+                        />
+                      </div>
+                      <div className={styles.photoInfo}>
+                        <span className={styles.photoName}>{foto.name}</span>
+                        <span className={styles.photoSize}>
+                          {(foto.size / 1024 / 1024).toFixed(1)} MB
+                        </span>
+                      </div>
+                      <button 
+                        type="button" 
+                        onClick={() => removePhoto(index)}
+                        className={styles.removePhoto}
+                        title="Eliminar foto"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {selectedServices.length > 0 && (
               <div className={styles.selectedServices}>
                 <h4>Servicios seleccionados:</h4>
@@ -244,7 +251,7 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
             </button>
           ) : (
             <button type="submit" className={styles.btnSubmit}>
-              🚀 Enviar solicitud
+              Enviar
             </button>
           )}
         </div>

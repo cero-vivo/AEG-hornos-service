@@ -251,7 +251,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.contactOptions}>
+      <section id="contacto" className={styles.contactOptions}>
         <div className={styles.contactHeader}>
           <h2>¿Cómo prefieres que te contactemos?</h2>
           <p>Elegí la opción que más te convenga. Todos los caminos llevan a la misma excelencia en el servicio.</p>
@@ -305,7 +305,7 @@ export default function Home() {
             <button 
               className={styles.optionButton}
               onClick={() => {
-                document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               <MessageSquare size={18} />
@@ -332,7 +332,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contacto" className={styles.contact}>
+      <section id="formulario" className={styles.contact}>
         <h2>Formulario de contacto</h2>
         <p className={styles.contactSubtext}>Contanos en detalle qué problema tiene tu horno</p>
         <ContactForm selectedServices={selectedServices} />
@@ -344,7 +344,7 @@ export default function Home() {
           <button 
             className={styles.cartButton}
             onClick={() => {
-              document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             <ShoppingCart size={20} />

@@ -127,6 +127,120 @@
   border-radius: 4px;
 }
 
+/* Photo Section */
+.photoSection {
+  background: rgba(120, 113, 108, 0.05);
+  border: 1px solid rgba(120, 113, 108, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.fileInput {
+  background: var(--surface-light);
+  border: 2px dashed rgba(120, 113, 108, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.fileInput:hover {
+  border-color: var(--accent);
+  background: rgba(234, 88, 12, 0.05);
+}
+
+.photoPreview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.photoItem {
+  display: flex;
+  align-items: center;
+  background: var(--surface-light);
+  border: 1px solid rgba(120, 113, 108, 0.2);
+  border-radius: 8px;
+  padding: 8px;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.photoItem:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photoThumbnail {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(120, 113, 108, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.photoItem:hover .thumbnailImage {
+  transform: scale(1.05);
+}
+
+.photoInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.photoName {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photoSize {
+  color: #78716c;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.removePhoto {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.removePhoto:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: scale(1.1);
+}
+
 /* Navigation */
 .navigation {
   display: flex;
@@ -266,5 +380,26 @@
   .btnPrimary,
   .btnSubmit {
     width: 100%;
+  }
+
+  .photoPreview {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .photoItem {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .photoThumbnail {
+    width: 40px;
+    height: 40px;
+  }
+
+  .removePhoto {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
   }
 } 
