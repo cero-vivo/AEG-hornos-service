@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./landing.module.css";
 import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
-import { Flame, Shield, Check, ShoppingCart } from "lucide-react";
+import { Flame, Shield, Check, ShoppingCart, Award, Wrench, FileCheck, Star, Users, Clock } from "lucide-react";
 
 export default function Home() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -127,8 +127,8 @@ export default function Home() {
           <div className={styles.heroVisual}>
             <div className={styles.imageContainer}>
               <Image
-                src="/hero-horno.jpg"
-                alt="Técnico profesional reparando horno de cerámica"
+                src="/hornos/horno1.jpg"
+                alt="Horno de cerámica profesional - Reparación AEG"
                 width={500}
                 height={600}
                 className={styles.heroImage}
@@ -138,8 +138,8 @@ export default function Home() {
                   <Check size={20} />
                 </div>
                 <div className={styles.cardText}>
-                  <strong>Diagnóstico gratuito</strong>
-                  <span>En tu domicilio</span>
+                  <strong>Reparación garantizada</strong>
+                  <span>Hornos como nuevos</span>
                 </div>
               </div>
             </div>
@@ -169,9 +169,86 @@ export default function Home() {
       </section>
 
       <section className={styles.about}>
-        <h2>¿Por qué elegir AEG?</h2>
-        <p>Trabajamos exclusivamente con hornos de cerámica y utilizamos repuestos originales.</p>
-        <p>Garantía escrita en todos nuestros trabajos y atención personalizada.</p>
+        <div className={styles.aboutContent}>
+          <div className={styles.aboutText}>
+            <div className={styles.aboutBadge}>
+              <Star className={styles.aboutBadgeIcon} size={16} />
+              <span>Especialistas Certificados</span>
+            </div>
+            <h2>La diferencia AEG en cada reparación</h2>
+            <p className={styles.aboutLead}>
+              No somos técnicos genéricos. Somos <strong>especialistas exclusivos en hornos de cerámica</strong> 
+              con más de 5 años perfeccionando nuestro oficio.
+            </p>
+            <div className={styles.features}>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>
+                  <Award size={20} />
+                </div>
+                <div className={styles.featureContent}>
+                  <strong>Experiencia comprobada</strong>
+                  <span>+500 hornos reparados con éxito</span>
+                </div>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>
+                  <Wrench size={20} />
+                </div>
+                <div className={styles.featureContent}>
+                  <strong>Repuestos originales</strong>
+                  <span>Trabajamos solo con piezas certificadas</span>
+                </div>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>
+                  <FileCheck size={20} />
+                </div>
+                <div className={styles.featureContent}>
+                  <strong>Garantía extendida</strong>
+                  <span>6 meses por escrito en cada servicio</span>
+                </div>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>
+                  <Clock size={20} />
+                </div>
+                <div className={styles.featureContent}>
+                  <strong>Respuesta rápida</strong>
+                  <span>Te contactamos en menos de 24hs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.resultsGallery}>
+            <h3>Resultados de nuestro trabajo</h3>
+            <p className={styles.gallerySubtext}>
+              Cada pieza perfecta es testimonio de un horno reparado con excelencia
+            </p>
+            <div className={styles.galleryGrid}>
+              <Image
+                src="/hornos/piezas1.jpg"
+                alt="Piezas cerámicas cocidas perfectamente"
+                width={200}
+                height={150}
+                className={styles.galleryImage}
+              />
+              <Image
+                src="/hornos/piezas0.jpg"
+                alt="Cerámica terminada con acabado profesional"
+                width={200}
+                height={150}
+                className={styles.galleryImage}
+              />
+              <Image
+                src="/hornos/piezas2.jpg"
+                alt="Trabajos en cerámica realizados con hornos reparados"
+                width={200}
+                height={150}
+                className={styles.galleryImage}
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="contacto" className={styles.contact}>

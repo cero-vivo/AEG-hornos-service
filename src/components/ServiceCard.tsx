@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styles from "./ServiceCard.module.css";
-import { Search, Sparkles, Wrench, Video, Settings } from "lucide-react";
+import { Search, Sparkles, Wrench, Video, Settings, Clock, MapPin } from "lucide-react";
 
 const iconMap = {
   Search,
@@ -59,8 +59,18 @@ export default function ServiceCard({
       <p className={styles.price}>{price}</p>
       <p className={styles.description}>{description}</p>
       <ul className={styles.details}>
-        {duration && <li>🕐 {duration}</li>}
-        {location && <li>📍 {location}</li>}
+        {duration && (
+          <li>
+            <Clock size={14} />
+            <span>{duration}</span>
+          </li>
+        )}
+        {location && (
+          <li>
+            <MapPin size={14} />
+            <span>{location}</span>
+          </li>
+        )}
       </ul>
       <button className={styles.cta}>
         {isSelected ? "¡Seleccionado!" : ctaText}
