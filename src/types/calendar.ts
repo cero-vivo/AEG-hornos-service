@@ -28,7 +28,7 @@ export interface AppointmentResponse {
 }
 
 export interface GoogleCalendarEvent {
-  id: string;
+  id?: string;
   summary: string;
   description: string;
   start: {
