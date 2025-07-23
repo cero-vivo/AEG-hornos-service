@@ -64,12 +64,7 @@
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  .card {
-    background: var(--surface);
-    border-color: rgba(254, 247, 237, 0.15);
-  }
-}
+
 
 .header {
   display: flex;
@@ -148,21 +143,4 @@
   outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .description {
-    color: #d6d3d1;
-  }
-  .price {
-    color: #fef7ed;
-  }
-  .card {
-    background: #161616;
-  }
-  .cta {
-    background: #1d4ed8;
-    color: #fff;
-  }
-  .cta:hover {
-    background: #3b5bfd;
-  }
-} 
+ 
