@@ -17,7 +17,6 @@ export interface AppointmentRequest {
   customerPhone: string;
   selectedServices: string[];
   dateTime: string; // ISO string
-  zone: 'caba' | 'amba' | 'interior';
   notes?: string;
 }
 

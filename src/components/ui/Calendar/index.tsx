@@ -24,7 +24,6 @@ export default function CalendarBooking({ selectedServices, onClose }: CalendarB
     customerName: "",
     customerEmail: "",
     customerPhone: "",
-    zone: "" as ServiceZone | "",
     notes: "",
   });
 
@@ -124,13 +123,12 @@ export default function CalendarBooking({ selectedServices, onClose }: CalendarB
       return;
     }
 
-    const appointment: AppointmentRequest = {
+    const appointment: Omit<AppointmentRequest, 'zone'> = {
       customerName: form.customerName,
       customerEmail: form.customerEmail,
       customerPhone: form.customerPhone,
       selectedServices: selectedServices,
       dateTime: slot.start,
-      zone: form.zone as ServiceZone,
       notes: form.notes,
     };
 
@@ -324,21 +322,6 @@ export default function CalendarBooking({ selectedServices, onClose }: CalendarB
                   placeholder="tu@email.com"
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Zona de servicio *</label>
-                <select
-                  name="zone"
-                  value={form.zone}
-                  onChange={handleFormChange}
-                  className={styles.formSelect}
-                  required
-                >
-                  <option value="">Seleccionar zona</option>
-                  <option value="caba">CABA</option>
-                  <option value="amba">AMBA</option>
-                  <option value="interior">Interior (videollamada)</option>
-                </select>
-              </div>
             </div>
 
             {selectedServices.length > 0 && (
@@ -366,7 +349,6 @@ export default function CalendarBooking({ selectedServices, onClose }: CalendarB
             <div style={{background: '#ecfdf5', border: '1px solid #86efac', borderRadius: '6px', padding: '1rem', marginBottom: '1rem', fontSize: '0.9rem', color: '#166534'}}>
               <strong>Resumen de tu cita:</strong><br />
               📅 {formatSelectedDateTime()}<br />
-              📍 {form.zone === 'interior' ? 'Videollamada' : `Zona: ${form.zone?.toUpperCase()}`}
             </div>
           </div>
         )}

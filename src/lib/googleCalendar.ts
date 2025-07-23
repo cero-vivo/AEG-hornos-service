@@ -156,7 +156,6 @@ class GoogleCalendarService {
 👤 Cliente: ${appointment.customerName}
 📧 Email: ${appointment.customerEmail}
 📱 Teléfono: ${appointment.customerPhone}
-🗺️ Zona: ${appointment.zone.toUpperCase()}
 
 🛠️ Servicios solicitados:
 ${appointment.selectedServices.map(service => `• ${service}`).join('\n')}`;

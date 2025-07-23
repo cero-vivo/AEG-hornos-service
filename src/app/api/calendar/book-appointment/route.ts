@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     if (!body.customerEmail) missingFields.push('customerEmail');
     if (!body.customerPhone) missingFields.push('customerPhone');
     if (!body.dateTime) missingFields.push('dateTime');
-    if (!body.zone) missingFields.push('zone');
+    // zone eliminado
 
     if (missingFields.length > 0) {
       return NextResponse.json(
@@ -54,15 +54,6 @@ export async function POST(request: NextRequest) {
     if (appointmentDate.getDay() === 0) {
       return NextResponse.json(
         { error: 'No se atiende los domingos' },
-        { status: 400 }
-      );
-    }
-
-    // Validar zona
-    const validZones = ['caba', 'amba', 'interior'];
-    if (!validZones.includes(body.zone)) {
-      return NextResponse.json(
-        { error: 'Zona de servicio inválida' },
         { status: 400 }
       );
     }
