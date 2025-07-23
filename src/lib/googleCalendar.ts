@@ -122,7 +122,7 @@ class GoogleCalendarService {
       return {
         success: true,
         eventId: response.data.id || undefined,
-        meetLink: meetLink,
+        meetLink: meetLink ?? undefined,
         message: `Cita agendada exitosamente para el ${startTime.toLocaleDateString('es-AR')} a las ${startTime.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}`,
       };
     } catch (error) {
