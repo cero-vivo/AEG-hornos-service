@@ -6,8 +6,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const date = searchParams.get('date');
 
-    console.log('🔍 API called with date:', date);
-
     if (!date) {
       return NextResponse.json(
         { error: 'Fecha requerida' },
@@ -29,11 +27,7 @@ export async function GET(request: NextRequest) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    console.log('📅 Selected date:', selectedDate.toDateString());
-    console.log('📅 Today:', today.toDateString());
-
     if (selectedDate < today) {
-      console.log('❌ Fecha pasada rechazada');
       return NextResponse.json(
         { error: 'No se pueden agendar citas en fechas pasadas' },
         { status: 400 }
@@ -42,19 +36,15 @@ export async function GET(request: NextRequest) {
 
     // No permitir días domingos (día 0)
     if (selectedDate.getDay() === 0) {
-      console.log('❌ Domingo rechazado');
       return NextResponse.json(
         { slots: [], isAvailable: false, reason: 'No se atiende los domingos' },
         { status: 200 }
       );
     }
 
-    console.log('🔄 Obteniendo slots de Google Calendar...');
     const slots = await googleCalendarService.getAvailableSlots(date);
-    console.log('📊 Total slots generados:', slots.length);
     
     const availableSlots = slots.filter(slot => slot.available);
-    console.log('✅ Slots disponibles:', availableSlots.length);
 
     return NextResponse.json({
       date,
@@ -69,9 +59,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('❌ Error en API de slots disponibles:', error);
     
-    // Si es un error específico de Google Calendar
     if (error instanceof Error && error.message.includes('Calendar')) {
       return NextResponse.json(
         { 

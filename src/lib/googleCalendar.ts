@@ -22,10 +22,10 @@ class GoogleCalendarService {
 
   async getAvailableSlots(date: string): Promise<TimeSlot[]> {
     try {
-      
+
       const startOfDay = new Date(date);
       startOfDay.setHours(9, 0, 0, 0); // 9:00 AM
-      
+
       const endOfDay = new Date(date);
       endOfDay.setHours(18, 0, 0, 0); // 6:00 PM
 
@@ -45,22 +45,22 @@ class GoogleCalendarService {
       });
 
       const existingEvents = response.data.items || [];
-      
+
       // Generar slots de 30 minutos desde 9 AM a 6 PM
       const slots: TimeSlot[] = [];
       const current = new Date(startOfDay);
-      
+
       while (current < endOfDay) {
         const slotStart = new Date(current);
         const slotEnd = new Date(current.getTime() + 30 * 60 * 1000); // 30 minutos
-        
+
         // Verificar si el slot está ocupado
         const isOccupied = existingEvents.some(event => {
           if (!event.start?.dateTime || !event.end?.dateTime) return false;
-          
+
           const eventStart = new Date(event.start.dateTime);
           const eventEnd = new Date(event.end.dateTime);
-          
+
           return (slotStart < eventEnd && slotEnd > eventStart);
         });
 
@@ -78,12 +78,12 @@ class GoogleCalendarService {
       return slots;
     } catch (error) {
       console.error('❌ Error obteniendo slots disponibles:', error);
-      
+
       // Re-throw para que el API endpoint pueda manejar específicamente errores de Calendar
       if (error instanceof Error) {
         throw new Error(`Calendar error: ${error.message}`);
       }
-      
+
       throw new Error('Unknown calendar error');
     }
   }
@@ -93,8 +93,6 @@ class GoogleCalendarService {
       const startTime = new Date(appointment.dateTime);
       const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // 1 hora
 
-      const isVirtual = appointment.zone === 'interior';
-      
       const event: GoogleCalendarEvent = {
         summary: `Consulta AEG - ${appointment.customerName}`,
         description: this.buildEventDescription(appointment),
@@ -108,20 +106,6 @@ class GoogleCalendarService {
         }
       };
 
-      // Agregar videollamada si es virtual
-      if (isVirtual) {
-        event.conferenceData = {
-          conferenceSolution: {
-            key: {
-              type: 'hangoutsMeet',
-            },
-          },
-          createRequest: {
-            requestId: `aeg-meet-${Date.now()}`,
-          },
-        };
-      }
-
       if (!this.calendarId) {
         throw new Error('Calendar ID not configured');
       }
@@ -129,7 +113,7 @@ class GoogleCalendarService {
       const response = await this.calendar.events.insert({
         calendarId: this.calendarId,
         requestBody: event,
-        conferenceDataVersion: isVirtual ? 1 : 0,
+        conferenceDataVersion: 0,
         sendUpdates: 'all',
       });
 
@@ -163,11 +147,6 @@ ${appointment.selectedServices.map(service => `• ${service}`).join('\n')}`;
     if (appointment.notes) {
       description += `\n\n📝 Notas adicionales:\n${appointment.notes}`;
     }
-
-    if (appointment.zone === 'interior') {
-      description += '\n\n🎥 VIDEOLLAMADA: Esta consulta se realizará de forma virtual.';
-    }
-
     return description;
   }
 
