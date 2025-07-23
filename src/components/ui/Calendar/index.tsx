@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Calendar, Clock, User, Phone, Mail, MapPin } from "lucide-react";
+import { Calendar, Clock, User, Phone, Mail, MapPin, CalendarCheck } from "lucide-react";
 import styles from "./Calendar.module.css";
 import { TimeSlot, AppointmentRequest } from "@/types/calendar";
 
@@ -163,35 +163,33 @@ export default function CalendarBooking({ selectedServices, onClose }: CalendarB
 
   if (success) {
     return (
-      <div className={styles.calendarContainer}>
-        <div className={styles.successState}>
-          <div className={styles.successIcon}>🎉</div>
-          <h3 className={styles.successTitle}>¡Cita agendada exitosamente!</h3>
-          <p className={styles.successMessage}>
-            {success.message}
-          </p>
-          
-          {success.meetLink && (
-            <div>
-              <p><strong>Link de videollamada:</strong></p>
-              <div className={styles.meetLink}>
-                {success.meetLink}
-              </div>
-              <p style={{fontSize: '0.9rem', color: '#666'}}>
-                Te enviaremos este link por email también.
-              </p>
+      <div className={styles.success}>
+        <div className={styles.successIcon}>
+          <CalendarCheck size={48} />
+        </div>
+        <h3 className={styles.successTitle}>¡Cita agendada exitosamente!</h3>
+        <p className={styles.successMessage}>
+          {success.message}
+        </p>
+        {success.meetLink && (
+          <div>
+            <p><strong>Link de videollamada:</strong></p>
+            <div className={styles.meetLink}>
+              {success.meetLink}
             </div>
-          )}
-          
-          <div className={styles.actionButtons}>
-            <button 
-              onClick={onClose}
-              className={`${styles.button} ${styles.buttonPrimary}`}
-            >
-              <Calendar size={16} />
-              Cerrar
-            </button>
+            <p style={{fontSize: '0.9rem', color: '#666'}}>
+              Te enviaremos este link por email también.
+            </p>
           </div>
+        )}
+        <div className={styles.actionButtons}>
+          <button 
+            onClick={onClose}
+            className={`${styles.button} ${styles.buttonPrimary}`}
+          >
+            <Calendar size={16} />
+            Cerrar
+          </button>
         </div>
       </div>
     );

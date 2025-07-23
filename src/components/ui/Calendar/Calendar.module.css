@@ -305,6 +305,133 @@
   margin: 1rem 0;
 }
 
+/* Success State (copiado de ContactForm) */
+.success {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.3), transparent);
+}
+.successIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 auto 30px;
+  animation: successFadeIn 0.6s ease-out;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.2);
+  border: 1px solid rgba(234, 88, 12, 0.3);
+}
+@keyframes successFadeIn {
+  0% { 
+    transform: translateY(10px); 
+    opacity: 0; 
+  }
+  100% { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+.successTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.025em;
+}
+.successMessage {
+  font-size: 16px;
+  color: #78716c;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+.successDetails {
+  background: rgba(120, 113, 108, 0.06);
+  border: 1px solid rgba(120, 113, 108, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+  text-align: left;
+}
+.successDetails p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--foreground);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(120, 113, 108, 0.08);
+}
+.successDetails p:last-child {
+  border-bottom: none;
+}
+.successDetails strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .success {
+    padding: 40px 24px;
+    border-radius: 16px;
+  }
+  .successIcon {
+    width: 75px;
+    height: 75px;
+    font-size: 28px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+  }
+  .successTitle {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .successMessage {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  .successDetails {
+    padding: 20px;
+    border-radius: 12px;
+    gap: 10px;
+  }
+  .successDetails p {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+}
+
 @media (max-width: 768px) {
   .calendarContainer {
     padding: 1rem;
