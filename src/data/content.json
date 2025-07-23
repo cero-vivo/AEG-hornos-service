@@ -1,0 +1,310 @@
+{
+  "company": {
+    "name": "AEG",
+    "fullName": "AEG Hornos",
+    "description": "Especialistas en reparación de hornos de cerámica",
+    "yearsExperience": 5,
+    "foundedYear": 2020,
+    "phone": "+5491123881314",
+    "email": "luis.espinoza.nav@outlook.com",
+    "instagram": "@hornosservice",
+    "instagramUrl": "https://instagram.com/hornosservice"
+  },
+  "hero": {
+    "badge": {
+      "text": "+{years} años en el rubro",
+      "icon": "Flame"
+    },
+    "title": "Tu horno de cerámica",
+    "titleHighlight": " siempre perfecto",
+    "subtitle": "Mantenimiento profesional, reparaciones especializadas y diagnósticos precisos. **Garantía escrita** en todos nuestros trabajos.",
+    "stats": [
+      {
+        "number": "500+",
+        "label": "Hornos reparados"
+      },
+      {
+        "number": "24h",
+        "label": "Respuesta máxima"
+      },
+      {
+        "number": "100%",
+        "label": "Garantizado"
+      }
+    ],
+    "primaryCta": {
+      "text": "Solicitar diagnóstico",
+      "link": "#contacto"
+    },
+    "secondaryCta": {
+      "text": "Ver planes",
+      "link": "#servicios"
+    },
+    "trustBadge": "Repuestos • Técnicos especializados • Zona CABA y AMBA",
+    "floatingCard": {
+      "title": "Reparación garantizada",
+      "subtitle": "Hornos como nuevos"
+    }
+  },
+  "services": {
+    "badge": "Nuestros Servicios",
+    "title": "Elegí el plan perfecto para tu horno",
+    "subtitle": "Desde diagnósticos rápidos hasta reparaciones completas. **Seleccioná uno o más servicios** y te contactamos en 24hs.",
+    "items": [
+      {
+        "icon": "Search",
+        "title": "Diagnóstico Profesional",
+        "description": "Análisis técnico completo en tu domicilio. Identificamos fallas, medimos temperaturas y evaluamos resistencias con equipos especializados.",
+        "duration": "1h",
+        "location": "Sólo en CABA y AMBA",
+        "price": "Desde $25.000",
+        "ctaText": "Solicitar análisis"
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Mantenimiento Premium",
+        "description": "Limpieza profunda, calibración de sensores, inspección de resistencias y ajuste de termostatos. Prolonga la vida útil de tu horno.",
+        "duration": "Recomendado cada 6 meses",
+        "location": "Vamos a domicilio",
+        "price": "Desde $35.000",
+        "ctaText": "Programar mantenimiento"
+      },
+      {
+        "icon": "Wrench",
+        "title": "Reparación Integral",
+        "description": "Reparación total con repuestos originales. Incluye diagnóstico, mano de obra, repuestos y garantía escrita de 6 meses.",
+        "location": "Servicio técnico especializado en cerámica",
+        "price": "Consultar según falla",
+        "ctaText": "Solicitar reparación"
+      },
+      {
+        "icon": "Video",
+        "title": "Asesoría Virtual",
+        "description": "Soporte técnico remoto para clientes del interior. Diagnóstico visual, guías paso a paso y resolución de problemas básicos.",
+        "duration": "30 minutos",
+        "price": "$8.000",
+        "ctaText": "Agendar videollamada"
+      },
+      {
+        "icon": "Settings",
+        "title": "Instalación Completa",
+        "description": "Instalación profesional de hornos nuevos o reubicación. Incluye conexión eléctrica, nivelación, calibración inicial y capacitación de uso.",
+        "duration": "2-3 horas",
+        "location": "CABA y AMBA",
+        "price": "Desde $40.000",
+        "ctaText": "Solicitar instalación"
+      }
+    ]
+  },
+  "about": {
+    "badge": {
+      "text": "Especialistas Certificados",
+      "icon": "Star"
+    },
+    "title": "La diferencia AEG en cada reparación",
+    "subtitle": "No somos técnicos genéricos. Somos **especialistas exclusivos en hornos de cerámica** con más de 5 años perfeccionando nuestro oficio.",
+    "features": [
+      {
+        "icon": "Award",
+        "title": "Experiencia comprobada",
+        "description": "+500 hornos reparados con éxito"
+      },
+      {
+        "icon": "Wrench",
+        "title": "Repuestos originales",
+        "description": "Trabajamos solo con piezas certificadas"
+      },
+      {
+        "icon": "FileCheck",
+        "title": "Garantía extendida",
+        "description": "6 meses por escrito en cada servicio"
+      },
+      {
+        "icon": "Clock",
+        "title": "Respuesta rápida",
+        "description": "Te contactamos en menos de 24hs"
+      }
+    ],
+    "gallery": {
+      "title": "Resultados de nuestro trabajo",
+      "subtitle": "Cada pieza perfecta es testimonio de un horno reparado con excelencia",
+      "images": [
+        {
+          "src": "/hornos/piezas1.jpg",
+          "alt": "Piezas cerámicas cocidas perfectamente"
+        },
+        {
+          "src": "/hornos/piezas0.jpg",
+          "alt": "Cerámica terminada con acabado profesional"
+        },
+        {
+          "src": "/hornos/piezas2.jpg",
+          "alt": "Trabajos en cerámica realizados con hornos reparados"
+        }
+      ]
+    }
+  },
+  "contactOptions": {
+    "title": "¿Cómo prefieres que te contactemos?",
+    "subtitle": "Elegí la opción que más te convenga. Todos los caminos llevan a la misma excelencia en el servicio.",
+    "options": [
+      {
+        "type": "immediate",
+        "priority": true,
+        "priorityBadge": "MÁS RÁPIDO",
+        "icon": "Phone",
+        "title": "Contacto inmediato",
+        "description": "¿Necesitás una respuesta ya? Hablemos por WhatsApp o llamanos directamente.",
+        "features": [
+          {
+            "icon": "MessageSquare",
+            "text": "WhatsApp directo"
+          },
+          {
+            "icon": "Phone",
+            "text": "Llamada inmediata"
+          },
+          {
+            "icon": "AlertCircle",
+            "text": "Ideal para urgencias"
+          }
+        ],
+        "actions": [
+          {
+            "type": "whatsapp",
+            "text": "WhatsApp",
+            "icon": "MessageSquare"
+          },
+          {
+            "type": "call",
+            "text": "Llamar",
+            "icon": "Phone"
+          }
+        ]
+      },
+      {
+        "type": "form",
+        "icon": "MessageSquare",
+        "title": "Contanos tu problema",
+        "description": "Describí en detalle qué le pasa a tu horno. Preparamos una solución personalizada.",
+        "features": [
+          {
+            "icon": "Edit",
+            "text": "Formulario detallado"
+          },
+          {
+            "icon": "Target",
+            "text": "Diagnóstico preciso"
+          },
+          {
+            "icon": "Lightbulb",
+            "text": "Solución personalizada"
+          }
+        ],
+        "action": {
+          "text": "Completar formulario",
+          "icon": "MessageSquare",
+          "target": "#formulario"
+        }
+      },
+      {
+        "type": "schedule",
+        "icon": "Calendar",
+        "title": "Agendar llamada",
+        "description": "Elegí día y horario que te convenga. Te llamamos puntual para coordinar la visita.",
+        "features": [
+          {
+            "icon": "Calendar",
+            "text": "Calendario en tiempo real"
+          },
+          {
+            "icon": "Clock",
+            "text": "Horarios disponibles"
+          },
+          {
+            "icon": "Phone",
+            "text": "Llamada confirmada"
+          }
+        ],
+        "action": {
+          "text": "Agendar ahora",
+          "icon": "Calendar"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "title": "Formulario de contacto",
+    "subtitle": "Contanos en detalle qué problema tiene tu horno"
+  },
+  "footer": {
+    "description": "Especialistas en reparación de hornos de cerámica",
+    "contact": {
+      "title": "Contacto",
+      "links": [
+        {
+          "type": "phone",
+          "text": "+54 9 11 2388-1314",
+          "href": "tel:+5491123881314",
+          "icon": "Phone"
+        },
+        {
+          "type": "whatsapp",
+          "text": "WhatsApp",
+          "icon": "MessageSquare"
+        },
+        {
+          "type": "email",
+          "text": "luis.espinoza.nav@outlook.com",
+          "href": "mailto:luis.espinoza.nav@outlook.com",
+          "icon": "Mail"
+        },
+        {
+          "type": "instagram",
+          "text": "@hornosservice",
+          "href": "https://instagram.com/hornosservice",
+          "icon": "Instagram"
+        }
+      ]
+    },
+    "zones": {
+      "title": "Zonas de Servicio",
+      "list": [
+        "CABA",
+        "AMBA",
+        "Interior (videollamada)"
+      ]
+    },
+    "copyright": "&copy; {year} AEG Hornos. Todos los derechos reservados."
+  },
+  "navigation": {
+    "items": [
+      {
+        "text": "Inicio",
+        "target": "#inicio"
+      },
+      {
+        "text": "Servicios",
+        "target": "#servicios"
+      },
+      {
+        "text": "Contacto",
+        "target": "#contacto"
+      },
+      {
+        "text": "Formulario",
+        "target": "#formulario"
+      }
+    ]
+  },
+  "messages": {
+    "whatsappDefault": "Hola! Tengo un problema con mi horno de cerámica y necesito ayuda.",
+    "whatsappWithServices": "\n\n🔧 Servicios que me interesan:",
+    "whatsappFooter": "\n\n¿Podrían contactarme para coordinar? Gracias!",
+    "floatingCart": {
+      "single": "Contratar 1 servicio",
+      "multiple": "Contratar {count} servicios"
+    },
+    "emailSubject": "Consulta sobre hornos de cerámica"
+  }
+} 
