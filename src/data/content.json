@@ -111,13 +111,13 @@
       },
       {
         "icon": "Wrench",
-        "title": "Repuestos originales",
-        "description": "Trabajamos solo con piezas certificadas"
+        "title": "Reparación segura",
+        "description": "Usamos repuestos de calidad y técnicas probadas para que tu horno funcione como nuevo."
       },
       {
         "icon": "FileCheck",
-        "title": "Garantía extendida",
-        "description": "6 meses por escrito en cada servicio"
+        "title": "Garantía de solución",
+        "description": "Tu horno queda funcionando."
       },
       {
         "icon": "Clock",
@@ -146,7 +146,7 @@
   },
   "contactOptions": {
     "title": "¿Cómo prefieres que te contactemos?",
-    "subtitle": "Elegí la opción que más te convenga. Todos los caminos llevan a la misma excelencia en el servicio.",
+    "subtitle": "Elige el medio que más te convenga y recibí atención personalizada.",
     "options": [
       {
         "type": "immediate",
