@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./landing.module.css";
 import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
-import { Flame, Shield, Check, ShoppingCart, Award, Wrench, FileCheck, Star, Users, Clock, Calendar, MessageSquare, Phone, Zap, Edit, Target, Lightbulb, AlertCircle } from "lucide-react";
+import { Flame, Shield, Check, ShoppingCart, Award, Wrench, FileCheck, Star, Users, Clock, Calendar, MessageSquare, Phone, Zap, Edit, Target, Lightbulb, AlertCircle, Mail, Instagram } from "lucide-react";
 
 export default function Home() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -18,9 +18,37 @@ export default function Home() {
     );
   };
 
+  const generateWhatsAppMessage = () => {
+    let message = "Hola! Tengo un problema con mi horno de cerámica y necesito ayuda.";
+    
+    if (selectedServices.length > 0) {
+      message += "\n\n🔧 Servicios que me interesan:";
+      selectedServices.forEach((service, index) => {
+        message += `\n${index + 1}. ${service}`;
+      });
+      message += "\n\n¿Podrían contactarme para coordinar? Gracias!";
+    }
+    
+    return encodeURIComponent(message);
+  };
+
+  const generateContactMessage = () => {
+    let message = "Hola! Tengo un problema con mi horno de cerámica y necesito ayuda.";
+    
+    if (selectedServices.length > 0) {
+      message += "\n\n🔧 Servicios que me interesan:";
+      selectedServices.forEach((service, index) => {
+        message += `\n${index + 1}. ${service}`;
+      });
+      message += "\n\n¿Podrían contactarme para coordinar? Gracias!";
+    }
+    
+    return message;
+  };
+
   const services = [
     {
-      icon: "Search",
+      icon: "Search" as const,
       title: "Diagnóstico Profesional",
       description:
         "Análisis técnico completo en tu domicilio. Identificamos fallas, medimos temperaturas y evaluamos resistencias con equipos especializados.",
@@ -30,7 +58,7 @@ export default function Home() {
       ctaText: "Solicitar análisis",
     },
     {
-      icon: "Sparkles",
+      icon: "Sparkles" as const,
       title: "Mantenimiento Premium",
       description:
         "Limpieza profunda, calibración de sensores, inspección de resistencias y ajuste de termostatos. Prolonga la vida útil de tu horno.",
@@ -40,7 +68,7 @@ export default function Home() {
       ctaText: "Programar mantenimiento",
     },
     {
-      icon: "Wrench",
+      icon: "Wrench" as const,
       title: "Reparación Integral",
       description:
         "Reparación total con repuestos originales. Incluye diagnóstico, mano de obra, repuestos y garantía escrita de 6 meses.",
@@ -49,7 +77,7 @@ export default function Home() {
       ctaText: "Solicitar reparación",
     },
     {
-      icon: "Video",
+      icon: "Video" as const,
       title: "Asesoría Virtual",
       description:
         "Soporte técnico remoto para clientes del interior. Diagnóstico visual, guías paso a paso y resolución de problemas básicos.",
@@ -58,7 +86,7 @@ export default function Home() {
       ctaText: "Agendar videollamada",
     },
     {
-      icon: "Settings",
+      icon: "Settings" as const,
       title: "Instalación Completa",
       description:
         "Instalación profesional de hornos nuevos o reubicación. Incluye conexión eléctrica, nivelación, calibración inicial y capacitación de uso.",
@@ -71,7 +99,7 @@ export default function Home() {
 
   return (
     <>
-      <section className={styles.hero}>
+      <section id="inicio" className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroText}>
             <div className={styles.logo}>AEG</div>
@@ -119,7 +147,7 @@ export default function Home() {
             <div className={styles.heroFooter}>
               <div className={styles.trust}>
                 <Shield className={styles.trustIcon} size={16} />
-                <span>Repuestos originales • Técnicos certificados • Zona CABA y AMBA</span>
+                <span>Repuestos • Técnicos especializados • Zona CABA y AMBA</span>
               </div>
             </div>
           </div>
@@ -275,7 +303,7 @@ export default function Home() {
             </ul>
             <div className={styles.quickActions}>
               <a 
-                href="https://wa.me/5491123456789?text=Hola! Tengo un problema con mi horno de cerámica y necesito ayuda." 
+                href={`https://wa.me/5491123881314?text=${generateWhatsAppMessage()}`}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.whatsappButton}
@@ -283,7 +311,7 @@ export default function Home() {
                 <MessageSquare size={16} /> WhatsApp
               </a>
               <a 
-                href="tel:+5491123456789" 
+                href="tel:+5491123881314" 
                 className={styles.callButton}
               >
                 <Phone size={16} /> Llamar
@@ -344,7 +372,7 @@ export default function Home() {
           <button 
             className={styles.cartButton}
             onClick={() => {
-              document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             <ShoppingCart size={20} />
@@ -352,6 +380,100 @@ export default function Home() {
           </button>
         </div>
       )}
+
+      {/* Menú flotante de navegación */}
+      <div className={styles.floatingNav}>
+        <div className={styles.navLogo}>AEG</div>
+        <nav className={styles.navMenu}>
+          <button 
+            onClick={() => document.getElementById('inicio')?.scrollIntoView({ behavior: 'smooth' })}
+            className={styles.navItem}
+            title="Inicio"
+          >
+            <span>Inicio</span>
+          </button>
+          <button 
+            onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
+            className={styles.navItem}
+            title="Servicios"
+          >
+            <span>Servicios</span>
+          </button>
+          <button 
+            onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+            className={styles.navItem}
+            title="Contacto"
+          >
+            <span>Contacto</span>
+          </button>
+          <button 
+            onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
+            className={styles.navItem}
+            title="Formulario"
+          >
+            <span>Formulario</span>
+          </button>
+        </nav>
+      </div>
+
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.footerContent}>
+          <div className={styles.footerBrand}>
+            <div className={styles.logo}>AEG</div>
+            <p>Especialistas en reparación de hornos de cerámica</p>
+          </div>
+          
+          <div className={styles.footerContact}>
+            <h4>Contacto</h4>
+            <div className={styles.contactLinks}>
+              <a href="tel:+5491123881314" className={styles.contactLink}>
+                <Phone size={16} />
+                <span>+54 9 11 2388-1314</span>
+              </a>
+              <a 
+                href={`https://wa.me/5491123881314?text=${generateWhatsAppMessage()}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.contactLink}
+              >
+                <MessageSquare size={16} />
+                <span>WhatsApp</span>
+              </a>
+              <a 
+                href={`mailto:luis.espinoza.nav@outlook.com?subject=Consulta sobre hornos de cerámica&body=${encodeURIComponent(generateContactMessage())}`}
+                className={styles.contactLink}
+              >
+                <Mail size={16} />
+                <span>luis.espinoza.nav@outlook.com</span>
+              </a>
+              <a 
+                href="https://instagram.com/hornosservice"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.contactLink}
+                title={generateContactMessage()}
+              >
+                <Instagram size={16} />
+                <span>@hornosservice</span>
+              </a>
+            </div>
+          </div>
+          
+          <div className={styles.footerZones}>
+            <h4>Zonas de Servicio</h4>
+            <ul>
+              <li>CABA</li>
+              <li>AMBA</li>
+              <li>Interior (videollamada)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className={styles.footerBottom}>
+          <p>&copy; {new Date().getFullYear()} AEG Hornos. Todos los derechos reservados.</p>
+        </div>
+      </footer>
     </>
   );
 }
