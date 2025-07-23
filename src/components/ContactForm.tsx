@@ -1,11 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./ContactForm.module.css";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  selectedServices?: string[];
+}
+
+export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
   const [form, setForm] = useState({ nombre: "", email: "", mensaje: "" });
   const [enviado, setEnviado] = useState(false);
+
+  // Pre-llenar mensaje con servicios seleccionados
+  useEffect(() => {
+    if (selectedServices.length > 0) {
+      setForm(prev => ({
+        ...prev,
+        mensaje: `Hola! Me interesa contratar los siguientes servicios:\n\n${selectedServices.map(s => `• ${s}`).join('\n')}\n\nPor favor, contactenme para coordinar. Gracias!`
+      }));
+    }
+  }, [selectedServices]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

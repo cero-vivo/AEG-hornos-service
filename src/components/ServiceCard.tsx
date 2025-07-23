@@ -1,13 +1,27 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./ServiceCard.module.css";
+import { Search, Sparkles, Wrench, Video, Settings } from "lucide-react";
+
+const iconMap = {
+  Search,
+  Sparkles, 
+  Wrench,
+  Video,
+  Settings,
+};
 
 interface ServiceCardProps {
-  icon?: string;
+  icon?: keyof typeof iconMap;
   title: string;
   description: string;
   duration?: string;
   location?: string;
   price: string;
   ctaText?: string;
+  isSelected?: boolean;
+  onToggle?: () => void;
 }
 
 export default function ServiceCard({
@@ -18,11 +32,28 @@ export default function ServiceCard({
   location,
   price,
   ctaText = "Solicitar",
+  isSelected: externalSelected,
+  onToggle,
 }: ServiceCardProps) {
+  const [internalSelected, setInternalSelected] = useState(false);
+  const isSelected = externalSelected !== undefined ? externalSelected : internalSelected;
+  const IconComponent = icon ? iconMap[icon as keyof typeof iconMap] : null;
+
+  const handleClick = () => {
+    if (onToggle) {
+      onToggle();
+    } else {
+      setInternalSelected(!internalSelected);
+    }
+  };
+
   return (
-    <div className={styles.card}>
+    <div 
+      className={`${styles.card} ${isSelected ? styles.selected : ''}`}
+      onClick={handleClick}
+    >
       <header className={styles.header}>
-        {icon && <span className={styles.icon}>{icon}</span>}
+        {IconComponent && <IconComponent className={styles.icon} size={24} />}
         <h3 className={styles.title}>{title}</h3>
       </header>
       <p className={styles.price}>{price}</p>
@@ -31,7 +62,9 @@ export default function ServiceCard({
         {duration && <li>🕐 {duration}</li>}
         {location && <li>📍 {location}</li>}
       </ul>
-      <button className={styles.cta}>{ctaText}</button>
+      <button className={styles.cta}>
+        {isSelected ? "¡Seleccionado!" : ctaText}
+      </button>
     </div>
   );
 } 
