@@ -426,6 +426,26 @@
   .galleryGrid .galleryImage:first-child {
     grid-column: 1;
   }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .option {
+    padding: 24px 20px;
+  }
+
+  .optionIcon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .quickActions {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 /* services section update for spacing */
@@ -677,6 +697,187 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Contact Options Section */
+.contactOptions {
+  padding: 80px 24px;
+  background: 
+    linear-gradient(135deg, rgba(234, 88, 12, 0.03) 0%, transparent 30%),
+    linear-gradient(180deg, var(--background) 0%, #f5f5f4 100%);
+}
+
+.contactHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 56px;
+}
+
+.contactHeader h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--foreground);
+  margin-bottom: 16px;
+}
+
+.contactHeader p {
+  font-size: 18px;
+  color: #78716c;
+  line-height: 1.6;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.option {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  border: 2px solid rgba(120, 113, 108, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.option:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 32px rgba(234, 88, 12, 0.15);
+}
+
+.option:hover::before {
+  transform: scaleX(1);
+}
+
+.optionIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  transition: transform 0.3s ease;
+}
+
+.option:hover .optionIcon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.option h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 12px;
+}
+
+.option p {
+  font-size: 15px;
+  color: #78716c;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.optionFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.optionFeatures li {
+  font-size: 14px;
+  color: #78716c;
+  text-align: left;
+  padding: 6px 12px;
+  background: rgba(234, 88, 12, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+}
+
+.optionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.3);
+}
+
+.quickActions {
+  display: flex;
+  gap: 12px;
+}
+
+.whatsappButton,
+.callButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.whatsappButton {
+  background: #25d366;
+  color: #fff;
+}
+
+.whatsappButton:hover {
+  background: #128c7e;
+  transform: translateY(-1px);
+}
+
+.callButton {
+  background: var(--accent);
+  color: #fff;
+}
+
+.callButton:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
 /* contact */
 .contact {
   padding: 80px 24px 120px;
@@ -684,10 +885,55 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  background: var(--gray-alpha-100);
+  background: 
+    linear-gradient(135deg, rgba(234, 88, 12, 0.02) 0%, transparent 25%),
+    var(--gray-alpha-100);
 }
 
 .contact h2 {
   font-size: 32px;
   font-weight: 800;
+  text-align: center;
+}
+
+.contactSubtext {
+  font-size: 16px;
+  color: #78716c;
+  text-align: center;
+  margin-top: -16px;
+} 
+
+.priority {
+  border: 2px solid var(--accent) !important;
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.03) 0%, rgba(245, 158, 11, 0.03) 100%) !important;
+  position: relative;
+}
+
+.priorityBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  z-index: 120;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.priorityBadge svg {
+  color: #fff;
+}
+
+.priority .optionIcon {
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent) 100%) !important;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.3);
 } 

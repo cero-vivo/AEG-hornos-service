@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./landing.module.css";
 import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
-import { Flame, Shield, Check, ShoppingCart, Award, Wrench, FileCheck, Star, Users, Clock } from "lucide-react";
+import { Flame, Shield, Check, ShoppingCart, Award, Wrench, FileCheck, Star, Users, Clock, Calendar, MessageSquare, Phone, Zap, Edit, Target, Lightbulb, AlertCircle } from "lucide-react";
 
 export default function Home() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -251,8 +251,90 @@ export default function Home() {
         </div>
       </section>
 
+      <section className={styles.contactOptions}>
+        <div className={styles.contactHeader}>
+          <h2>¿Cómo prefieres que te contactemos?</h2>
+          <p>Elegí la opción que más te convenga. Todos los caminos llevan a la misma excelencia en el servicio.</p>
+        </div>
+        
+        <div className={styles.optionsGrid}>
+          <div className={`${styles.option} ${styles.priority}`}>
+            <div className={styles.priorityBadge}>
+              <Zap size={12} />
+              <span>MÁS RÁPIDO</span>
+            </div>
+            <div className={styles.optionIcon}>
+              <Phone size={32} />
+            </div>
+            <h3>Contacto inmediato</h3>
+            <p>¿Necesitás una respuesta ya? Hablemos por WhatsApp o llamanos directamente.</p>
+            <ul className={styles.optionFeatures}>
+              <li><MessageSquare size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> WhatsApp directo</li>
+              <li><Phone size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Llamada inmediata</li>
+              <li><AlertCircle size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Ideal para urgencias</li>
+            </ul>
+            <div className={styles.quickActions}>
+              <a 
+                href="https://wa.me/5491123456789?text=Hola! Tengo un problema con mi horno de cerámica y necesito ayuda." 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.whatsappButton}
+              >
+                <MessageSquare size={16} /> WhatsApp
+              </a>
+              <a 
+                href="tel:+5491123456789" 
+                className={styles.callButton}
+              >
+                <Phone size={16} /> Llamar
+              </a>
+            </div>
+          </div>
+
+          <div className={styles.option}>
+            <div className={styles.optionIcon}>
+              <MessageSquare size={32} />
+            </div>
+            <h3>Contanos tu problema</h3>
+            <p>Describí en detalle qué le pasa a tu horno. Preparamos una solución personalizada.</p>
+            <ul className={styles.optionFeatures}>
+              <li><Edit size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Formulario detallado</li>
+              <li><Target size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Diagnóstico preciso</li>
+              <li><Lightbulb size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Solución personalizada</li>
+            </ul>
+            <button 
+              className={styles.optionButton}
+              onClick={() => {
+                document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <MessageSquare size={18} />
+              <span>Completar formulario</span>
+            </button>
+          </div>
+
+          <div className={styles.option}>
+            <div className={styles.optionIcon}>
+              <Calendar size={32} />
+            </div>
+            <h3>Agendar llamada</h3>
+            <p>Elegí día y horario que te convenga. Te llamamos puntual para coordinar la visita.</p>
+            <ul className={styles.optionFeatures}>
+              <li><Calendar size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Calendario en tiempo real</li>
+              <li><Clock size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Horarios disponibles</li>
+              <li><Phone size={14} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} /> Llamada confirmada</li>
+            </ul>
+            <button className={styles.optionButton}>
+              <Calendar size={18} />
+              <span>Agendar ahora</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section id="contacto" className={styles.contact}>
-        <h2>Contacto</h2>
+        <h2>Formulario de contacto</h2>
+        <p className={styles.contactSubtext}>Contanos en detalle qué problema tiene tu horno</p>
         <ContactForm selectedServices={selectedServices} />
       </section>
 
