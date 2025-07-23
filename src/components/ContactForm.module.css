@@ -4,39 +4,6 @@
   margin: 0 auto;
 }
 
-/* Progress Bar */
-.progressBar {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 40px;
-  padding: 0 20px;
-}
-
-.progressStep {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
-  color: #78716c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  border: 2px solid rgba(120, 113, 108, 0.1);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.progressStep.active {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-  color: #fff;
-  transform: scale(1.1);
-  border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
-}
-
 /* Form */
 .form {
   background: rgba(255, 255, 255, 0.95);
@@ -61,19 +28,26 @@
   background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.3), transparent);
 }
 
-.step {
+.section {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  min-height: 320px;
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(120, 113, 108, 0.08);
 }
 
-.step h3 {
-  font-size: 24px;
+.section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.section h3 {
+  font-size: 20px;
   font-weight: 700;
   color: var(--foreground);
-  margin-bottom: 12px;
-  text-align: center;
+  margin-bottom: 8px;
   background: linear-gradient(135deg, var(--foreground) 0%, #78716c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -281,62 +255,30 @@
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 
-/* Navigation */
-.navigation {
+/* Submit Section */
+.submitSection {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
   margin-top: 32px;
   padding-top: 32px;
   border-top: 1px solid rgba(120, 113, 108, 0.08);
 }
 
-.btnSecondary,
-.btnPrimary,
 .btnSubmit {
-  padding: 14px 28px;
+  padding: 16px 32px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-  min-width: 140px;
+  min-width: 200px;
   position: relative;
   overflow: hidden;
-}
-
-.btnSecondary {
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid rgba(120, 113, 108, 0.2);
-  color: #78716c;
-  backdrop-filter: blur(10px);
-}
-
-.btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(120, 113, 108, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.btnPrimary,
-.btnSubmit {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent) 100%);
   color: #fff;
   box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25);
   border: 1px solid rgba(234, 88, 12, 0.3);
-}
-
-.btnPrimary:hover,
-.btnSubmit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(234, 88, 12, 0.35);
-}
-
-.btnSubmit {
-  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent) 100%);
-  position: relative;
 }
 
 .btnSubmit::before {
@@ -348,6 +290,11 @@
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s;
+}
+
+.btnSubmit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(234, 88, 12, 0.35);
 }
 
 .btnSubmit:hover::before {
@@ -472,9 +419,9 @@
     border-radius: 16px;
   }
   
-  .step h3 {
+  .section h3 {
     font-size: 20px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
   
   .row {
@@ -482,26 +429,11 @@
     gap: 16px;
   }
   
-  .progressBar {
-    gap: 16px;
-    margin-bottom: 30px;
-  }
-  
-  .progressStep {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-  }
-  
-  .navigation {
-    flex-direction: column;
-    gap: 16px;
+  .submitSection {
     margin-top: 28px;
     padding-top: 28px;
   }
-  
-  .btnSecondary,
-  .btnPrimary,
+
   .btnSubmit {
     width: 100%;
     min-width: unset;
