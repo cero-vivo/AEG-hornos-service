@@ -106,7 +106,7 @@ export default function Home() {
             
             <div className={styles.badge}>
               <Flame className={styles.badgeIcon} size={16} />
-              <span>+5 años en el rubro</span>
+              <span>+{new Date().getFullYear() - 2020} años en el rubro</span>
             </div>
             
             <h1 className={styles.heroTitle}>

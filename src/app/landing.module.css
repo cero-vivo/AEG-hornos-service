@@ -59,6 +59,7 @@
   animation: slideInLeft 0.6s ease-out;
   margin-bottom: 8px;
   position: relative;
+  margin-top: 20px;
 }
 
 .logo::after {
@@ -390,17 +391,17 @@
     0 8px 32px rgba(0, 0, 0, 0.12),
     0 0 0 1px rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: slideInDown 0.6s ease-out;
+  animation: slideInDown 0.6s ease-out 0.5s both;
 }
 
 @keyframes slideInDown {
   0% { 
     opacity: 0; 
-    transform: translateY(-20px); 
+    transform: translateX(-50%) translateY(-20px); 
   }
   100% { 
     opacity: 1; 
-    transform: translateY(0); 
+    transform: translateX(-50%) translateY(0); 
   }
 }
 
@@ -477,6 +478,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px 40px;
+  }
+
   .heroContent {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -485,16 +490,29 @@
   
   .stats {
     justify-content: center;
+    gap: 24px;
   }
   
   .heroActions {
     flex-direction: column;
     align-items: center;
+    gap: 12px;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
   }
   
   .floatingCard {
     position: static;
     margin-top: 20px;
+    left: 0;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .floatingCart {
@@ -507,33 +525,45 @@
     font-size: 14px;
   }
 
+  /* Menú flotante mejorado para mobile */
   .floatingNav {
+    position: fixed;
     top: 16px;
-    left: 16px;
-    right: 16px;
-    padding: 8px 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 400px;
+    padding: 10px 20px;
     gap: 12px;
     border-radius: 16px;
+    justify-content: center;
+    align-items: center;
   }
 
   .navLogo {
-    font-size: 20px;
-    letter-spacing: 2px;
-    padding: 4px 8px;
-    margin-right: 6px;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    padding: 10px 8px 6px 8px;
+    margin-right: 0;
+    flex-shrink: 0;
   }
 
   .navLogo::after {
-    bottom: 1px;
+    bottom: 6px;
     left: 8px;
     height: 1.5px;
+    width: 50%;
   }
 
   .navMenu {
-    gap: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    flex-shrink: 1;
+    min-width: 0;
   }
 
   .navMenu::-webkit-scrollbar {
@@ -541,14 +571,41 @@
   }
 
   .navItem {
-    padding: 6px 10px;
+    padding: 8px 12px;
     font-size: 12px;
     white-space: nowrap;
-    min-width: auto;
+    min-width: fit-content;
+    flex-shrink: 0;
   }
 
   .navItem span {
     display: block;
+  }
+
+  /* Servicios - Cards centradas */
+  .services {
+    padding: 60px 20px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 380px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+
+  .sectionHeader {
+    margin-bottom: 32px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 28px;
+  }
+
+  /* About section */
+  .about {
+    padding: 60px 20px;
   }
 
   .aboutContent {
@@ -557,17 +614,47 @@
     text-align: center;
   }
 
+  .about h2 {
+    font-size: 28px;
+  }
+
+  .features {
+    gap: 16px;
+  }
+
+  .feature {
+    padding: 16px;
+    text-align: left;
+  }
+
   .galleryGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .galleryGrid .galleryImage:first-child {
     grid-column: 1;
+    height: 180px;
+  }
+
+  /* Contact options */
+  .contactOptions {
+    padding: 60px 20px;
+  }
+
+  .contactHeader {
+    margin-bottom: 40px;
+  }
+
+  .contactHeader h2 {
+    font-size: 28px;
   }
 
   .optionsGrid {
     grid-template-columns: 1fr;
     gap: 24px;
+    max-width: 380px;
+    margin: 0 auto;
   }
 
   .option {
@@ -585,34 +672,279 @@
     gap: 8px;
   }
 
-  .footerContent {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    text-align: center;
+  .whatsappButton,
+  .callButton {
+    width: 100%;
   }
 
-  .contactLinks {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  /* Contact form */
+  .contact {
+    padding: 60px 20px 100px;
+  }
+
+  .contact h2 {
+    font-size: 28px;
+  }
+
+  /* Footer mejorado */
+  .footer {
+    padding: 40px 20px 20px;
+    margin-top: 60px;
+  }
+
+  .footerContent {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 40px;
+    text-align: left;
+    max-width: 100%;
+    margin: 0 auto 40px;
+  }
+
+  .footerBrand {
+    order: 1;
+    text-align: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.1);
+  }
+
+  .footerContact {
+    order: 2;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footerZones {
+    order: 3;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
     align-items: center;
   }
 
-  .contactLink {
-    justify-content: center;
+  .footerBrand .logo {
+    font-size: 32px;
+    margin: 0 auto;
+  }
+
+  .footerBrand p {
+    font-size: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .footerContact h4,
+  .footerZones h4 {
     text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .contactLinks {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none !important;
+    gap: 10px;
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+  }
+
+  .contactLink {
+    justify-content: flex-start;
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
   }
 
   .contactLink span {
     white-space: normal;
+    text-align: left;
+    word-break: break-word;
+  }
+
+  .contactLink:hover {
+    transform: none;
+    background: rgba(234, 88, 12, 0.1);
+  }
+
+  .footerZones {
+    text-align: center;
   }
 
   .footerZones ul {
     align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none !important;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
   }
 
-  .footer {
-    padding: 40px 20px 20px;
-    margin-top: 60px;
+  .footerZones li {
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.6);
+    border-left: none;
+    border-top: 3px solid var(--accent);
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  .footerBottom {
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid rgba(120, 113, 108, 0.1);
+  }
+
+  .footerBottom p {
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+  }
+}
+
+/* Tabletas */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .footerContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footerBrand {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .footerContact,
+  .footerZones {
+    text-align: left;
+  }
+
+  .footerContact h4,
+  .footerZones h4 {
+    text-align: left;
+  }
+}
+
+/* Mobile pequeño adicional */
+@media (max-width: 480px) {
+  .hero {
+    padding: 50px 16px 30px;
+  }
+
+  .heroTitle {
+    font-size: 32px;
+  }
+
+  .heroSubtitle {
+    font-size: 16px;
+  }
+
+  .stats {
+    gap: 16px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .statNumber {
+    font-size: 24px;
+  }
+
+  .floatingNav {
+    top: 12px;
+    width: calc(100% - 24px);
+    max-width: 360px;
+    padding: 8px 16px;
+    gap: 10px;
+  }
+
+  .navLogo {
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 8px 6px 4px 6px;
+  }
+
+  .navItem {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .services,
+  .about,
+  .contactOptions,
+  .contact {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .cards,
+  .optionsGrid {
+    max-width: 320px;
+  }
+
+  .footerContent {
+    max-width: 100%;
+    gap: 32px;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+  }
+
+  .footerBrand p {
+    font-size: 14px;
+    max-width: 280px;
+  }
+
+  .contactLinks {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none !important;
+  }
+
+  .contactLink {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .footerZones ul {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none !important;
+    gap: 6px;
+    max-width: 200px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerZones li {
+    padding: 8px 12px;
+    border-top: none;
+    border-left: 3px solid var(--accent);
+    text-align: center;
+    width: 100%;
+    max-width: 140px;
+    margin: 0 auto;
   }
 }
 
@@ -704,6 +1036,8 @@
   gap: 32px;
   position: relative;
   z-index: 2;
+  justify-content: center;
+  align-items: center;
 }
 
 /* about section tweaks */
