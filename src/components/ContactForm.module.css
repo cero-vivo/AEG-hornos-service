@@ -8,57 +8,82 @@
 .progressBar {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 20px;
+  margin-bottom: 40px;
+  padding: 0 20px;
 }
 
 .progressStep {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background: rgba(120, 113, 108, 0.2);
+  background: rgba(255, 255, 255, 0.8);
   color: #78716c;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   transition: all 0.3s ease;
+  border: 2px solid rgba(120, 113, 108, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .progressStep.active {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
   transform: scale(1.1);
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
 }
 
 /* Form */
 .form {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(120, 113, 108, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.3), transparent);
 }
 
 .step {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-height: 300px;
+  gap: 24px;
+  min-height: 320px;
 }
 
 .step h3 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--foreground);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   text-align: center;
+  background: linear-gradient(135deg, var(--foreground) 0%, #78716c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 20px;
 }
 
 .form label {
@@ -66,48 +91,54 @@
   flex-direction: column;
   font-size: 14px;
   font-weight: 600;
-  gap: 6px;
+  gap: 8px;
   color: var(--foreground);
 }
 
 .form input,
 .form textarea,
 .form select {
-  padding: 12px 16px;
-  border: 2px solid rgba(120, 113, 108, 0.2);
-  border-radius: 8px;
+  padding: 14px 18px;
+  border: 2px solid rgba(120, 113, 108, 0.15);
+  border-radius: 12px;
   font-size: 14px;
-  background: var(--surface-light);
+  background: rgba(255, 255, 255, 0.8);
   color: var(--foreground);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .form input:focus,
 .form textarea:focus,
 .form select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+  box-shadow: 
+    0 0 0 4px rgba(234, 88, 12, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.05);
   outline: none;
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
 }
 
 .form input::placeholder,
 .form textarea::placeholder {
-  color: #78716c;
+  color: #a8a29e;
 }
 
 /* Selected Services */
 .selectedServices {
-  background: rgba(234, 88, 12, 0.05);
+  background: rgba(234, 88, 12, 0.08);
   border: 1px solid rgba(234, 88, 12, 0.2);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
 }
 
 .selectedServices h4 {
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   color: var(--accent);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .selectedServices ul {
@@ -116,79 +147,87 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .selectedServices li {
   font-size: 13px;
   color: var(--accent-dark);
-  padding: 4px 8px;
-  background: rgba(234, 88, 12, 0.1);
-  border-radius: 4px;
+  padding: 6px 12px;
+  background: rgba(234, 88, 12, 0.12);
+  border-radius: 8px;
+  border: 1px solid rgba(234, 88, 12, 0.15);
 }
 
 /* Photo Section */
 .photoSection {
-  background: rgba(120, 113, 108, 0.05);
-  border: 1px solid rgba(120, 113, 108, 0.1);
-  border-radius: 8px;
-  padding: 16px;
+  background: rgba(120, 113, 108, 0.06);
+  border: 1px solid rgba(120, 113, 108, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
 }
 
 .fileInput {
-  background: var(--surface-light);
-  border: 2px dashed rgba(120, 113, 108, 0.3);
-  border-radius: 8px;
-  padding: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px dashed rgba(120, 113, 108, 0.25);
+  border-radius: 12px;
+  padding: 16px;
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .fileInput:hover {
   border-color: var(--accent);
-  background: rgba(234, 88, 12, 0.05);
+  background: rgba(234, 88, 12, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .photoPreview {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  margin-top: 12px;
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .photoItem {
   display: flex;
   align-items: center;
-  background: var(--surface-light);
-  border: 1px solid rgba(120, 113, 108, 0.2);
-  border-radius: 8px;
-  padding: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(120, 113, 108, 0.15);
+  border-radius: 12px;
+  padding: 12px;
   gap: 12px;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .photoItem:hover {
   border-color: var(--accent);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 .photoThumbnail {
   flex-shrink: 0;
   width: 50px;
   height: 50px;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   background: rgba(120, 113, 108, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(120, 113, 108, 0.1);
 }
 
 .thumbnailImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .photoItem:hover .thumbnailImage {
@@ -199,14 +238,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
 }
 
 .photoName {
   color: var(--foreground);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -215,191 +254,318 @@
 .photoSize {
   color: #78716c;
   font-size: 11px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .removePhoto {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
   color: #ef4444;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
 .removePhoto:hover {
   background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.5);
+  border-color: rgba(239, 68, 68, 0.4);
   transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 
 /* Navigation */
 .navigation {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(120, 113, 108, 0.1);
+  gap: 20px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(120, 113, 108, 0.08);
 }
 
 .btnSecondary,
 .btnPrimary,
 .btnSubmit {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   border: none;
-  min-width: 120px;
+  min-width: 140px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btnSecondary {
-  background: transparent;
-  border: 2px solid rgba(120, 113, 108, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(120, 113, 108, 0.2);
   color: #78716c;
+  backdrop-filter: blur(10px);
 }
 
 .btnSecondary:hover {
-  background: rgba(120, 113, 108, 0.1);
-  border-color: rgba(120, 113, 108, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(120, 113, 108, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .btnPrimary,
 .btnSubmit {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25);
+  border: 1px solid rgba(234, 88, 12, 0.3);
 }
 
 .btnPrimary:hover,
 .btnSubmit:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(234, 88, 12, 0.35);
 }
 
 .btnSubmit {
   background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent) 100%);
+  position: relative;
+}
+
+.btnSubmit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btnSubmit:hover::before {
+  left: 100%;
 }
 
 /* Success State */
 .success {
   text-align: center;
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 40px 32px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.3), transparent);
 }
 
 .successIcon {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 700;
-  margin: 0 auto 24px;
-  animation: successPulse 0.6s ease-out;
+  margin: 0 auto 30px;
+  animation: successFadeIn 0.6s ease-out;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.2);
+  border: 1px solid rgba(234, 88, 12, 0.3);
 }
 
-@keyframes successPulse {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes successFadeIn {
+  0% { 
+    transform: translateY(10px); 
+    opacity: 0; 
+  }
+  100% { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
 }
 
 .success h3 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--foreground);
   margin: 0 0 16px 0;
+  letter-spacing: -0.025em;
 }
 
 .success p {
   font-size: 16px;
   color: #78716c;
-  margin: 0 0 24px 0;
-  line-height: 1.5;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
 }
 
 .successDetails {
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  border-radius: 8px;
-  padding: 16px;
+  background: rgba(120, 113, 108, 0.06);
+  border: 1px solid rgba(120, 113, 108, 0.15);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+  text-align: left;
 }
 
 .successDetails p {
   margin: 0;
   font-size: 14px;
   color: var(--foreground);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(120, 113, 108, 0.08);
+}
+
+.successDetails p:last-child {
+  border-bottom: none;
+}
+
+.successDetails strong {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .form {
-    padding: 24px 20px;
+    padding: 30px 24px;
+    border-radius: 16px;
+  }
+  
+  .success {
+    padding: 40px 24px;
+    border-radius: 16px;
+  }
+  
+  .step h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
   }
   
   .row {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .progressBar {
-    gap: 12px;
+    gap: 16px;
+    margin-bottom: 30px;
   }
   
   .progressStep {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     font-size: 14px;
   }
   
   .navigation {
     flex-direction: column;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
   }
   
   .btnSecondary,
   .btnPrimary,
   .btnSubmit {
     width: 100%;
+    min-width: unset;
+    padding: 16px 24px;
+  }
+
+  .photoSection {
+    padding: 20px;
+    border-radius: 12px;
   }
 
   .photoPreview {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 12px;
   }
 
   .photoItem {
-    padding: 8px;
-    gap: 8px;
+    padding: 12px;
+    gap: 12px;
+    border-radius: 10px;
   }
 
   .photoThumbnail {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 
   .removePhoto {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     font-size: 14px;
+  }
+
+  .selectedServices {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .successIcon {
+    width: 75px;
+    height: 75px;
+    font-size: 28px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+  }
+
+  .success h3 {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .success p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .successDetails {
+    padding: 20px;
+    border-radius: 12px;
+    gap: 10px;
+  }
+
+  .successDetails p {
+    font-size: 13px;
+    padding: 6px 0;
   }
 } 

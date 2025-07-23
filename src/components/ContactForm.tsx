@@ -17,22 +17,11 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     zona: "" as ServiceZone | "",
     direccion: "",
     descripcionProblema: "",
-    mensaje: "",
     fotos: [] as File[]
   });
   const [enviado, setEnviado] = useState(false);
   const [step, setStep] = useState(1);
   const totalSteps = 3;
-
-  // Pre-llenar mensaje con servicios seleccionados
-  useEffect(() => {
-    if (selectedServices.length > 0) {
-      setForm(prev => ({
-        ...prev,
-        mensaje: `Servicios seleccionados: ${selectedServices.join(', ')}`
-      }));
-    }
-  }, [selectedServices]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -72,9 +61,6 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
         <div className={styles.successIcon}>✓</div>
         <h3>¡Solicitud enviada con éxito!</h3>
         <p>Te contactaremos en las próximas <strong>24 horas</strong> para coordinar la visita.</p>
-        <div className={styles.successDetails}>
-          <p><strong>Zona:</strong> {form.zona?.toUpperCase()}</p>
-        </div>
       </div>
     );
   }
@@ -226,16 +212,6 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
                 </ul>
               </div>
             )}
-            <label>
-              Información adicional
-              <textarea
-                name="mensaje"
-                value={form.mensaje}
-                onChange={handleChange}
-                rows={3}
-                placeholder="Cualquier otra información que consideres importante..."
-              />
-            </label>
           </div>
         )}
 
