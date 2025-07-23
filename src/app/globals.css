@@ -8,6 +8,7 @@
   --accent-secondary: #f59e0b; /* amarillo dorado */
   --surface: #ffffff; /* superficie blanca */
   --surface-light: #f5f5f4; /* superficie gris muy claro */
+  --gray-alpha-100: rgba(0, 0, 0, 0.05);
 }
 
 
