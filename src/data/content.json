@@ -57,7 +57,7 @@
         "description": "Análisis técnico completo en tu domicilio. Identificamos fallas, medimos temperaturas y evaluamos resistencias con equipos especializados.",
         "duration": "1h",
         "location": "Sólo en CABA y AMBA",
-        "price": "Desde $25.000",
+        "price": "Desde $35.000",
         "ctaText": "Solicitar análisis"
       },
       {
@@ -66,13 +66,13 @@
         "description": "Limpieza profunda, calibración de sensores, inspección de resistencias y ajuste de termostatos. Prolonga la vida útil de tu horno.",
         "duration": "Recomendado cada 6 meses",
         "location": "Vamos a domicilio",
-        "price": "Desde $35.000",
+        "price": "Desde $45.000",
         "ctaText": "Programar mantenimiento"
       },
       {
         "icon": "Wrench",
         "title": "Reparación Integral",
-        "description": "Reparación total con repuestos originales. Incluye diagnóstico, mano de obra, repuestos y garantía escrita de 6 meses.",
+        "description": "Reparación total. Incluye diagnóstico, mano de obra y repuestos.",
         "location": "Servicio técnico especializado en cerámica",
         "price": "Consultar según falla",
         "ctaText": "Solicitar reparación"
@@ -82,7 +82,7 @@
         "title": "Asesoría Virtual",
         "description": "Soporte técnico remoto para clientes del interior. Diagnóstico visual, guías paso a paso y resolución de problemas básicos.",
         "duration": "30 minutos",
-        "price": "$8.000",
+        "price": "Desde $15.000",
         "ctaText": "Agendar videollamada"
       },
       {
@@ -107,7 +107,7 @@
       {
         "icon": "Award",
         "title": "Experiencia comprobada",
-        "description": "+500 hornos reparados con éxito"
+        "description": "+500 hornos reparados con éxito."
       },
       {
         "icon": "Wrench",
@@ -122,7 +122,7 @@
       {
         "icon": "Clock",
         "title": "Respuesta rápida",
-        "description": "Te contactamos en menos de 24hs"
+        "description": "Te contactamos en menos de 24hs."
       }
     ],
     "gallery": {
