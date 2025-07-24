@@ -14,7 +14,7 @@ interface TestResendResult {
   };
   data?: {
     id?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -113,7 +113,7 @@ export default function TestEmailPage() {
                 <h3 className="text-blue-800 font-semibold mb-2">Pasos para solucionar:</h3>
                 <ol className="text-blue-700 text-sm space-y-1 list-decimal list-inside">
                   <li>Ve a <a href="https://resend.com" target="_blank" className="underline">resend.com</a> y crea una cuenta gratuita</li>
-                  <li>En el dashboard, ve a "API Keys" y crea una nueva key</li>
+                  <li>En el dashboard, ve a &quot;API Keys&quot; y crea una nueva key</li>
                   <li>Copia la API key y agrégalo a tu <code>.env.local</code></li>
                   <li>Reinicia el servidor después de modificar las variables de entorno</li>
                   <li>¡Listo! Resend es plug-and-play, no necesitas verificar dominios</li>
