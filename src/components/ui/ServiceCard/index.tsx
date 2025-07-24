@@ -22,6 +22,7 @@ interface ServiceCardProps {
   ctaText?: string;
   isSelected?: boolean;
   onToggle?: () => void;
+  imageUrl?: string;
 }
 
 export default function ServiceCard({
@@ -34,6 +35,7 @@ export default function ServiceCard({
   ctaText = "Solicitar",
   isSelected: externalSelected,
   onToggle,
+  imageUrl,
 }: ServiceCardProps) {
   const [internalSelected, setInternalSelected] = useState(false);
   const isSelected = externalSelected !== undefined ? externalSelected : internalSelected;
@@ -56,7 +58,11 @@ export default function ServiceCard({
         {IconComponent && <IconComponent className={styles.icon} size={24} />}
         <h3 className={styles.title}>{title}</h3>
       </header>
-      <p className={styles.price}>{price}</p>
+      <p className={styles.price}>{
+        !isNaN(Number(price))
+          ? `$${Number(price).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+          : price
+      }</p>
       <p className={styles.description}>{description}</p>
       <ul className={styles.details}>
         {duration && (

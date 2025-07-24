@@ -1,42 +1,42 @@
 import ServiceCard from "../ui/ServiceCard";
 import styles from "../../app/landing.module.css";
-import content from "../../data/content.json";
+import { useServicios } from '@/hooks/useServicios';
 
 interface ServicesProps {
   selectedServices: string[];
   onToggleService: (serviceTitle: string) => void;
 }
 
-// Tipo para mapear los iconos del JSON a los tipos de ServiceCard
 type IconType = "Search" | "Sparkles" | "Wrench" | "Video" | "Settings";
 
 export default function Services({ selectedServices, onToggleService }: ServicesProps) {
-  const { services } = content;
+  const { servicios, loading } = useServicios();
+
+  if (loading) return <div className={styles.cards}>Cargando servicios...</div>;
 
   return (
     <section id="servicios" className={styles.services}>
       <div className={styles.sectionHeader}>
-        <span className={styles.sectionBadge}>{services.badge}</span>
-        <h2>{services.title}</h2>
+        <span className={styles.sectionBadge}>Nuestros Servicios</span>
+        <h2>Elegí el plan perfecto para tu horno</h2>
         <p className={styles.sectionSubtitle}>
-          {services.subtitle.split('**').map((text, index) => 
-            index % 2 === 1 ? <strong key={index}>{text}</strong> : text
-          )}
+          Desde diagnósticos rápidos hasta reparaciones completas. <strong>Seleccioná uno o más servicios</strong> y te contactamos en 24hs.
         </p>
       </div>
       <div className={styles.cards}>
-        {services.items.map((service) => (
-          <ServiceCard 
-            key={service.title} 
-            icon={service.icon as IconType}
-            title={service.title}
-            description={service.description}
-            duration={service.duration}
-            location={service.location}
-            price={service.price}
-            ctaText={service.ctaText}
-            isSelected={selectedServices.includes(service.title)}
-            onToggle={() => onToggleService(service.title)}
+        {servicios.map((servicio) => (
+          <ServiceCard
+            key={servicio.titulo}
+            icon={servicio.icono as IconType}
+            title={servicio.titulo}
+            description={servicio.descripcion}
+            duration={servicio.duracion}
+            location={servicio.ubicacion}
+            price={servicio.precio}
+            ctaText={servicio.cta}
+            isSelected={selectedServices.includes(servicio.titulo)}
+            onToggle={() => onToggleService(servicio.titulo)}
+            imageUrl={servicio.imagen}
           />
         ))}
       </div>

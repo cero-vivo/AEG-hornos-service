@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Calendar, Clock, User, Phone, Mail, MapPin, CalendarCheck } from "lucide-react";
+import { Calendar, Clock, User, CalendarCheck } from "lucide-react";
 import styles from "./Calendar.module.css";
 import { TimeSlot, AppointmentRequest } from "@/types/calendar";
 
@@ -9,8 +9,6 @@ interface CalendarBookingProps {
   selectedServices: string[];
   onClose: () => void;
 }
-
-type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function CalendarBooking({ selectedServices, onClose }: CalendarBookingProps) {
   const [selectedDate, setSelectedDate] = useState<string>("");

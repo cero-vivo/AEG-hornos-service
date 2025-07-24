@@ -5,11 +5,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('🔍 Probando conexión con Resend...');
-    
-    // Verificar si la API key está configurada
+
     if (!process.env.RESEND_API_KEY) {
-      console.log('❌ RESEND_API_KEY no está configurado');
       return NextResponse.json(
         { 
           error: 'RESEND_API_KEY no está configurado',
@@ -21,9 +18,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.log('✅ API Key encontrada, enviando email de prueba...');
-
-    // Crear un email de prueba simple
     const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: ['luis.espinoza.nav@outlook.com'],
@@ -38,7 +32,6 @@ export async function GET(request: NextRequest) {
     });
 
     if (error) {
-      console.log('❌ Error al enviar email:', error);
       return NextResponse.json(
         { 
           error: 'Error al enviar email de prueba',
@@ -51,8 +44,6 @@ export async function GET(request: NextRequest) {
         { status: 500 }
       );
     }
-
-    console.log('✅ Email enviado exitosamente:', data);
 
     return NextResponse.json(
       { 
@@ -68,8 +59,6 @@ export async function GET(request: NextRequest) {
     );
 
   } catch (error: any) {
-    console.error('❌ Error en prueba de Resend:', error);
-    
     return NextResponse.json(
       { 
         error: 'Error al enviar email de prueba',
