@@ -1,6 +1,10 @@
 import { Phone, MessageSquare, Mail, Instagram } from "lucide-react";
 import styles from "../../app/landing.module.css";
 import content from "../../data/content.json";
+import { useNumeroWsp } from '@/hooks/useNumeroWsp';
+import { useEffect, useState } from 'react';
+import { getValue, fetchAndActivate } from 'firebase/remote-config';
+import { remoteConfig } from '@/lib/firebase';
 
 const iconMap = {
   Phone,
@@ -16,7 +20,25 @@ interface FooterProps {
   generateContactMessage: () => string;
 }
 
+function useEmailContacto() {
+  const [emailContacto, setEmailContacto] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function fetchEmail() {
+      remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60;
+      await fetchAndActivate(remoteConfig);
+      const value = getValue(remoteConfig, 'email_contacto').asString();
+      setEmailContacto(value || null);
+      setLoading(false);
+    }
+    fetchEmail();
+  }, []);
+  return { emailContacto, loading };
+}
+
 export default function Footer({ generateWhatsAppMessage, generateContactMessage }: FooterProps) {
+  const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
+  const { emailContacto, loading: loadingEmail } = useEmailContacto();
   const { footer, company } = content;
   const currentYear = new Date().getFullYear();
 
@@ -37,9 +59,9 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
               
               // Generar href dinámico según el tipo
               if (link.type === 'whatsapp') {
-                href = `https://wa.me/${company.phone.replace(/[^0-9]/g, '')}?text=${generateWhatsAppMessage()}`;
+                href = numeroWsp ? `https://wa.me/${numeroWsp.replace(/[^0-9]/g, '')}?text=${generateWhatsAppMessage()}` : '';
               } else if (link.type === 'email') {
-                href = `mailto:${company.email}?subject=${encodeURIComponent(content.messages.emailSubject)}&body=${encodeURIComponent(generateContactMessage())}`;
+                href = emailContacto ? `mailto:${emailContacto}?subject=${encodeURIComponent(content.messages.emailSubject)}&body=${encodeURIComponent(generateContactMessage())}` : '';
               } else if (link.type === 'instagram') {
                 href = company.instagramUrl;
               }
@@ -52,11 +74,14 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
                   rel={link.type === 'whatsapp' || link.type === 'instagram' ? 'noopener noreferrer' : undefined}
                   className={styles.contactLink}
                   title={link.type === 'instagram' ? generateContactMessage() : undefined}
+                  style={link.type === 'whatsapp' && (loadingWsp || !numeroWsp) ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 >
                   <LinkIcon size={16} />
                   <span>
-                    {link.type === 'phone' ? company.phone : 
-                     link.type === 'email' ? company.email :
+                    {link.type === 'whatsapp' && loadingWsp ? 'Cargando...' :
+                     link.type === 'email' && loadingEmail ? 'Cargando...' :
+                     link.type === 'phone' ? company.phone : 
+                     link.type === 'email' ? (emailContacto || company.email) :
                      link.type === 'instagram' ? company.instagram :
                      link.text}
                   </span>

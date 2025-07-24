@@ -16,6 +16,7 @@ import styles from "../../app/landing.module.css";
 import content from "../../data/content.json";
 import Modal from "../ui/Modal";
 import CalendarBooking from "../ui/Calendar";
+import { useNumeroWsp } from '@/hooks/useNumeroWsp';
 
 const iconMap = {
   Phone,
@@ -38,6 +39,7 @@ interface ContactOptionsProps {
 
 export default function ContactOptions({ selectedServices, generateWhatsAppMessage }: ContactOptionsProps) {
   const { contactOptions, company } = content;
+  const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const handleOpenCalendar = () => {
@@ -100,12 +102,13 @@ export default function ContactOptions({ selectedServices, generateWhatsAppMessa
                       return (
                         <a 
                           key={actionIndex}
-                          href={`https://wa.me/${company.phone.replace(/[^0-9]/g, '')}?text=${generateWhatsAppMessage()}`}
+                          href={numeroWsp ? `https://wa.me/${numeroWsp.replace(/[^0-9]/g, '')}?text=${generateWhatsAppMessage()}` : undefined}
                           target="_blank" 
                           rel="noopener noreferrer"
                           className={styles.whatsappButton}
+                          style={loadingWsp || !numeroWsp ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                         >
-                          <ActionIcon size={16} /> {action.text}
+                          <ActionIcon size={16} /> {loadingWsp ? 'Cargando...' : action.text}
                         </a>
                       );
                     } else if (action.type === 'call') {
