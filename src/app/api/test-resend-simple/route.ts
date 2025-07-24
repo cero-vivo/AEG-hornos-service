@@ -24,11 +24,11 @@ export async function GET() {
       result: result
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({
       error: 'Error en prueba',
-      message: error.message,
-      stack: error.stack
+      message: (error as Error).message,
+      stack: (error as Error).stack
     }, { status: 500 });
   }
 } 

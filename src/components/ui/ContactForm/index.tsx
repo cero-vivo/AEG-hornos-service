@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./ContactForm.module.css";
+import Image from "next/image";
 
 interface ContactFormProps {
   selectedServices?: string[];
@@ -190,9 +191,11 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
                 {form.fotos.map((foto, index) => (
                   <div key={index} className={styles.photoItem}>
                     <div className={styles.photoThumbnail}>
-                      <img 
+                      <Image 
                         src={URL.createObjectURL(foto)} 
                         alt={`Foto ${index + 1}`}
+                        width={100}
+                        height={100}
                         className={styles.thumbnailImage}
                       />
                     </div>

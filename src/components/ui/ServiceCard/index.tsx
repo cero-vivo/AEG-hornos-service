@@ -35,7 +35,6 @@ export default function ServiceCard({
   ctaText = "Solicitar",
   isSelected: externalSelected,
   onToggle,
-  imageUrl,
 }: ServiceCardProps) {
   const [internalSelected, setInternalSelected] = useState(false);
   const isSelected = externalSelected !== undefined ? externalSelected : internalSelected;

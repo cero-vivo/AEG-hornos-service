@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
 
     if (!process.env.RESEND_API_KEY) {
@@ -58,11 +58,11 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { 
         error: 'Error al enviar email de prueba',
-        details: error.message || 'Error desconocido',
+        details: error instanceof Error ? error.message : 'Error desconocido',
         config: {
           hasApiKey: !!process.env.RESEND_API_KEY
         }

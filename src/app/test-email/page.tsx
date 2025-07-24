@@ -2,9 +2,25 @@
 
 import { useState } from 'react';
 
+// Defino el tipo de la respuesta de la API
+interface TestResendResult {
+  success?: boolean;
+  message?: string;
+  error?: string;
+  details?: string;
+  config: {
+    hasApiKey: boolean;
+    timestamp?: string;
+  };
+  data?: {
+    id?: string;
+    [key: string]: any;
+  };
+}
+
 export default function TestEmailPage() {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<TestResendResult | null>(null);
   const [error, setError] = useState<string>('');
 
   const testConnection = async () => {

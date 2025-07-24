@@ -36,7 +36,7 @@ export function useServicios() {
         if (value) {
           try {
             result.push(JSON.parse(value));
-          } catch (e) {
+          } catch (_e) {
             // Si el JSON está mal, lo ignora
           }
         }

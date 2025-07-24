@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
         <h3>Imágenes adjuntas:</h3>
         <p>Se han adjuntado ${fotos.length} imagen${fotos.length > 1 ? 'es' : ''} del horno:</p>
         <ul>
-          ${fotos.map((foto, index) => `<li>${foto.name} (${(foto.size / 1024 / 1024).toFixed(1)} MB)</li>`).join('')}
+          ${fotos.map((foto) => `<li>${foto.name} (${(foto.size / 1024 / 1024).toFixed(1)} MB)</li>`).join('')}
         </ul>
       ` : ''}
 
@@ -102,10 +102,10 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error enviando email:', error);
     return NextResponse.json(
-      { error: 'Error interno del servidor', details: error.message },
+      { error: 'Error interno del servidor', details: (error as Error).message },
       { status: 500 }
     );
   }
