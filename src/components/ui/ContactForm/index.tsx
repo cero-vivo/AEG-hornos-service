@@ -20,6 +20,8 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     fotos: [] as File[]
   });
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -40,9 +42,45 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setEnviado(true);
+    setEnviando(true);
+    setError("");
+    
+    try {
+      const formData = new FormData();
+      
+      // Agregar campos de texto
+      formData.append('nombre', form.nombre);
+      formData.append('email', form.email);
+      formData.append('telefono', form.telefono);
+      formData.append('zona', form.zona);
+      formData.append('direccion', form.direccion);
+      formData.append('descripcionProblema', form.descripcionProblema);
+      formData.append('selectedServices', JSON.stringify(selectedServices));
+      
+      // Agregar imágenes
+      form.fotos.forEach((foto) => {
+        formData.append('fotos', foto);
+      });
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setEnviado(true);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Error al enviar el formulario');
+      }
+    } catch (error) {
+      console.error('Error enviando formulario:', error);
+      setError('Error de conexión. Por favor, intenta nuevamente.');
+    } finally {
+      setEnviando(false);
+    }
   };
 
   if (enviado) {
@@ -190,9 +228,19 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
           )}
         </div>
 
+        {error && (
+          <div className={styles.error}>
+            <p>{error}</p>
+          </div>
+        )}
+
         <div className={styles.submitSection}>
-          <button type="submit" className={styles.btnSubmit}>
-            Enviar solicitud
+          <button 
+            type="submit" 
+            className={styles.btnSubmit}
+            disabled={enviando}
+          >
+            {enviando ? 'Enviando...' : 'Enviar solicitud'}
           </button>
         </div>
       </form>
