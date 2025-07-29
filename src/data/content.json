@@ -206,30 +206,6 @@
           "icon": "MessageSquare",
           "target": "#formulario"
         }
-      },
-      {
-        "type": "schedule",
-        "icon": "Calendar",
-        "title": "Agendar llamada",
-        "description": "Elegí día y horario que te convenga. Te llamamos puntual para coordinar la visita.",
-        "features": [
-          {
-            "icon": "Calendar",
-            "text": "Calendario en tiempo real"
-          },
-          {
-            "icon": "Clock",
-            "text": "Horarios disponibles"
-          },
-          {
-            "icon": "Phone",
-            "text": "Llamada confirmada"
-          }
-        ],
-        "action": {
-          "text": "Agendar ahora",
-          "icon": "Calendar"
-        }
       }
     ]
   },
