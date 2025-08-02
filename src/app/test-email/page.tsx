@@ -19,6 +19,12 @@ interface TestResendResult {
 }
 
 export default function TestEmailPage() {
+
+
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState<TestResendResult | null>(null);
+	const [error, setError] = useState<string>('');
+	
 	// Solo permitir en modo desarrollo
 	if (process.env.NODE_ENV !== 'development') {
 		return (
@@ -35,9 +41,6 @@ export default function TestEmailPage() {
 		);
 	}
 
-	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState<TestResendResult | null>(null);
-	const [error, setError] = useState<string>('');
 
 	const testConnection = async () => {
 		setLoading(true);
