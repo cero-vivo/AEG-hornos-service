@@ -5,8 +5,8 @@
     "description": "Especialistas en reparación de hornos de cerámica",
     "yearsExperience": 5,
     "foundedYear": 2020,
-    "phone": "+5491123881314",
-    "email": "luis.espinoza.nav@outlook.com",
+    "phone": "+5491164624270",
+    "email": "agarciadigital2018@gmail.com",
     "instagram": "@hornosservice",
     "instagramUrl": "https://instagram.com/hornosservice"
   },
@@ -220,8 +220,8 @@
       "links": [
         {
           "type": "phone",
-          "text": "+54 9 11 2388-1314",
-          "href": "tel:+5491123881314",
+          "text": "+54 9 11 6462-4270",
+          "href": "tel:+5491164624270",
           "icon": "Phone"
         },
         {
@@ -231,8 +231,8 @@
         },
         {
           "type": "email",
-          "text": "luis.espinoza.nav@outlook.com",
-          "href": "mailto:luis.espinoza.nav@outlook.com",
+          "text": "agarciadigital2018@gmail.com",
+          "href": "mailto:agarciadigital2018@gmail.com",
           "icon": "Mail"
         },
         {

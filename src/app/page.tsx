@@ -53,28 +53,12 @@ export default function Home() {
   return (
     <>
       <Hero />
-      
-      <Services 
-        selectedServices={selectedServices}
-        onToggleService={toggleService}
-      />
-      
-      <About />
-      
-      <ContactOptions 
-        selectedServices={selectedServices}
-        generateWhatsAppMessage={generateWhatsAppMessage}
-      />
-      
+      <Services selectedServices={selectedServices} onToggleService={toggleService} />
+      <About />      
+      <ContactOptions selectedServices={selectedServices} generateWhatsAppMessage={generateWhatsAppMessage} />
       <Contact selectedServices={selectedServices} />
-      
-      <Footer 
-        generateWhatsAppMessage={generateWhatsAppMessage}
-        generateContactMessage={generateContactMessage}
-      />
-      
+      <Footer generateWhatsAppMessage={generateWhatsAppMessage} generateContactMessage={generateContactMessage}/>
       <FloatingCart selectedServices={selectedServices} />
-      
       <FloatingNav />
     </>
   );

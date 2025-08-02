@@ -5,6 +5,7 @@ import { useNumeroWsp } from '@/hooks/useNumeroWsp';
 import { useEffect, useState } from 'react';
 import { getValue, fetchAndActivate } from 'firebase/remote-config';
 import { remoteConfig } from '@/lib/firebase';
+import { useNumeroTel } from "@/hooks/useNumeroTel";
 
 const iconMap = {
   Phone,
@@ -38,6 +39,7 @@ function useEmailContacto() {
 
 export default function Footer({ generateWhatsAppMessage, generateContactMessage }: FooterProps) {
   const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
+  const { numeroTel, loading: loadingTel } = useNumeroTel();
   const { emailContacto, loading: loadingEmail } = useEmailContacto();
   const { footer, company } = content;
   const currentYear = new Date().getFullYear();
@@ -64,6 +66,8 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
                 href = emailContacto ? `mailto:${emailContacto}?subject=${encodeURIComponent(content.messages.emailSubject)}&body=${encodeURIComponent(generateContactMessage())}` : '';
               } else if (link.type === 'instagram') {
                 href = company.instagramUrl;
+              } else if (link.type === 'phone') {
+                href = numeroTel ? `tel:${numeroTel.replace(/[^0-9]/g, '')}` : '';
               }
               
               return (
@@ -80,8 +84,9 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
                   <span>
                     {link.type === 'whatsapp' && loadingWsp ? 'Cargando...' :
                      link.type === 'email' && loadingEmail ? 'Cargando...' :
-                     link.type === 'phone' ? company.phone : 
+                     link.type === 'phone' && loadingTel ? 'Cargando...' :
                      link.type === 'email' ? (emailContacto || company.email) :
+                     link.type === 'phone' ? (numeroTel || company.phone) :
                      link.type === 'instagram' ? company.instagram :
                      link.text}
                   </span>
