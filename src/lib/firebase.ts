@@ -16,4 +16,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const remoteConfig = getRemoteConfig(app);
-export const storage = getStorage(app);

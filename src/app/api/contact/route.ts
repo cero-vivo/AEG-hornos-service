@@ -1,23 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import content from '@/data/content.json';
-import { remoteConfig } from '@/lib/firebase';
-import { getValue, fetchAndActivate } from 'firebase/remote-config';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Función para obtener el email desde Remote Config
-async function getEmailFromRemoteConfig(): Promise<string> {
-  try {
-    remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60; // 1 minuto
-    await fetchAndActivate(remoteConfig);
-    const emailValue = getValue(remoteConfig, 'email_contacto').asString();
-    return emailValue || content.company.email; // Fallback al email del content.json
-  } catch (error) {
-    console.error('Error obteniendo email desde Remote Config:', error);
-    return content.company.email; // Fallback al email del content.json
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,6 +15,7 @@ export async function POST(request: NextRequest) {
     const direccion = formData.get('direccion') as string;
     const descripcionProblema = formData.get('descripcionProblema') as string;
     const selectedServices = formData.get('selectedServices') as string;
+    const emailDestino = formData.get('emailDestino') as string;
     
     // Parsear servicios seleccionados
     const servicesArray = selectedServices ? JSON.parse(selectedServices) : [];
@@ -218,13 +204,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Obtener el email desde Remote Config
-    const emailDestino = await getEmailFromRemoteConfig();
+    // Usar el email que viene del frontend o fallback
+    const emailToSend = emailDestino || content.company.email;
     
     // Enviar el email
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_DOMAIN || 'onboarding@resend.dev',
-      to: [emailDestino],
+      to: [emailToSend],
       subject: emailSubject,
       html: emailContent,
       replyTo: email,

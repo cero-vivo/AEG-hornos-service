@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./ContactForm.module.css";
 import Image from "next/image";
+import { useEmailContacto } from "@/hooks/useEmailContacto";
 
 interface ContactFormProps {
   selectedServices?: string[];
@@ -11,6 +12,7 @@ interface ContactFormProps {
 type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
+  const { emailContacto, loading: loadingEmail } = useEmailContacto();
   const [form, setForm] = useState({ 
     nombre: "", 
     email: "", 
@@ -59,6 +61,11 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
       formData.append('direccion', form.direccion);
       formData.append('descripcionProblema', form.descripcionProblema);
       formData.append('selectedServices', JSON.stringify(selectedServices));
+      
+      // Agregar el email de Remote Config
+      if (emailContacto) {
+        formData.append('emailDestino', emailContacto);
+      }
       
       // Agregar imágenes
       form.fotos.forEach((foto) => {
