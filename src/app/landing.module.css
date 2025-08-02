@@ -276,6 +276,8 @@
   border-radius: 20px;
   box-shadow: 0 25px 50px rgba(15, 76, 92, 0.2);
   transition: transform 0.3s ease;
+  object-fit: cover;
+  aspect-ratio: 6/7;
 }
 
 .heroImage:hover {
@@ -484,6 +486,10 @@
     gap: 40px;
     text-align: center;
   }
+
+  .heroImage {
+    aspect-ratio: 4/5;
+  }
   
   .stats {
     justify-content: center;
@@ -627,6 +633,10 @@
   .galleryGrid {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .galleryImage {
+    aspect-ratio: 4/3;
   }
 
   .galleryGrid .galleryImage:first-child {
@@ -1186,6 +1196,7 @@
   object-fit: cover;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 3/2;
 }
 
 .galleryImage:hover {

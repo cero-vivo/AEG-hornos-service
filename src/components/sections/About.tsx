@@ -61,9 +61,11 @@ export default function About() {
                 key={index}
                 src={image.src}
                 alt={image.alt}
-                width={200}
-                height={150}
+                width={300}
+                height={200}
                 className={styles.galleryImage}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                quality={80}
               />
             ))}
           </div>

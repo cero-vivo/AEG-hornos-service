@@ -62,9 +62,12 @@ export default function Hero() {
             <Image
               src="/hornos/horno1.jpg"
               alt="Horno de cerámica profesional - Reparación AEG"
-              width={500}
-              height={600}
+              width={600}
+              height={700}
               className={styles.heroImage}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+              priority={true}
+              quality={85}
             />
             <div className={styles.floatingCard}>
               <div className={styles.cardIcon}>

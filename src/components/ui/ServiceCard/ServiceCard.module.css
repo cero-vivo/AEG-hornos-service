@@ -12,6 +12,7 @@
   cursor: pointer;
   user-select: none;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -145,12 +146,41 @@
   outline-offset: 2px;
 }
 
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: -32px -28px 16px -28px;
+  position: relative;
+}
+
+.serviceImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .serviceImage {
+  transform: scale(1.05);
+}
+
+.selected .serviceImage {
+  transform: scale(1.02);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .card {
     max-width: 340px;
     padding: 24px 20px;
     gap: 14px;
+  }
+
+  .imageContainer {
+    height: 160px;
+    margin: -24px -20px 14px -20px;
   }
 
   .title {
@@ -190,6 +220,11 @@
     max-width: 300px;
     padding: 20px 16px;
     gap: 12px;
+  }
+
+  .imageContainer {
+    height: 140px;
+    margin: -20px -16px 12px -16px;
   }
 
   .title {

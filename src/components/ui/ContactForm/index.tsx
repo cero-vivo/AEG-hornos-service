@@ -201,9 +201,11 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
                       <Image 
                         src={URL.createObjectURL(foto)} 
                         alt={`Foto ${index + 1}`}
-                        width={100}
-                        height={100}
+                        width={120}
+                        height={120}
                         className={styles.thumbnailImage}
+                        sizes="120px"
+                        quality={75}
                       />
                     </div>
                     <div className={styles.photoInfo}>

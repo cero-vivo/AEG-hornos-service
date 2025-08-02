@@ -197,12 +197,18 @@
   border: 1px solid rgba(120, 113, 108, 0.1);
 }
 
-.thumbnailImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
+  .thumbnailImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+  }
+
+  .photoThumbnail {
+    width: 80px;
+    height: 80px;
+  }
 
 .photoItem:hover .thumbnailImage {
   transform: scale(1.05);
