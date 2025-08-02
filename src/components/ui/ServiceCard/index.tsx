@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import styles from "./ServiceCard.module.css";
 import { Search, Sparkles, Wrench, Video, Settings, Clock, MapPin } from "lucide-react";
 
@@ -36,7 +35,6 @@ export default function ServiceCard({
   ctaText = "Solicitar",
   isSelected: externalSelected,
   onToggle,
-  imageUrl,
 }: ServiceCardProps) {
   const [internalSelected, setInternalSelected] = useState(false);
   const isSelected = externalSelected !== undefined ? externalSelected : internalSelected;
@@ -55,7 +53,6 @@ export default function ServiceCard({
       className={`${styles.card} ${isSelected ? styles.selected : ''}`}
       onClick={handleClick}
     >
-
       <header className={styles.header}>
         {IconComponent && <IconComponent className={styles.icon} size={24} />}
         <h3 className={styles.title}>{title}</h3>

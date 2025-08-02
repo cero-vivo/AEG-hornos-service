@@ -12,7 +12,7 @@
   cursor: pointer;
   user-select: none;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .card:hover {
@@ -36,16 +36,18 @@
 .selected::before {
   content: '✓ Seleccionado';
   position: absolute;
-  top: -12px;
+  top: -8px;
   right: 16px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .selected .title {
@@ -208,10 +210,10 @@
   }
 
   .selected::before {
-    top: -10px;
+    top: -6px;
     right: 12px;
     font-size: 10px;
-    padding: 3px 10px;
+    padding: 4px 12px;
   }
 }
 
