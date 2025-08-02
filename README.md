@@ -55,7 +55,7 @@ Todos los textos del sitio se encuentran centralizados en `src/data/content.json
   "company": {
     "name": "AEG",
     "phone": "+5491123881314",
-    "email": "luis.espinoza.nav@outlook.com"
+    "email": "agarciadigital2018@gmail.com"
   },
   "hero": {
     "title": "Tu horno de cerámica",
@@ -75,7 +75,7 @@ Para actualizar datos de contacto (teléfono, email, redes sociales):
 {
   "company": {
     "phone": "+5491123881314",           // ← Cambiar aquí
-    "email": "luis.espinoza.nav@outlook.com", // ← Cambiar aquí
+    "email": "agarciadigital2018@gmail.com", // ← Cambiar aquí
     "instagram": "@hornosservice"        // ← Cambiar aquí
   }
 }
@@ -256,7 +256,7 @@ Configurados en `src/app/layout.tsx` para SEO óptimo.
 
 Para soporte técnico o dudas sobre el mantenimiento:
 
-- **Email**: luis.espinoza.nav@outlook.com
+- **Email**: agarciadigital2018@gmail.com
 - **WhatsApp**: +54 9 11 2388-1314
 
 ---

@@ -77,7 +77,7 @@ NEXTAUTH_SECRET=un_string_secreto_aleatorio
 
 # Company Configuration
 AEG_PHONE_NUMBER=+5491123881314
-AEG_EMAIL=luis.espinoza.nav@outlook.com
+AEG_EMAIL=agarciadigital2018@gmail.com
 ```
 
 ### ⚠️ Importante sobre GOOGLE_PRIVATE_KEY

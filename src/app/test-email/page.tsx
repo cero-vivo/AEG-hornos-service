@@ -1,128 +1,144 @@
 "use client";
 
 import { useState } from 'react';
+import styles from './page.module.css';
 
-// Defino el tipo de la respuesta de la API
 interface TestResendResult {
-  success?: boolean;
-  message?: string;
-  error?: string;
-  details?: string;
-  config: {
-    hasApiKey: boolean;
-    timestamp?: string;
-  };
-  data?: {
-    id?: string;
-    [key: string]: unknown;
-  };
+	success?: boolean;
+	message?: string;
+	error?: string;
+	details?: string;
+	config: {
+		hasApiKey: boolean;
+		timestamp?: string;
+	};
+	data?: {
+		id?: string;
+		[key: string]: unknown;
+	};
 }
 
 export default function TestEmailPage() {
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<TestResendResult | null>(null);
-  const [error, setError] = useState<string>('');
+	// Solo permitir en modo desarrollo
+	if (process.env.NODE_ENV !== 'development') {
+		return (
+			<div className={styles.container}>
+				<div className={styles.wrapper}>
+					<div className={styles.card}>
+						<h1 className={styles.title}>
+							Acceso Restringido
+						</h1>
+						<p>Esta página solo está disponible en modo desarrollo.</p>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
-  const testConnection = async () => {
-    setLoading(true);
-    setError('');
-    setResult(null);
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState<TestResendResult | null>(null);
+	const [error, setError] = useState<string>('');
 
-    try {
-      const response = await fetch('/api/test-resend');
-      const data = await response.json();
+	const testConnection = async () => {
+		setLoading(true);
+		setError('');
+		setResult(null);
 
-      if (response.ok) {
-        setResult(data);
-      } else {
-        setError(data.error || 'Error desconocido');
-        setResult(data);
-      }
-    } catch (err) {
-      setError('Error de conexión al servidor');
-      console.error('Error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+		try {
+			const response = await fetch('/api/test-resend');
+			const data = await response.json();
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">
-            Prueba de Configuración - Resend
-          </h1>
+			if (response.ok) {
+				setResult(data);
+			} else {
+				setError(data.error || 'Error desconocido');
+				setResult(data);
+			}
+		} catch (err) {
+			setError('Error de conexión al servidor');
+			console.error('Error:', err);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-          <div className="mb-8">
-            <button
-              onClick={testConnection}
-              disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-            >
-              {loading ? 'Probando conexión...' : 'Probar Conexión'}
-            </button>
-          </div>
+	return (
+		<div className={styles.container}>
+			<div className={styles.wrapper}>
+				<div className={styles.card}>
+					<h1 className={styles.title}>
+						Prueba de Configuración - Resend
+					</h1>
 
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <h3 className="text-red-800 font-semibold mb-2">Error:</h3>
-              <p className="text-red-700">{error}</p>
-            </div>
-          )}
+					<div className={styles.buttonContainer}>
+						<button
+							onClick={testConnection}
+							disabled={loading}
+							className={styles.testButton}
+						>
+							{loading ? 'Probando conexión...' : 'Probar Conexión'}
+						</button>
+					</div>
 
-          {result && (
-            <div className="space-y-6">
-              <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Configuración:</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>API Key configurada:</span>
-                    <span className={result.config?.hasApiKey ? 'text-green-600' : 'text-red-600'}>
-                      {result.config?.hasApiKey ? '✅ Sí' : '❌ No'}
-                    </span>
-                  </div>
-                  {result.data?.id && (
-                    <div className="flex justify-between">
-                      <span>ID del email:</span>
-                      <span className="text-gray-600 text-xs">{result.data.id}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
+					{error && (
+						<div className={styles.errorContainer}>
+							<h3 className={styles.errorTitle}>Error:</h3>
+							<p className={styles.errorMessage}>{error}</p>
+						</div>
+					)}
 
-              {result.success ? (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <h3 className="text-green-800 font-semibold mb-2">✅ Éxito:</h3>
-                  <p className="text-green-700">{result.message}</p>
-                  <p className="text-green-600 text-sm mt-2">
-                    Revisa tu bandeja de entrada para confirmar que recibiste el email de prueba.
-                  </p>
-                </div>
-              ) : (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <h3 className="text-red-800 font-semibold mb-2">❌ Error:</h3>
-                  <p className="text-red-700">{result.error}</p>
-                  {result.details && (
-                    <p className="text-red-600 text-sm mt-2">Detalles: {result.details}</p>
-                  )}
-                </div>
-              )}
+					{result && (
+						<div className={styles.resultsContainer}>
+							<div className={styles.configSection}>
+								<h3 className={styles.configTitle}>Configuración:</h3>
+								<div className={styles.configContent}>
+									<div className={styles.configRow}>
+										<span>API Key configurada:</span>
+										<span className={result.config?.hasApiKey ? styles.successText : styles.errorText}>
+											{result.config?.hasApiKey ? '✅ Sí' : '❌ No'}
+										</span>
+									</div>
+									{result.data?.id && (
+										<div className={styles.configRow}>
+											<span>ID del email:</span>
+											<span className={styles.emailId}>{result.data.id}</span>
+										</div>
+									)}
+								</div>
+							</div>
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h3 className="text-blue-800 font-semibold mb-2">Pasos para solucionar:</h3>
-                <ol className="text-blue-700 text-sm space-y-1 list-decimal list-inside">
-                  <li>Ve a <a href="https://resend.com" target="_blank" className="underline">resend.com</a> y crea una cuenta gratuita</li>
-                  <li>En el dashboard, ve a &quot;API Keys&quot; y crea una nueva key</li>
-                  <li>Copia la API key y agrégalo a tu <code>.env.local</code></li>
-                  <li>Reinicia el servidor después de modificar las variables de entorno</li>
-                  <li>¡Listo! Resend es plug-and-play, no necesitas verificar dominios</li>
-                </ol>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+							{result.success ? (
+								<div className={styles.successSection}>
+									<h3 className={styles.successTitle}>✅ Éxito:</h3>
+									<p className={styles.successMessage}>{result.message}</p>
+									<p className={styles.successNote}>
+										Revisa tu bandeja de entrada para confirmar que recibiste el email de prueba.
+									</p>
+								</div>
+							) : (
+								<div className={styles.errorSection}>
+									<h3 className={styles.errorSectionTitle}>❌ Error:</h3>
+									<p className={styles.errorSectionMessage}>{result.error}</p>
+									{result.details && (
+										<p className={styles.errorDetails}>Detalles: {result.details}</p>
+									)}
+								</div>
+							)}
+
+							<div className={styles.helpSection}>
+								<h3 className={styles.helpTitle}>Pasos para solucionar:</h3>
+								<ol className={styles.helpList}>
+									<li>Ve a <a href="https://resend.com" target="_blank" className={styles.helpLink}>resend.com</a> y crea una cuenta gratuita</li>
+									<li>En el dashboard, ve a &quot;API Keys&quot; y crea una nueva key</li>
+									<li>Copia la API key y agrégalo a tu <code className={styles.code}>.env.local</code></li>
+									<li>Reinicia el servidor después de modificar las variables de entorno</li>
+									<li>¡Listo! Resend es plug-and-play, no necesitas verificar dominios</li>
+								</ol>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	);
 } 
