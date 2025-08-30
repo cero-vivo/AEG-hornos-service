@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "cp .env.development.example .env.local && NODE_ENV=development next dev --turbopack",
+    "prod": "cp .env.production.example .env.local && NODE_ENV=production next build && NODE_ENV=production next start",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "env:check": "node check-environments.js"
   },
   "dependencies": {
     "@react-email/render": "^1.1.3",

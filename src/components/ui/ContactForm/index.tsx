@@ -12,8 +12,9 @@ interface ContactFormProps {
 type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
-  const { emailContacto, loading: loadingEmail } = useEmailContacto();
+  const { emailContacto } = useEmailContacto();
   console.log("🚀 ~ ContactForm ~ emailContacto:", emailContacto)
+
   const [form, setForm] = useState({ 
     nombre: "", 
     email: "", 
