@@ -13,6 +13,7 @@ type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
   const { emailContacto, loading: loadingEmail } = useEmailContacto();
+  console.log("🚀 ~ ContactForm ~ emailContacto:", emailContacto)
   const [form, setForm] = useState({ 
     nombre: "", 
     email: "", 
@@ -26,9 +27,7 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };

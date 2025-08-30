@@ -2,10 +2,9 @@ import { Phone, MessageSquare, Mail, Instagram } from "lucide-react";
 import styles from "../../app/landing.module.css";
 import content from "../../data/content.json";
 import { useNumeroWsp } from '@/hooks/useNumeroWsp';
-import { useEffect, useState } from 'react';
-import { getValue, fetchAndActivate } from 'firebase/remote-config';
-import { remoteConfig } from '@/lib/firebase';
 import { useNumeroTel } from "@/hooks/useNumeroTel";
+import { useInstagram } from "@/hooks/useInstagram";
+import { useEmailContacto } from "@/hooks/useEmailContacto";
 
 const iconMap = {
   Phone,
@@ -21,25 +20,12 @@ interface FooterProps {
   generateContactMessage: () => string;
 }
 
-function useEmailContacto() {
-  const [emailContacto, setEmailContacto] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function fetchEmail() {
-      remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60;
-      await fetchAndActivate(remoteConfig);
-      const value = getValue(remoteConfig, 'email_contacto').asString();
-      setEmailContacto(value || null);
-      setLoading(false);
-    }
-    fetchEmail();
-  }, []);
-  return { emailContacto, loading };
-}
+
 
 export default function Footer({ generateWhatsAppMessage, generateContactMessage }: FooterProps) {
   const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
   const { numeroTel, loading: loadingTel } = useNumeroTel();
+  const { usuarioInstagram, loading: loadingInstagram } = useInstagram();
   const { emailContacto, loading: loadingEmail } = useEmailContacto();
   const { footer, company } = content;
   const currentYear = new Date().getFullYear();
@@ -65,7 +51,7 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
               } else if (link.type === 'email') {
                 href = emailContacto ? `mailto:${emailContacto}?subject=${encodeURIComponent(content.messages.emailSubject)}&body=${encodeURIComponent(generateContactMessage())}` : '';
               } else if (link.type === 'instagram') {
-                href = company.instagramUrl;
+                href = usuarioInstagram ? `https://instagram.com/${usuarioInstagram}` : '';
               } else if (link.type === 'phone') {
                 href = numeroTel ? `tel:${numeroTel.replace(/[^0-9]/g, '')}` : '';
               }
@@ -78,16 +64,21 @@ export default function Footer({ generateWhatsAppMessage, generateContactMessage
                   rel={link.type === 'whatsapp' || link.type === 'instagram' ? 'noopener noreferrer' : undefined}
                   className={styles.contactLink}
                   title={link.type === 'instagram' ? generateContactMessage() : undefined}
-                  style={link.type === 'whatsapp' && (loadingWsp || !numeroWsp) ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                  style={
+                    (link.type === 'whatsapp' && (loadingWsp || !numeroWsp)) ||
+                    (link.type === 'instagram' && (loadingInstagram || !usuarioInstagram))
+                      ? { pointerEvents: 'none', opacity: 0.5 } : {}
+                  }
                 >
                   <LinkIcon size={16} />
                   <span>
                     {link.type === 'whatsapp' && loadingWsp ? 'Cargando...' :
                      link.type === 'email' && loadingEmail ? 'Cargando...' :
                      link.type === 'phone' && loadingTel ? 'Cargando...' :
+                     link.type === 'instagram' && loadingInstagram ? 'Cargando...' :
                      link.type === 'email' ? (emailContacto || company.email) :
                      link.type === 'phone' ? (numeroTel || company.phone) :
-                     link.type === 'instagram' ? company.instagram :
+                     link.type === 'instagram' ? (usuarioInstagram ? `@${usuarioInstagram}` : company.instagram) :
                      link.text}
                   </span>
                 </a>

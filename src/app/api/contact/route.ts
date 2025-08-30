@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Crear el contenido del email
-    const emailSubject = `Nueva consulta de ${nombre} - AEG Hornos`;
+    const emailSubject = `Nueva consulta de ${nombre} - Hornos Ceramica - AEG`;
     
     const emailContent = `
       <!DOCTYPE html>

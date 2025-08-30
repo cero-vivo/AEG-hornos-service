@@ -4,7 +4,6 @@ import { useState } from "react";
 import { 
   Phone, 
   MessageSquare, 
-  Calendar, 
   Zap, 
   Edit, 
   Target, 
@@ -14,14 +13,11 @@ import {
 } from "lucide-react";
 import styles from "../../app/landing.module.css";
 import content from "../../data/content.json";
-import Modal from "../ui/Modal";
-import CalendarBooking from "../ui/Calendar";
 import { useNumeroWsp } from '@/hooks/useNumeroWsp';
 
 const iconMap = {
   Phone,
   MessageSquare,
-  Calendar,
   Zap,
   Edit,
   Target,
@@ -40,15 +36,6 @@ interface ContactOptionsProps {
 export default function ContactOptions({ selectedServices, generateWhatsAppMessage }: ContactOptionsProps) {
   const { contactOptions, company } = content;
   const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
-  const handleOpenCalendar = () => {
-    setIsCalendarOpen(true);
-  };
-
-  const handleCloseCalendar = () => {
-    setIsCalendarOpen(false);
-  };
 
   return (
     <section id="contacto" className={styles.contactOptions}>
@@ -143,31 +130,28 @@ export default function ContactOptions({ selectedServices, generateWhatsAppMessa
                 </button>
               )}
               
-              {/* Acción para agendar */}
+              {/* Acción para agendar - Ahora redirige a WhatsApp */}
               {option.type === 'schedule' && option.action && (
-                <button 
+                <a 
+                  href={numeroWsp ? `https://wa.me/${numeroWsp.replace(/[^0-9]/g, '')}?text=${generateWhatsAppMessage()}` : undefined}
+                  target="_blank" 
+                  rel="noopener noreferrer"
                   className={styles.optionButton}
-                  onClick={handleOpenCalendar}
+                  style={loadingWsp || !numeroWsp ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 >
                   {(() => {
                     const ButtonIcon = iconMap[option.action.icon as IconType];
                     return <ButtonIcon size={18} />;
                   })()}
                   <span>{option.action.text}</span>
-                </button>
+                </a>
               )}
             </div>
           );
         })}
       </div>
 
-      {/* Modal del calendario */}
-      <Modal isOpen={isCalendarOpen} onClose={handleCloseCalendar}>
-        <CalendarBooking
-          selectedServices={selectedServices}
-          onClose={handleCloseCalendar}
-        />
-      </Modal>
+
     </section>
   );
-} 
+}
