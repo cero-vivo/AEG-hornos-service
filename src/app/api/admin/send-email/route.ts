@@ -22,7 +22,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const from = process.env.RESEND_FROM_EMAIL || 'contacto@aeghornos.com.ar';
+    const from = process.env.RESEND_FROM_DOMAIN || 'contacto@aeghornos.com.ar';
+    console.log("🚀 ~ POST ~ from:", from)
     let successCount = 0;
     const errors = [];
 
