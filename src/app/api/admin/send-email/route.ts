@@ -7,10 +7,18 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { customers, subject, html } = body;
+    const BATCH_LIMIT = parseInt(process.env.EMAIL_BATCH_LIMIT || '50', 10);
 
     if (!customers || !Array.isArray(customers) || customers.length === 0) {
       return NextResponse.json(
         { error: 'Se requieren destinatarios' },
+        { status: 400 }
+      );
+    }
+
+    if (customers.length > BATCH_LIMIT) {
+      return NextResponse.json(
+        { error: `El límite máximo es ${BATCH_LIMIT} destinatarios por envío` },
         { status: 400 }
       );
     }

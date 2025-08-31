@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CustomerData } from '@/types/customer';
+import { HelpCircle } from 'lucide-react';
 import styles from './modals.module.css';
 
 const whatsappTemplates = {
@@ -76,6 +77,14 @@ export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps
         <div className={styles.modalHeader}>
           <h2>Enviar WhatsApp a {customers.length === 1 ? customers[0].nombre : `${customers.length} cliente(s)`}</h2>
           <button className={styles.closeButton} onClick={onClose}>×</button>
+          <button 
+            type="button" 
+            onClick={() => alert(`📱 Información de WhatsApp:\n\n• Se abren pestañas separadas para cada cliente\n• Funciona en modo individual (1 cliente) o masivo (varios)\n• Requiere que el cliente tenga número de teléfono registrado\n• Mensajes predefinidos personalizables\n• Compatible con WhatsApp Web y WhatsApp Desktop\n\n💡 Tip: Para envío masivo, se abrirá una pestaña por cada cliente seleccionado.`)} 
+            style={{background: 'none', border: 'none', cursor: 'pointer', marginLeft: '8px'}}
+            title="Ver información sobre WhatsApp"
+          >
+            <HelpCircle size={16} />
+          </button>
         </div>
 
         <div className={styles.modalForm}>

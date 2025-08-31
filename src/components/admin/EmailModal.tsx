@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CustomerData } from '@/types/customer';
+import { HelpCircle } from 'lucide-react';
 import styles from './modals.module.css';
 
 interface AdminCustomer extends CustomerData {
@@ -72,6 +73,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
   const [subject, setSubject] = useState(emailTemplates.welcome.subject);
   const [body, setBody] = useState(emailTemplates.welcome.html);
   const [loading, setLoading] = useState(false);
+  const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
 
   const handleTemplateChange = (template: string) => {
     setSelectedTemplate(template);
@@ -119,8 +121,24 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
         </div>
 
         <div className={styles.modalForm}>
+          {customers.length > BATCH_LIMIT && (
+            <div className={styles.warningBanner}>
+              ⚠️ El límite máximo es {BATCH_LIMIT} destinatarios. Por favor selecciona menos clientes.
+            </div>
+          )}
+          
           <div className={styles.emailList}>
-            <strong>Destinatarios:</strong>
+            <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+              <strong>Destinatarios:</strong>
+              <button 
+                type="button" 
+                onClick={() => alert(`📧 Información de Email:\n\n• Límite máximo: ${BATCH_LIMIT} destinatarios por envío\n• Se envían individualmente para mejor control\n• Las plantillas soportan personalización con {{name}} y {{email}}\n• Los emails llegan desde: ${process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL || 'contacto@aeghornos.com.ar'}\n\n💡 Tip: Selecciona hasta ${BATCH_LIMIT} clientes para enviar en una sola tanda.`)}
+                style={{background: 'none', border: 'none', cursor: 'pointer', padding: '4px'}}
+                title="Ver información sobre el envío de emails"
+              >
+                <HelpCircle size={16} />
+              </button>
+            </div>
             {customers.map(customer => (
               <div key={customer.id} className={styles.emailItem}>
                 {customer.nombre} ({customer.email})

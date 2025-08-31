@@ -27,7 +27,8 @@ export default function AdminPanel() {
     const [filters, setFilters] = useState({
         address: '',
         zone: '',
-        sortOrder: 'desc'
+        sortOrder: 'desc',
+        hasPhone: false
     });
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -62,6 +63,10 @@ export default function AdminPanel() {
                 } else {
                     customerData = customerData.filter(c => c.zona === filters.zone);
                 }
+            }
+
+            if (filters.hasPhone) {
+                customerData = customerData.filter(c => c.telefono && c.telefono.trim() !== '');
             }
 
             if (searchTerm) {
@@ -129,6 +134,8 @@ export default function AdminPanel() {
         return customers.filter(c => selectedCustomers.includes(c.id));
     };
 
+    const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -143,9 +150,11 @@ export default function AdminPanel() {
                     <button
                         className={styles.button}
                         onClick={() => setShowEmailModal(true)}
-                        disabled={selectedCustomers.length === 0}
+                        disabled={selectedCustomers.length === 0 || selectedCustomers.length > BATCH_LIMIT}
+                        title={selectedCustomers.length > BATCH_LIMIT ? `Máximo ${BATCH_LIMIT} destinatarios` : ''}
                     >
                         Enviar Email ({selectedCustomers.length})
+                        {selectedCustomers.length > BATCH_LIMIT && <span style={{color: '#ff6b6b'}}> ⚠️</span>}
                     </button>
                     <button
                         className={styles.button}
@@ -195,9 +204,17 @@ export default function AdminPanel() {
                     <option value="desc">Fecha más reciente</option>
                     <option value="asc">Fecha más antigua</option>
                 </select>
+                <label className={styles.checkboxLabel}>
+                    <input
+                        type="checkbox"
+                        checked={filters.hasPhone}
+                        onChange={(e) => setFilters({ ...filters, hasPhone: e.target.checked })}
+                    />
+                    Con teléfono
+                </label>
                 <button
                     onClick={() => {
-                        setFilters({ address: '', zone: '', sortOrder: 'desc' });
+                        setFilters({ address: '', zone: '', sortOrder: 'desc', hasPhone: false });
                         setSearchTerm('');
                     }}
                     className={styles.button}
