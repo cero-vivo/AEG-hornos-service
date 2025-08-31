@@ -57,7 +57,11 @@ export default function AdminPanel() {
             }
 
             if (filters.zone) {
-                customerData = customerData.filter(c => c.zona === filters.zone);
+                if (filters.zone === 'AMBA+CABA') {
+                    customerData = customerData.filter(c => c.zona === 'AMBA' || c.zona === 'CABA');
+                } else {
+                    customerData = customerData.filter(c => c.zona === filters.zone);
+                }
             }
 
             if (searchTerm) {
