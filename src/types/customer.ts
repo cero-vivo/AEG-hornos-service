@@ -4,7 +4,7 @@ export interface CustomerData {
   email: string;
   telefono: string;
   direccion: string;
-  zona: 'caba' | 'amba' | 'interior';
+  zona: 'CABA' | 'AMBA' | 'Interior';
   descripcionProblema: string;
   selectedServices: string[];
   fechaContacto: Date;
@@ -18,7 +18,7 @@ export interface CustomerFormData {
   email: string;
   telefono: string;
   direccion: string;
-  zona: 'caba' | 'amba' | 'interior';
+  zona: 'CABA' | 'AMBA' | 'Interior';
   descripcionProblema: string;
   selectedServices: string[];
 }

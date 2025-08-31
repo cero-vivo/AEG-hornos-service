@@ -1,0 +1,169 @@
+'use client';
+
+import { CustomerData } from '@/types/customer';
+import styles from '@/app/admin/admin.module.css';
+
+interface AdminCustomer extends CustomerData {
+  id: string;
+}
+
+interface AdminTableProps {
+  customers: AdminCustomer[];
+  loading: boolean;
+  selectedCustomers: Set<string>;
+  onSelectAll: () => void;
+  onSelectCustomer: (id: string) => void;
+  onDelete: (id: string) => void;
+  onSendEmail: (customer: AdminCustomer) => void;
+  onSendWhatsApp: (customer: AdminCustomer) => void;
+  currentPage: number;
+  totalPages: number;
+  itemsPerPage: number;
+  totalItems: number;
+  onPageChange: (page: number) => void;
+}
+
+export default function AdminTable({
+  customers,
+  loading,
+  selectedCustomers,
+  onSelectAll,
+  onSelectCustomer,
+  onDelete,
+  onSendEmail,
+  onSendWhatsApp,
+  currentPage,
+  totalPages,
+  onPageChange
+}: AdminTableProps) {
+  const getZoneClass = (zone: string) => {
+    switch (zone) {
+      case 'AMBA': return styles.zoneAMBA;
+      case 'CABA': return styles.zoneCABA;
+      case 'Interior': return styles.zoneInterior;
+      case 'AMBA+CABA': return styles.zoneAMBA_CABA;
+      default: return '';
+    }
+  };
+
+  const formatDate = (date: any) => {
+    if (!date) return 'N/A';
+    const d = date.toDate ? date.toDate() : new Date(date);
+    return d.toLocaleDateString('es-AR');
+  };
+
+  if (loading) {
+    return <div className={styles.loading}>Cargando clientes...</div>;
+  }
+
+  if (customers.length === 0) {
+    return <div className={styles.empty}>No se encontraron clientes</div>;
+  }
+
+  return (
+    <div className={styles.tableContainer}>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>
+              <input
+                type="checkbox"
+                className={styles.checkbox}
+                checked={selectedCustomers.size === customers.length && customers.length > 0}
+                onChange={onSelectAll}
+              />
+            </th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Zona</th>
+            <th>Dirección</th>
+            <th>Problema</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customers.map((customer) => (
+            <tr key={customer.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    className={styles.checkbox}
+                    checked={selectedCustomers.has(customer.id)}
+                    onChange={() => onSelectCustomer(customer.id)}
+                  />
+                </td>
+                <td>{customer.nombre}</td>
+                <td>{customer.email}</td>
+                <td>{customer.telefono || 'N/A'}</td>
+                <td>
+                  <span className={`${styles.zoneBadge} ${getZoneClass(customer.zona)}`}>
+                    {customer.zona}
+                  </span>
+                </td>
+                <td>{customer.direccion}</td>
+                <td>{customer.descripcionProblema?.substring(0, 50)}...</td>
+                <td>{formatDate(customer.fechaContacto)}</td>
+                <td>
+                  <div className={styles.actionButtons}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => onSendEmail(customer)}
+                      title="Enviar email"
+                    >
+                      📧
+                    </button>
+                    {customer.telefono && (
+                      <button
+                        className={styles.actionButton}
+                        onClick={() => onSendWhatsApp(customer)}
+                        title="Enviar WhatsApp"
+                      >
+                        📱
+                      </button>
+                    )}
+                    <button
+                      className={`${styles.actionButton} ${styles.deleteButton}`}
+                      onClick={() => onDelete(customer.id)}
+                      title="Eliminar"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </td>
+              </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <button
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+          
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => onPageChange(i + 1)}
+              className={currentPage === i + 1 ? styles.active : ''}
+            >
+              {i + 1}
+            </button>
+          ))}
+          
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Siguiente
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -57,7 +57,7 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
         nombre: form.nombre,
         email: form.email,
         telefono: form.telefono,
-        zona: form.zona as 'caba' | 'amba' | 'interior',
+        zona: form.zona as 'CABA' | 'AMBA' | 'Interior',
         direccion: form.direccion,
         descripcionProblema: form.descripcionProblema,
         selectedServices: selectedServices,
@@ -173,9 +173,9 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
               Zona de servicio *
               <select name="zona" value={form.zona} onChange={handleChange} required>
                 <option value="">Seleccionar zona</option>
-                <option value="caba">CABA</option>
-                <option value="amba">AMBA</option>
-                <option value="interior">Interior (videollamada)</option>
+                <option value="CABA">CABA</option>
+            <option value="AMBA">AMBA</option>
+            <option value="Interior">Interior (videollamada)</option>
               </select>
             </label>
             <label>

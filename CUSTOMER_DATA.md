@@ -10,7 +10,7 @@ This feature adds customer data persistence to the contact form, storing all cus
 - **email**: Customer email address
 - **telefono**: Customer phone number
 - **direccion**: Customer address
-- **zona**: Service zone ('caba', 'amba', or 'interior')
+- **zona**: Service zone ('CABA', 'AMBA', or 'Interior')
 - **descripcionProblema**: Problem description provided by customer
 - **selectedServices**: Array of selected services
 - **fechaContacto**: Contact date (automatically set to current date)
