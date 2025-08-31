@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { CustomerData } from '@/types/customer';
 import styles from './modals.module.css';
 
 interface AddCustomerModalProps {

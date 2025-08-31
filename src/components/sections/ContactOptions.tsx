@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { 
   Phone, 
   MessageSquare, 
@@ -33,7 +33,7 @@ interface ContactOptionsProps {
   generateWhatsAppMessage: () => string;
 }
 
-export default function ContactOptions({ selectedServices, generateWhatsAppMessage }: ContactOptionsProps) {
+export default function ContactOptions({ selectedServices, generateWhatsAppMessage }: ContactOptionsProps) { // eslint-disable-line @typescript-eslint/no-unused-vars
   const { contactOptions, company } = content;
   const { numeroWsp, loading: loadingWsp } = useNumeroWsp();
 

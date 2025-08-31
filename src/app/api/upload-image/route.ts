@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     // Verificar que el archivo existe
     try {
       await access(filePath);
-    } catch (error) {
+    } catch {
       console.error('Error: Archivo no encontrado después de guardar:', filePath);
       return NextResponse.json({ error: 'Error al guardar imagen' }, { status: 500 });
     }

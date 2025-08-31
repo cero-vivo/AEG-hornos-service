@@ -1,6 +1,6 @@
 'use client';
 
-import { X, HelpCircle } from 'lucide-react';
+
 import styles from './modals.module.css';
 
 interface InfoModalProps {

@@ -26,5 +26,6 @@ export async function saveCustomerData(formData: CustomerFormData, photoUrls?: s
 export async function uploadCustomerPhotos(files: File[]): Promise<string[]> {
   // This function would handle photo uploads to Firebase Storage
   // For now, returning empty array as placeholder
+  console.log(`Processing ${files.length} files for upload`);
   return [];
 }

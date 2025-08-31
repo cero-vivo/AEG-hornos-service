@@ -85,10 +85,8 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
   });
 
   const [loading, setLoading] = useState(false);
-  const editorRef = React.useRef<{ editor: any } | null>(null);
+  const editorRef = React.useRef<{ editor: any } | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
-
-  const selectedTemplate = watch('template');
 
   const handleTemplateChange = (template: string) => {
     const templateData = emailTemplates[template as keyof typeof emailTemplates];
@@ -208,7 +206,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
                 render={({ field }) => (
                   <Editor
                     apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
-                    onInit={(_evt, editor) => {
+                    onInit={(_evt, editor: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
                       editorRef.current = { editor };
                     }}
                     onEditorChange={(content) => field.onChange(content)}
@@ -230,7 +228,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
                       images_upload_url: '/api/upload-image',
                       automatic_uploads: true,
                       file_picker_types: 'image',
-                      setup: (editor: any) => {
+                      setup: (editor: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
                         editor.on('init', () => {
                           editor.getBody().setAttribute('dir', 'ltr');
                           editor.getBody().style.direction = 'ltr';
