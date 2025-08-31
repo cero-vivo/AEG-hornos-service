@@ -103,6 +103,14 @@
   background: #f8f9fa;
 }
 
+.clickableRow {
+  cursor: pointer;
+}
+
+.clickableRow:hover {
+  background: #f0f9ff !important;
+}
+
 .checkbox {
   width: 16px;
   height: 16px;
