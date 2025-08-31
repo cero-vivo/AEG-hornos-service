@@ -213,13 +213,17 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
                       });
                       
                       if (!response.ok) {
-                        throw new Error('Error al subir imagen');
+                        const errorText = await response.text();
+                        console.error('Upload error response:', errorText);
+                        throw new Error(`Error al subir imagen: ${response.status} ${response.statusText}`);
                       }
                       
                       const result = await response.json();
+                      console.log('Imagen subida - URL:', result.url);
                       return result.url;
                     } catch (error) {
                       console.error('Error uploading image:', error);
+                      alert('Error al subir imagen: ' + (error instanceof Error ? error.message : 'Error desconocido'));
                       throw error;
                     }
                   }

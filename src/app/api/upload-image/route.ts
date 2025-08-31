@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir, access } from 'fs/promises';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
+
+export async function OPTIONS() {
+  const response = new NextResponse(null, { status: 200 });
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  return response;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,10 +44,27 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
     await writeFile(filePath, buffer);
 
-    // Retornar URL pública
-    const imageUrl = `/uploads/images/${fileName}`;
+    // Verificar que el archivo existe
+    try {
+      await access(filePath);
+    } catch (error) {
+      console.error('Error: Archivo no encontrado después de guardar:', filePath);
+      return NextResponse.json({ error: 'Error al guardar imagen' }, { status: 500 });
+    }
 
-    return NextResponse.json({ url: imageUrl });
+    // Retornar URL absoluta para emails
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const imageUrl = `${baseUrl}/uploads/images/${fileName}`;
+
+    console.log('Imagen subida exitosamente:', imageUrl);
+    
+    // Agregar headers CORS para prevenir errores de TinyMCE
+    const response = NextResponse.json({ url: imageUrl });
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return response;
   } catch (error) {
     console.error('Error al subir imagen:', error);
     return NextResponse.json({ error: 'Error al procesar la imagen' }, { status: 500 });
