@@ -13,17 +13,11 @@ interface EditCustomerModalProps {
 }
 
 const AVAILABLE_SERVICES = [
-  'Instalación de hornos',
-  'Reparación de hornos',
-  'Mantenimiento de hornos',
-  'Limpieza de hornos',
-  'Cambio de piezas',
-  'Diagnóstico técnico',
-  'Asesoramiento técnico',
-  'Instalación de campanas',
-  'Reparación de campanas',
-  'Instalación de cocinas',
-  'Reparación de cocinas'
+  'Diagnóstico Profesional',
+  'Mantenimiento Premium',
+  'Reparación Integral',
+  'Asesoría Virtual',
+  'Instalación Completa'
 ];
 
 export default function EditCustomerModal({ customer, onClose, onSuccess }: EditCustomerModalProps) {

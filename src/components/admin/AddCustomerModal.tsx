@@ -130,6 +130,34 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
             />
           </div>
 
+          <div className={styles.formGroup}>
+            <label>Servicios seleccionados</label>
+            <div className={styles.servicesContainer}>
+              {['Diagnóstico Profesional', 'Mantenimiento Premium', 'Reparación Integral', 'Asesoría Virtual', 'Instalación Completa'].map(service => (
+                <label key={service} className={styles.serviceCheckbox}>
+                  <input
+                    type="checkbox"
+                    checked={formData.selectedServices.includes(service)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setFormData(prev => ({
+                          ...prev,
+                          selectedServices: [...prev.selectedServices, service]
+                        }));
+                      } else {
+                        setFormData(prev => ({
+                          ...prev,
+                          selectedServices: prev.selectedServices.filter(s => s !== service)
+                        }));
+                      }
+                    }}
+                  />
+                  <span>{service}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
           <div className={styles.modalActions}>
             <button type="button" className={styles.cancelButton} onClick={onClose}>
               Cancelar

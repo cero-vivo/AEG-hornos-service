@@ -33,7 +33,8 @@ export default function AdminPanel() {
         address: '',
         zone: '',
         sortOrder: 'desc',
-        hasPhone: false
+        hasPhone: false,
+        service: ''
     });
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -72,6 +73,12 @@ export default function AdminPanel() {
 
             if (filters.hasPhone) {
                 customerData = customerData.filter(c => c.telefono && c.telefono.trim() !== '');
+            }
+
+            if (filters.service) {
+                customerData = customerData.filter(c => 
+                    c.selectedServices?.includes(filters.service)
+                );
             }
 
             if (searchTerm) {
@@ -217,6 +224,18 @@ export default function AdminPanel() {
                     <option value="AMBA+CABA">AMBA+CABA</option>
                 </select>
                 <select
+                    value={filters.service}
+                    onChange={(e) => setFilters({ ...filters, service: e.target.value })}
+                    className={styles.filterSelect}
+                >
+                    <option value="">Todos los servicios</option>
+                    <option value="Diagnóstico Profesional">Diagnóstico Profesional</option>
+                    <option value="Mantenimiento Premium">Mantenimiento Premium</option>
+                    <option value="Reparación Integral">Reparación Integral</option>
+                    <option value="Asesoría Virtual">Asesoría Virtual</option>
+                    <option value="Instalación Completa">Instalación Completa</option>
+                </select>
+                <select
                     value={filters.sortOrder}
                     onChange={(e) => setFilters({ ...filters, sortOrder: e.target.value })}
                     className={styles.filterSelect}
@@ -234,17 +253,13 @@ export default function AdminPanel() {
                 </label>
                 <button
                     onClick={() => {
-                        setFilters({ address: '', zone: '', sortOrder: 'desc', hasPhone: false });
+                        setFilters({ address: '', zone: '', sortOrder: 'desc', hasPhone: false, service: '' });
                         setSearchTerm('');
                     }}
                     className={styles.button}
                 >
                     Limpiar Filtros
                 </button>
-            </div>
-
-            <div className={styles.customerCount}>
-                {loading ? 'Cargando...' : `Mostrando ${customers.length} de ${totalItems} clientes`}
             </div>
             <AdminTable
                 customers={customers}
@@ -325,6 +340,7 @@ export default function AdminPanel() {
                                 <li><strong>Búsqueda general:</strong> Busca por email, nombre o zona</li>
                                 <li><strong>Filtro por dirección:</strong> Filtra clientes por dirección específica</li>
                                 <li><strong>Filtro por zona:</strong> Muestra solo clientes de AMBA, CABA, Interior o AMBA+CABA</li>
+                                <li><strong>Filtro por servicio:</strong> Muestra clientes que solicitaron servicios específicos (Diagnóstico, Mantenimiento, Reparación, etc.)</li>
                                 <li><strong>Filtro por teléfono:</strong> Muestra solo clientes que tienen número de teléfono</li>
                                 <li><strong>Ordenamiento:</strong> Ordena por fecha más reciente o más antigua</li>
                             </ul>
