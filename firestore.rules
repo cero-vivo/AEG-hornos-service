@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permitir lectura pública a todos los documentos
+    match /{document=**} {
+      allow read: if true;
+    }
+    
+    // Permitir creación y lectura de clientes para formularios públicos
+    match /customers/{customerId} {
+      allow create: if true;
+      allow read: if true;
+      allow update: if request.auth != null;
+      allow delete: if false;
+    }
+    
+    // Reglas específicas para otras colecciones si las necesitas
+    // match /otherCollection/{documentId} {
+    //   allow read, write: if request.auth != null;
+    // }
+  }
+}

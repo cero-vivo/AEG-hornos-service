@@ -4,6 +4,8 @@ import { useState } from "react";
 import styles from "./ContactForm.module.css";
 import Image from "next/image";
 import { useEmailContacto } from "@/hooks/useEmailContacto";
+import { saveCustomerData } from "@/lib/customerService";
+import { CustomerFormData } from "@/types/customer";
 
 interface ContactFormProps {
   selectedServices?: string[];
@@ -13,7 +15,6 @@ type ServiceZone = 'caba' | 'amba' | 'interior';
 
 export default function ContactForm({ selectedServices = [] }: ContactFormProps) {
   const { emailContacto } = useEmailContacto();
-  console.log("🚀 ~ ContactForm ~ emailContacto:", emailContacto)
 
   const [form, setForm] = useState({ 
     nombre: "", 
@@ -51,6 +52,26 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
     setError("");
     
     try {
+      // Preparar datos para Firestore
+      const customerFormData: CustomerFormData = {
+        nombre: form.nombre,
+        email: form.email,
+        telefono: form.telefono,
+        zona: form.zona as 'caba' | 'amba' | 'interior',
+        direccion: form.direccion,
+        descripcionProblema: form.descripcionProblema,
+        selectedServices: selectedServices,
+      };
+
+      // Guardar en Firestore (no bloquea el envío de email)
+      try {
+        await saveCustomerData(customerFormData);
+      } catch (firestoreError) {
+        console.warn('Error guardando en Firestore:', firestoreError);
+        // Continuar con el email aunque Firestore falle
+      }
+
+      // Preparar y enviar email
       const formData = new FormData();
       
       // Agregar campos de texto
@@ -77,15 +98,17 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
         body: formData,
       });
 
+      const responseData = await response.json();
+
       if (response.ok) {
         setEnviado(true);
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Error al enviar el formulario');
+        console.error('Error del servidor:', responseData);
+        setError(responseData.error || responseData.details || 'Error al enviar el formulario');
       }
     } catch (error) {
       console.error('Error enviando formulario:', error);
-      setError('Error de conexión. Por favor, intenta nuevamente.');
+      setError(`Error de conexión: ${error instanceof Error ? error.message : 'Por favor, intenta nuevamente.'}`);
     } finally {
       setEnviando(false);
     }
@@ -258,4 +281,4 @@ export default function ContactForm({ selectedServices = [] }: ContactFormProps)
       </form>
     </div>
   );
-} 
+}
