@@ -111,16 +111,16 @@ export default function AdminTable({
                       onChange={() => onSelectCustomer(customer.id)}
                     />
                   </td>
-                  <td>{customer.nombre}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.telefono || 'N/A'}</td>
+                  <td className={styles.textCell} title={customer.nombre}>{customer.nombre}</td>
+                  <td className={styles.emailCell} title={customer.email}>{customer.email}</td>
+                  <td className={styles.textCell} title={customer.telefono}>{customer.telefono || 'N/A'}</td>
                   <td>
                     <span className={`${styles.zoneBadge} ${getZoneClass(customer.zona)}`}>
                       {customer.zona}
                     </span>
                   </td>
-                  <td>{customer.direccion}</td>
-                  <td>{customer.descripcionProblema?.substring(0, 50)}...</td>
+                  <td className={styles.addressCell} title={customer.direccion}>{customer.direccion}</td>
+                  <td className={styles.problemCell} title={customer.descripcionProblema}>{customer.descripcionProblema?.substring(0, 50)}...</td>
                   <td>{formatDate(customer.fechaContacto)}</td>
                   <td onClick={(e) => e.stopPropagation()}>
                     <div className={styles.actionButtons}>
