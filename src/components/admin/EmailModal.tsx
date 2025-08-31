@@ -89,7 +89,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          customers: customers.map(c => ({ email: c.email, name: c.name })),
+          customers: customers.map(c => ({ email: c.email, name: c.nombre })),
           subject,
           html: body
         }),
@@ -123,7 +123,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
             <strong>Destinatarios:</strong>
             {customers.map(customer => (
               <div key={customer.id} className={styles.emailItem}>
-                {customer.name} ({customer.email})
+                {customer.nombre} ({customer.email})
               </div>
             ))}
           </div>

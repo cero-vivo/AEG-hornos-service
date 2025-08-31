@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { collection, getDocs, deleteDoc, doc, query, orderBy, limit, startAfter } from 'firebase/firestore';
+import { useState, useEffect, useCallback } from 'react';
+import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { CustomerData } from '@/types/customer';
 import AdminTable from '@/components/admin/AdminTable';
@@ -33,19 +33,11 @@ export default function AdminPanel() {
 
     const ITEMS_PER_PAGE = 20;
 
-    useEffect(() => {
-        loadCustomers();
-    }, [currentPage, filters, searchTerm]);
-
-    useEffect(() => {
-        setCurrentPage(1); // Reset to first page when filters change
-    }, [filters, searchTerm]);
-
-    const loadCustomers = async () => {
+    const loadCustomers = useCallback(async () => {
         try {
             setLoading(true);
             // Primero obtenemos todos los clientes sin límite
-            let q = query(collection(db, 'customers'), orderBy('fechaContacto', filters.sortOrder === 'asc' ? 'asc' : 'desc'));
+            const q = query(collection(db, 'customers'), orderBy('fechaContacto', filters.sortOrder === 'asc' ? 'asc' : 'desc'));
 
             const snapshot = await getDocs(q);
             console.log("🚀 ~ loadCustomers ~ snapshot:", snapshot)
@@ -92,7 +84,15 @@ export default function AdminPanel() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [filters, searchTerm, currentPage]);
+
+    useEffect(() => {
+        loadCustomers();
+    }, [loadCustomers]);
+
+    useEffect(() => {
+        setCurrentPage(1); // Reset to first page when filters change
+    }, [filters, searchTerm]);
 
     const handleDelete = async (id: string) => {
         if (window.confirm('¿Estás seguro de eliminar este cliente?')) {

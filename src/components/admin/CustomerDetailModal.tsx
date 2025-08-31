@@ -1,7 +1,7 @@
 'use client';
 
 import { CustomerData } from '@/types/customer';
-import { X, Mail, Phone, MapPin, Calendar, MessageCircle } from 'lucide-react';
+import { X, Mail, MessageCircle } from 'lucide-react';
 import styles from './CustomerDetailModal.module.css';
 
 interface AdminCustomer extends CustomerData {
@@ -25,9 +25,9 @@ export default function CustomerDetailModal({
 }: CustomerDetailModalProps) {
   if (!isOpen || !customer) return null;
 
-  const formatDate = (date: any) => {
+  const formatDate = (date: Date | { toDate: () => Date } | string | undefined) => {
     if (!date) return 'N/A';
-    const d = date.toDate ? date.toDate() : new Date(date);
+    const d = typeof date === 'object' && 'toDate' in date ? date.toDate() : new Date(date);
     return d.toLocaleDateString('es-AR', {
       day: '2-digit',
       month: '2-digit',

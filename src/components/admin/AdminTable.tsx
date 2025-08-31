@@ -51,9 +51,9 @@ export default function AdminTable({
     }
   };
 
-  const formatDate = (date: any) => {
+  const formatDate = (date: Date | { toDate: () => Date } | string | undefined) => {
     if (!date) return 'N/A';
-    const d = date.toDate ? date.toDate() : new Date(date);
+    const d = typeof date === 'object' && 'toDate' in date ? date.toDate() : new Date(date);
     return d.toLocaleDateString('es-AR');
   };
 

@@ -83,7 +83,7 @@ export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps
             <strong>Clientes con teléfono:</strong>
             {customers.map(customer => (
               <div key={customer.id} className={styles.emailItem}>
-                {customer.name} ({customer.phone})
+                {customer.nombre} ({customer.telefono})
               </div>
             ))}
           </div>
@@ -109,7 +109,7 @@ export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps
               >
                 {customers.map(customer => (
                   <option key={customer.id} value={customer.id}>
-                    {customer.name} - {customer.phone}
+                    {customer.nombre} - {customer.telefono}
                   </option>
                 ))}
               </select>
@@ -157,9 +157,9 @@ export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps
                 type="button" 
                 className={styles.submitButton} 
                 onClick={handleSendIndividual}
-                disabled={!selectedCustomer || !selectedCustomer.phone}
+                disabled={!selectedCustomer || !selectedCustomer.telefono}
               >
-                Enviar a {selectedCustomer?.name}
+                Enviar a {selectedCustomer?.nombre}
               </button>
             ) : (
               <button 
