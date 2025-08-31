@@ -113,12 +113,6 @@ export default function CustomerDetailModal({
                 <strong>Fecha de contacto:</strong>
                 <span>{formatDate(customer.fechaContacto)}</span>
               </div>
-              <div className={styles.infoItem}>
-                <strong>Estado:</strong>
-                <span className={`${styles.status} ${styles[customer.estado || '']}`}>
-                  {customer.estado || ''}
-                </span>
-              </div>
             </div>
           </div>
 
