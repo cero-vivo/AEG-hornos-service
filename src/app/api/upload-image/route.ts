@@ -3,14 +3,6 @@ import { writeFile, mkdir, access } from 'fs/promises';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
 
-export async function OPTIONS() {
-  const response = new NextResponse(null, { status: 200 });
-  response.headers.set('Access-Control-Allow-Origin', '*');
-  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-  return response;
-}
-
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();

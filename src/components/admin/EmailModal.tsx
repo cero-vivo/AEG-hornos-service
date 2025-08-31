@@ -73,7 +73,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
   const [subject, setSubject] = useState(emailTemplates.welcome.subject);
   const [body, setBody] = useState(emailTemplates.welcome.html);
   const [loading, setLoading] = useState(false);
-  const editorRef = React.useRef<{ editor: any } | null>(null);
+  const editorRef = React.useRef<{ editor: any } | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
 
   console.log("TINY_API_KEY", process.env.NEXT_PUBLIC_TINY_API_KEY)
@@ -213,9 +213,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
                       });
                       
                       if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error('Upload error response:', errorText);
-                        throw new Error(`Error al subir imagen: ${response.status} ${response.statusText}`);
+                        throw new Error('Error al subir imagen');
                       }
                       
                       const result = await response.json();
@@ -223,7 +221,6 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
                       return result.url;
                     } catch (error) {
                       console.error('Error uploading image:', error);
-                      alert('Error al subir imagen: ' + (error instanceof Error ? error.message : 'Error desconocido'));
                       throw error;
                     }
                   }
