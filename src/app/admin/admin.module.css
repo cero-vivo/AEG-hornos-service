@@ -111,20 +111,43 @@
 .actionButtons {
   display: flex;
   gap: 8px;
+  align-items: center;
+}
+
+.actionButton {
+  padding: 8px;
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  height: 32px;
+}
+
+.actionButton:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.actionButton:hover svg {
+  stroke-width: 2.5;
 }
 
 .deleteButton {
-  padding: 6px 12px;
-  background: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
+  background: #fff;
+  color: #dc3545;
+  border-color: #dc3545;
 }
 
 .deleteButton:hover {
-  background: #c82333;
+  background: #dc3545;
+  color: white;
 }
 
 .pagination {

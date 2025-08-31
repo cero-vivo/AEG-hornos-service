@@ -1,6 +1,7 @@
 'use client';
 
 import { CustomerData } from '@/types/customer';
+import { Mail, MessageCircle, Trash2 } from 'lucide-react';
 import styles from '@/app/admin/admin.module.css';
 
 interface AdminCustomer extends CustomerData {
@@ -112,7 +113,7 @@ export default function AdminTable({
                       onClick={() => onSendEmail(customer)}
                       title="Enviar email"
                     >
-                      📧
+                      <Mail size={16} />
                     </button>
                     {customer.telefono && (
                       <button
@@ -120,7 +121,7 @@ export default function AdminTable({
                         onClick={() => onSendWhatsApp(customer)}
                         title="Enviar WhatsApp"
                       >
-                        📱
+                        <MessageCircle size={16} />
                       </button>
                     )}
                     <button
@@ -128,7 +129,7 @@ export default function AdminTable({
                       onClick={() => onDelete(customer.id)}
                       title="Eliminar"
                     >
-                      🗑️
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </td>
