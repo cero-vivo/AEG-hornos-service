@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Service de Hornos de Cerámica en CABA, Zona Norte y Pilar | AEG Hornos",
+  title: "Service/Reparación de Hornos de Cerámica en CABA, Zona Norte y Pilar | AEG Hornos",
   description:
     "Especialistas en reparación, mantenimiento e instalación de hornos de cerámica en CABA, Zona Norte (Pilar, San Isidro, Vicente López, Tigre, Escobar, San Fernando, Martínez, Olivos, Belgrano, Palermo, Recoleta, Núñez, Colegiales, Saavedra, Villa Urquiza, Villa Crespo, Caballito, Almagro, Retiro, Microcentro, y más). Técnicos certificados, repuestos originales y garantía escrita. ¡Solicitá tu diagnóstico!",
   keywords: [
