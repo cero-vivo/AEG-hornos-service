@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 import { CustomerData } from '@/types/customer';
 import { HelpCircle } from 'lucide-react';
 import styles from './modals.module.css';
@@ -17,54 +18,53 @@ interface EmailModalProps {
 const emailTemplates = {
   welcome: {
     subject: 'Bienvenido a AEG Hornos - Servicio Técnico Especializado',
-    html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #007bff;">¡Bienvenido a AEG Hornos!</h2>
-      <p>Gracias por contactarnos. Nuestro equipo de técnicos especializados está listo para ayudarte con tu horno AEG.</p>
-      <p><strong>Servicios que ofrecemos:</strong></p>
-      <ul>
-        <li>Diagnóstico gratuito</li>
-        <li>Reparación de hornos AEG</li>
-        <li>Mantenimiento preventivo</li>
-        <li>Instalación de repuestos originales</li>
-      </ul>
-      <p style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
-        <strong>¿Necesitas ayuda urgente?</strong><br>
-        📞 Teléfono: 11-1234-5678<br>
-        📧 Email: contacto@aeghornos.com.ar
-      </p>
-    </div>`
+    html: `<h2>¡Bienvenido a AEG Hornos!</h2>
+<p>Gracias por contactarnos. Nuestro equipo de técnicos especializados está listo para ayudarte con tu horno AEG.</p>
+
+<p><strong>Servicios que ofrecemos:</strong></p>
+<ul>
+  <li>Diagnóstico gratuito</li>
+  <li>Reparación de hornos AEG</li>
+  <li>Mantenimiento preventivo</li>
+  <li>Instalación de repuestos originales</li>
+</ul>
+
+<div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+  <p><strong>¿Necesitas ayuda urgente?</strong></p>
+  <p>📞 Teléfono: 11-1234-5678<br>
+  📧 Email: contacto@aeghornos.com.ar</p>
+</div>`
   },
   followup: {
     subject: 'Seguimiento - Servicio Técnico AEG Hornos',
-    html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #007bff;">Seguimiento de tu solicitud</h2>
-      <p>Hola, queremos asegurarnos de que recibiste toda la información necesaria sobre nuestros servicios.</p>
-      <p>Si tienes alguna pregunta o necesitas agendar una visita técnica, no dudes en contactarnos.</p>
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-        <h3>¿Cómo agendar un servicio?</h3>
-        <p>📞 Llamanos: 11-1234-5678<br>
-        📱 WhatsApp: +54 9 11 1234-5678<br>
-        📧 Email: contacto@aeghornos.com.ar</p>
-      </div>
-    </div>`
+    html: `<h2>Seguimiento de tu solicitud</h2>
+<p>Hola, queremos asegurarnos de que recibiste toda la información necesaria sobre nuestros servicios.</p>
+
+<p>Si tienes alguna pregunta o necesitas agendar una visita técnica, no dudes en contactarnos.</p>
+
+<div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+  <h3>¿Cómo agendar un servicio?</h3>
+  <p>📞 Llamanos: 11-1234-5678<br>
+  📱 WhatsApp: +54 9 11 1234-5678<br>
+  📧 Email: contacto@aeghornos.com.ar</p>
+</div>`
   },
   promotion: {
     subject: 'Promoción especial - Mantenimiento de hornos AEG',
-    html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #28a745;">¡Promoción Especial!</h2>
-      <p>¿Tu horno AEG necesita mantenimiento? Aprovecha nuestra promoción especial.</p>
-      <div style="background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <h3>20% de descuento en servicio de mantenimiento</h3>
-        <p>Incluye:</p>
-        <ul>
-          <li>Limpieza profunda</li>
-          <li>Revisión completa del sistema</li>
-          <li>Calibración de temperatura</li>
-          <li>Revisión de sellos y piezas</li>
-        </ul>
-        <p><strong>Válido hasta:</strong> ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('es-AR')}</p>
-      </div>
-    </div>`
+    html: `<h2>¡Promoción Especial!</h2>
+<p>¿Tu horno AEG necesita mantenimiento? Aprovecha nuestra promoción especial.</p>
+
+<div style="background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0;">
+  <h3>20% de descuento en servicio de mantenimiento</h3>
+  <p><strong>Incluye:</strong></p>
+  <ul>
+    <li>Limpieza profunda</li>
+    <li>Revisión completa del sistema</li>
+    <li>Calibración de temperatura</li>
+    <li>Revisión de sellos y piezas</li>
+  </ul>
+  <p><strong>Válido hasta:</strong> ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('es-AR')}</p>
+</div>`
   }
 };
 
@@ -73,12 +73,19 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
   const [subject, setSubject] = useState(emailTemplates.welcome.subject);
   const [body, setBody] = useState(emailTemplates.welcome.html);
   const [loading, setLoading] = useState(false);
+  const editorRef = React.useRef<{ editor: any } | null>(null);
   const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
+
+  console.log("TINY_API_KEY", process.env.NEXT_PUBLIC_TINY_API_KEY)
 
   const handleTemplateChange = (template: string) => {
     setSelectedTemplate(template);
     setSubject(emailTemplates[template as keyof typeof emailTemplates].subject);
-    setBody(emailTemplates[template as keyof typeof emailTemplates].html);
+    const newBody = emailTemplates[template as keyof typeof emailTemplates].html;
+    setBody(newBody);
+    if (editorRef.current) {
+      editorRef.current.editor.setContent(newBody);
+    }
   };
 
   const handleSend = async () => {
@@ -114,7 +121,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className={`${styles.modal} ${styles.wide}`} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <h2>Enviar Email a {customers.length} cliente(s)</h2>
           <button className={styles.closeButton} onClick={onClose}>×</button>
@@ -171,12 +178,52 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
             </div>
 
             <div className={styles.emailField}>
-              <label>Contenido HTML:</label>
-              <textarea
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                rows={10}
-                className={styles.formTextarea}
+              <label>Editor de contenido (WYSIWYG): {process.env.NEXT_PUBLIC_TINY_API_KEY}</label>
+              <Editor
+                apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                onInit={(_evt, editor) => {
+                  editorRef.current = { editor };
+                }}
+                onEditorChange={(content) => setBody(content)}
+                initialValue={body}
+                init={{
+                  height: 600,
+                  menubar: false,
+                  plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                    'bold italic forecolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'image link | removeformat | help',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                  images_upload_url: '/api/upload-image',
+                  automatic_uploads: true,
+                  file_picker_types: 'image',
+                  images_upload_handler: async (blobInfo: { filename: () => string; blob: () => Blob }) => {
+                    try {
+                      const formData = new FormData();
+                      formData.append('file', blobInfo.blob());
+                      
+                      const response = await fetch('/api/upload-image', {
+                        method: 'POST',
+                        body: formData,
+                      });
+                      
+                      if (!response.ok) {
+                        throw new Error('Error al subir imagen');
+                      }
+                      
+                      const result = await response.json();
+                      return result.url;
+                    } catch (error) {
+                      console.error('Error uploading image:', error);
+                      throw error;
+                    }
+                  }
+                }}
               />
             </div>
 
