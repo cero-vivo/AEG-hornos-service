@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { CustomerData } from '@/types/customer';
-import { Mail, MessageCircle, Trash2 } from 'lucide-react';
+import { Mail, MessageCircle, Trash2, Edit3 } from 'lucide-react';
 import CustomerDetailModal from './CustomerDetailModal';
 import styles from '@/app/admin/admin.module.css';
 
@@ -17,6 +17,7 @@ interface AdminTableProps {
   onSelectAll: () => void;
   onSelectCustomer: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit: (customer: AdminCustomer) => void;
   onSendEmail: (customer: AdminCustomer) => void;
   onSendWhatsApp: (customer: AdminCustomer) => void;
   currentPage: number;
@@ -33,6 +34,7 @@ export default function AdminTable({
   onSelectAll,
   onSelectCustomer,
   onDelete,
+  onEdit,
   onSendEmail,
   onSendWhatsApp,
   currentPage,
@@ -122,6 +124,16 @@ export default function AdminTable({
                   <td>{formatDate(customer.fechaContacto)}</td>
                   <td onClick={(e) => e.stopPropagation()}>
                     <div className={styles.actionButtons}>
+                      <button
+                        className={styles.actionButton}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onEdit(customer);
+                        }}
+                        title="Editar cliente"
+                      >
+                        <Edit3 size={16} />
+                      </button>
                       <button
                         className={styles.actionButton}
                         onClick={(e) => {

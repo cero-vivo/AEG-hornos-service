@@ -6,6 +6,7 @@ import { db } from '@/lib/firebase';
 import { CustomerData } from '@/types/customer';
 import AdminTable from '@/components/admin/AdminTable';
 import AddCustomerModal from '@/components/admin/AddCustomerModal';
+import EditCustomerModal from '@/components/admin/EditCustomerModal';
 import EmailModal from '@/components/admin/EmailModal';
 import WhatsAppModal from '@/components/admin/WhatsAppModal';
 import styles from './admin.module.css';
@@ -19,6 +20,8 @@ export default function AdminPanel() {
     const [loading, setLoading] = useState(true);
     const [selectedCustomers, setSelectedCustomers] = useState<string[]>([]);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editingCustomer, setEditingCustomer] = useState<(CustomerData & { id: string }) | null>(null);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -112,6 +115,11 @@ export default function AdminPanel() {
                 console.error('Error deleting customer:', error);
             }
         }
+    };
+
+    const handleEdit = (customer: CustomerData & { id: string }) => {
+        setEditingCustomer(customer);
+        setShowEditModal(true);
     };
 
     const handleSelectAll = () => {
@@ -233,6 +241,7 @@ export default function AdminPanel() {
                 onSelectAll={handleSelectAll}
                 onSelectCustomer={handleSelectCustomer}
                 onDelete={handleDelete}
+                onEdit={handleEdit}
                 onSendEmail={(customer) => setShowEmailModal(true)}
                 onSendWhatsApp={(customer) => {
                 setSelectedCustomers([customer.id]);
@@ -250,6 +259,21 @@ export default function AdminPanel() {
                     onClose={() => setShowAddModal(false)}
                     onSuccess={() => {
                         setShowAddModal(false);
+                        loadCustomers();
+                    }}
+                />
+            )}
+
+            {showEditModal && editingCustomer && (
+                <EditCustomerModal
+                    customer={editingCustomer}
+                    onClose={() => {
+                        setShowEditModal(false);
+                        setEditingCustomer(null);
+                    }}
+                    onSuccess={() => {
+                        setShowEditModal(false);
+                        setEditingCustomer(null);
                         loadCustomers();
                     }}
                 />
