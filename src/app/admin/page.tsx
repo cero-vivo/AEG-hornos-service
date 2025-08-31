@@ -251,11 +251,14 @@ export default function AdminPanel() {
                 onSelectCustomer={handleSelectCustomer}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
-                onSendEmail={(customer) => setShowEmailModal(true)}
+                onSendEmail={(customer) => {
+                    setSelectedCustomers([customer.id]);
+                    setShowEmailModal(true);
+                }}
                 onSendWhatsApp={(customer) => {
-                setSelectedCustomers([customer.id]);
-                setShowWhatsAppModal(true);
-              }}
+                    setSelectedCustomers([customer.id]);
+                    setShowWhatsAppModal(true);
+                }}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 itemsPerPage={ITEMS_PER_PAGE}
