@@ -66,6 +66,7 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
               onChange={handleChange}
               required
               className={styles.formInput}
+              placeholder='Ej: Juan Pérez García'
             />
           </div>
 
@@ -78,6 +79,7 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
               onChange={handleChange}
               required
               className={styles.formInput}
+              placeholder='juan.perez@email.com'
             />
           </div>
 
@@ -89,6 +91,7 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
               value={formData.telefono}
               onChange={handleChange}
               className={styles.formInput}
+              placeholder='+54 9 11 1234-5678 (Incluye código de país y característica)'
             />
           </div>
 
@@ -115,6 +118,7 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
               value={formData.direccion}
               onChange={handleChange}
               className={styles.formInput}
+              placeholder='Ej: Av. Corrientes 1234, CABA - Incluye calle, altura, barrio y código postal'
             />
           </div>
 
@@ -126,6 +130,7 @@ export default function AddCustomerModal({ onClose, onSuccess }: AddCustomerModa
               onChange={handleChange}
               rows={4}
               className={styles.formTextarea}
+              placeholder='Escribe aquí observaciones, seguimientos o acuerdos con el cliente...'
             />
           </div>
 

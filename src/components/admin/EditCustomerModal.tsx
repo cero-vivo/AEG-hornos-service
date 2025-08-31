@@ -103,6 +103,7 @@ export default function EditCustomerModal({ customer, onClose, onSuccess }: Edit
             <input
               type="tel"
               name="telefono"
+              placeholder='+5491112345678 (Incluye código de país y característica)'
               value={formData.telefono}
               onChange={handleChange}
               className={styles.formInput}
@@ -129,6 +130,7 @@ export default function EditCustomerModal({ customer, onClose, onSuccess }: Edit
             <input
               type="text"
               name="direccion"
+              placeholder='Ej: Av. Corrientes 1234, CABA - Incluye calle, altura, barrio y código postal'
               value={formData.direccion}
               onChange={handleChange}
               className={styles.formInput}
@@ -141,6 +143,7 @@ export default function EditCustomerModal({ customer, onClose, onSuccess }: Edit
               name="descripcionProblema"
               value={formData.descripcionProblema}
               onChange={handleChange}
+              placeholder='Escribe aquí observaciones, seguimientos o acuerdos con el cliente...'
               rows={4}
               className={styles.formTextarea}
             />
