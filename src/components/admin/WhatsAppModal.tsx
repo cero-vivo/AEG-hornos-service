@@ -35,7 +35,7 @@ interface WhatsAppModalProps {
 export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('greeting');
   const [customMessage, setCustomMessage] = useState(whatsappTemplates.greeting.message);
-  const [individualMode, setIndividualMode] = useState(false);
+  const [individualMode, setIndividualMode] = useState(customers.length === 1);
   const [selectedCustomer, setSelectedCustomer] = useState<AdminCustomer | null>(customers[0] || null);
 
   const generateWhatsAppLink = (telefono: string, message: string) => {
@@ -74,7 +74,7 @@ export default function WhatsAppModal({ customers, onClose }: WhatsAppModalProps
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <h2>Enviar WhatsApp a {customers.length} cliente(s)</h2>
+          <h2>Enviar WhatsApp a {customers.length === 1 ? customers[0].nombre : `${customers.length} cliente(s)`}</h2>
           <button className={styles.closeButton} onClick={onClose}>×</button>
         </div>
 
