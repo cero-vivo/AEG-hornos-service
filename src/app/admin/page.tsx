@@ -9,6 +9,7 @@ import AddCustomerModal from '@/components/admin/AddCustomerModal';
 import EditCustomerModal from '@/components/admin/EditCustomerModal';
 import EmailModal from '@/components/admin/EmailModal';
 import WhatsAppModal from '@/components/admin/WhatsAppModal';
+import InfoModal from '@/components/admin/InfoModal';
 import styles from './admin.module.css';
 
 interface AdminCustomer extends CustomerData {
@@ -24,6 +25,7 @@ export default function AdminPanel() {
     const [editingCustomer, setEditingCustomer] = useState<(CustomerData & { id: string }) | null>(null);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
+    const [showHelpModal, setShowHelpModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
@@ -175,6 +177,13 @@ export default function AdminPanel() {
                             customers.find(c => c.id === id)?.telefono
                         ).length})
                     </button>
+                    <button
+                        className={`${styles.button} ${styles.helpButton}`}
+                        onClick={() => setShowHelpModal(true)}
+                        title="Ayuda - Cómo funciona el panel"
+                    >
+                        ?
+                    </button>
                 </div>
             </header>
 
@@ -290,6 +299,53 @@ export default function AdminPanel() {
                 <WhatsAppModal
                     customers={getSelectedCustomersData().filter(c => c.telefono)}
                     onClose={() => setShowWhatsAppModal(false)}
+                />
+            )}
+
+            {showHelpModal && (
+                <InfoModal
+                    title="Cómo funciona el Panel de Administración"
+                    content={
+                        <div>
+                            <h3>📋 Gestión de Clientes</h3>
+                            <ul>
+                                <li><strong>Agregar Cliente:</strong> Crea nuevos registros de clientes con todos sus datos y servicios</li>
+                                <li><strong>Editar Cliente:</strong> Modifica cualquier información del cliente haciendo clic en el botón ✏️</li>
+                                <li><strong>Eliminar Cliente:</strong> Borra registros permanentemente con el botón 🗑️</li>
+                            </ul>
+
+                            <h3>🔍 Filtros y Búsqueda</h3>
+                            <ul>
+                                <li><strong>Búsqueda general:</strong> Busca por email, nombre o zona</li>
+                                <li><strong>Filtro por dirección:</strong> Filtra clientes por dirección específica</li>
+                                <li><strong>Filtro por zona:</strong> Muestra solo clientes de AMBA, CABA, Interior o AMBA+CABA</li>
+                                <li><strong>Filtro por teléfono:</strong> Muestra solo clientes que tienen número de teléfono</li>
+                                <li><strong>Ordenamiento:</strong> Ordena por fecha más reciente o más antigua</li>
+                            </ul>
+
+                            <h3>📧 Comunicación Masiva</h3>
+                            <ul>
+                                <li><strong>Email:</strong> Selecciona clientes con la casilla de verificación y envíales emails</li>
+                                <li><strong>WhatsApp:</strong> Envía mensajes por WhatsApp solo a clientes con número registrado</li>
+                                <li><strong>Límite de emails:</strong> Máximo 50 destinatarios por lote por seguridad</li>
+                            </ul>
+
+                            <h3>🎯 Selección de Clientes</h3>
+                            <ul>
+                                <li><strong>Selección individual:</strong> Marca/desmarca clientes con las casillas individuales</li>
+                                <li><strong>Selección total:</strong> Usa la casilla del encabezado para seleccionar todos los visibles</li>
+                                <li><strong>Contador:</strong> Los botones muestran cuántos clientes seleccionados son elegibles</li>
+                            </ul>
+
+                            <h3>📊 Información Adicional</h3>
+                            <ul>
+                                <li><strong>Detalles del cliente:</strong> Haz clic en cualquier fila para ver información completa</li>
+                                <li><strong>Paginación:</strong> Navega entre páginas con los controles inferiores</li>
+                                <li><strong>Estadísticas:</strong> Muestra cuántos clientes hay en total y cuántos se están mostrando</li>
+                            </ul>
+                        </div>
+                    }
+                    onClose={() => setShowHelpModal(false)}
                 />
             )}
         </div>
