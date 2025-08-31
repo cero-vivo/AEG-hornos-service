@@ -12,7 +12,7 @@ export default function Hero() {
     <section id="inicio" className={styles.hero}>
       <div className={styles.heroContent}>
         <div className={styles.heroText}>
-
+          <div className={styles.logo}>{company.name}</div>
           
           <div className={styles.badge}>
             <Flame className={styles.badgeIcon} size={16} />
