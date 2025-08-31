@@ -115,6 +115,12 @@ export default function AdminPanel() {
         setCurrentPage(1); // Reset to first page when filters change
     }, [filters, searchTerm]);
 
+    useEffect(() => {
+        // Clear selected customers that are no longer in the filtered list
+        const availableCustomerIds = new Set(customers.map(c => c.id));
+        setSelectedCustomers(prev => prev.filter(id => availableCustomerIds.has(id)));
+    }, [customers]);
+
     const handleDelete = async (id: string) => {
         if (window.confirm('¿Estás seguro de eliminar este cliente?')) {
             try {
@@ -349,7 +355,7 @@ export default function AdminPanel() {
                             <ul>
                                 <li><strong>Email:</strong> Selecciona clientes con la casilla de verificación y envíales emails</li>
                                 <li><strong>WhatsApp:</strong> Envía mensajes por WhatsApp solo a clientes con número registrado</li>
-                                <li><strong>Límite de emails:</strong> Máximo 50 destinatarios por lote por seguridad</li>
+                                <li><strong>Límite de emails:</strong> Máximo 50 destinatarios por limite del proveedor</li>
                             </ul>
 
                             <h3>🎯 Selección de Clientes</h3>
