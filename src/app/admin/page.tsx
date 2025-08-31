@@ -149,7 +149,10 @@ export default function AdminPanel() {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <h1>Panel de Administración</h1>
+                <div className={styles.logoContainer}>
+                    <div className={styles.logo}>AEG</div>
+                    <h1>Panel de Administración</h1>
+                </div>
                 <div className={styles.actions}>
                     <button
                         className={styles.button}
