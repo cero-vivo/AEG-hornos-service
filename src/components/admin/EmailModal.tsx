@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { Editor } from '@tinymce/tinymce-react';
 import { CustomerData } from '@/types/customer';
 import { HelpCircle } from 'lucide-react';
@@ -13,6 +14,12 @@ interface AdminCustomer extends CustomerData {
 interface EmailModalProps {
   customers: AdminCustomer[];
   onClose: () => void;
+}
+
+interface EmailFormData {
+  template: string;
+  subject: string;
+  body: string;
 }
 
 const emailTemplates = {
@@ -69,26 +76,31 @@ const emailTemplates = {
 };
 
 export default function EmailModal({ customers, onClose }: EmailModalProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState('welcome');
-  const [subject, setSubject] = useState(emailTemplates.welcome.subject);
-  const [body, setBody] = useState(emailTemplates.welcome.html);
+  const { control, handleSubmit, setValue, watch } = useForm<EmailFormData>({
+    defaultValues: {
+      template: 'welcome',
+      subject: emailTemplates.welcome.subject,
+      body: emailTemplates.welcome.html
+    }
+  });
+
   const [loading, setLoading] = useState(false);
-  const editorRef = React.useRef<{ editor: any } | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const editorRef = React.useRef<{ editor: any } | null>(null);
   const BATCH_LIMIT = parseInt(process.env.NEXT_PUBLIC_EMAIL_BATCH_LIMIT || '50', 10);
 
-  console.log("TINY_API_KEY", process.env.NEXT_PUBLIC_TINY_API_KEY)
+  const selectedTemplate = watch('template');
 
   const handleTemplateChange = (template: string) => {
-    setSelectedTemplate(template);
-    setSubject(emailTemplates[template as keyof typeof emailTemplates].subject);
-    const newBody = emailTemplates[template as keyof typeof emailTemplates].html;
-    setBody(newBody);
+    const templateData = emailTemplates[template as keyof typeof emailTemplates];
+    setValue('template', template);
+    setValue('subject', templateData.subject);
+    setValue('body', templateData.html);
     if (editorRef.current) {
-      editorRef.current.editor.setContent(newBody);
+      editorRef.current.editor.setContent(templateData.html);
     }
   };
 
-  const handleSend = async () => {
+  const onSubmit = async (data: EmailFormData) => {
     setLoading(true);
 
     try {
@@ -99,8 +111,8 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
         },
         body: JSON.stringify({
           customers: customers.map(c => ({ email: c.email, name: c.nombre })),
-          subject,
-          html: body
+          subject: data.subject,
+          html: data.body
         }),
       });
 
@@ -127,7 +139,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
           <button className={styles.closeButton} onClick={onClose}>×</button>
         </div>
 
-        <div className={styles.modalForm}>
+        <form className={styles.modalForm} onSubmit={handleSubmit(onSubmit)}>
           {customers.length > BATCH_LIMIT && (
             <div className={styles.warningBanner}>
               ⚠️ El límite máximo es {BATCH_LIMIT} destinatarios. Por favor selecciona menos clientes.
@@ -155,76 +167,101 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
 
           <div className={styles.templateSelector}>
             <label>Plantilla de email:</label>
-            <select
-              value={selectedTemplate}
-              onChange={(e) => handleTemplateChange(e.target.value)}
-              className={styles.formSelect}
-            >
-              <option value="welcome">Bienvenida</option>
-              <option value="followup">Seguimiento</option>
-              <option value="promotion">Promoción</option>
-            </select>
+            <Controller
+              name="template"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  onChange={(e) => handleTemplateChange(e.target.value)}
+                  className={styles.formSelect}
+                >
+                  <option value="welcome">Bienvenida</option>
+                  <option value="followup">Seguimiento</option>
+                  <option value="promotion">Promoción</option>
+                </select>
+              )}
+            />
           </div>
 
           <div className={styles.emailEditor}>
             <div className={styles.emailField}>
               <label>Asunto:</label>
-              <input
-                type="text"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className={styles.formInput}
+              <Controller
+                name="subject"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    className={styles.formInput}
+                  />
+                )}
               />
             </div>
 
             <div className={styles.emailField}>
-              <label>Editor de contenido (WYSIWYG): {process.env.NEXT_PUBLIC_TINY_API_KEY}</label>
-              <Editor
-                apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
-                onInit={(_evt, editor) => {
-                  editorRef.current = { editor };
-                }}
-                onEditorChange={(content) => setBody(content)}
-                initialValue={body}
-                init={{
-                  height: 600,
-                  menubar: false,
-                  plugins: [
-                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                  ],
-                  toolbar: 'undo redo | blocks | ' +
-                    'bold italic forecolor | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'image link | removeformat | help',
-                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                  images_upload_url: '/api/upload-image',
-                  automatic_uploads: true,
-                  file_picker_types: 'image',
-                  images_upload_handler: async (blobInfo: { filename: () => string; blob: () => Blob }) => {
-                    try {
-                      const formData = new FormData();
-                      formData.append('file', blobInfo.blob());
-                      
-                      const response = await fetch('/api/upload-image', {
-                        method: 'POST',
-                        body: formData,
-                      });
-                      
-                      if (!response.ok) {
-                        throw new Error('Error al subir imagen');
+              <label>Editor de contenido (WYSIWYG):</label>
+              <Controller
+                name="body"
+                control={control}
+                render={({ field }) => (
+                  <Editor
+                    apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                    onInit={(_evt, editor) => {
+                      editorRef.current = { editor };
+                    }}
+                    onEditorChange={(content) => field.onChange(content)}
+                    value={field.value}
+                    init={{
+                      height: 600,
+                      menubar: false,
+                      plugins: [
+                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'directionality'
+                      ],
+                      toolbar: 'undo redo | blocks | ' +
+                        'bold italic forecolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'image link | removeformat | help | ltr rtl',
+                      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; direction:ltr; }',
+                      directionality: 'ltr',
+                      images_upload_url: '/api/upload-image',
+                      automatic_uploads: true,
+                      file_picker_types: 'image',
+                      setup: (editor: any) => {
+                        editor.on('init', () => {
+                          editor.getBody().setAttribute('dir', 'ltr');
+                          editor.getBody().style.direction = 'ltr';
+                          editor.getBody().style.unicodeBidi = 'normal';
+                        });
+                      },
+                      images_upload_handler: async (blobInfo: { filename: () => string; blob: () => Blob }) => {
+                        try {
+                          const formData = new FormData();
+                          formData.append('file', blobInfo.blob());
+                          
+                          const response = await fetch('/api/upload-image', {
+                            method: 'POST',
+                            body: formData,
+                          });
+                          
+                          if (!response.ok) {
+                            throw new Error('Error al subir imagen');
+                          }
+                          
+                          const result = await response.json();
+                          console.log('Imagen subida - URL:', result.url);
+                          return result.url;
+                        } catch (error) {
+                          console.error('Error uploading image:', error);
+                          throw error;
+                        }
                       }
-                      
-                      const result = await response.json();
-                      console.log('Imagen subida - URL:', result.url);
-                      return result.url;
-                    } catch (error) {
-                      console.error('Error uploading image:', error);
-                      throw error;
-                    }
-                  }
-                }}
+                    }}
+                  />
+                )}
               />
             </div>
 
@@ -232,7 +269,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
               <h4>Vista previa:</h4>
               <div 
                 className={styles.previewContent}
-                dangerouslySetInnerHTML={{ __html: body }}
+                dangerouslySetInnerHTML={{ __html: watch('body') }}
               />
             </div>
           </div>
@@ -242,15 +279,14 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
               Cancelar
             </button>
             <button 
-              type="button" 
+              type="submit" 
               className={styles.submitButton} 
-              onClick={handleSend}
               disabled={loading}
             >
               {loading ? 'Enviando...' : 'Enviar Emails'}
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
