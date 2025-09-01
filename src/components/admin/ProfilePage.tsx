@@ -113,6 +113,26 @@ export default function ProfilePage() {
     return value || '';
   };
 
+  const getServiceData = (serviceKey: string) => {
+    const service = formData[serviceKey as keyof ProfileData];
+    if (typeof service === 'object' && service !== null) {
+      return service as any;
+    }
+    return {
+      titulo: '',
+      descripcion: '',
+      duracion: '',
+      precio: '',
+      garantia: ''
+    };
+  };
+
+  const updateServiceData = (serviceKey: string, field: string, value: string) => {
+    const currentService = getServiceData(serviceKey);
+    const updatedService = { ...currentService, [field]: value };
+    handleInputChange(serviceKey as keyof ProfileData, updatedService);
+  };
+
   if (loading) {
     return (
       <div className={styles.container}>
@@ -231,7 +251,7 @@ export default function ProfilePage() {
 
               {/* Servicios */}
               <div>
-                <h3 className={styles.sectionTitle}>Servicios</h3>
+                <h3 style={{ marginBottom: '1rem' }} className={styles.sectionTitle}>Servicios</h3>
                 <div className={styles.section}>
                   {[
                     { key: 'servicio_asesoria', label: 'Asesoría', description: 'Consultoría experta en hornos industriales' },
@@ -239,34 +259,76 @@ export default function ProfilePage() {
                     { key: 'servicio_instalacion', label: 'Instalación', description: 'Instalación profesional de hornos' },
                     { key: 'servicio_mantenimiento', label: 'Mantenimiento', description: 'Mantenimiento preventivo y correctivo' },
                     { key: 'servicio_reparacion', label: 'Reparación', description: 'Reparación integral de fallas técnicas' },
-                  ].map(({ key, label, description }) => (
-                    <div key={key} className={styles.formGroup}>
-                      <label className={styles.label}>
-                        {label}
-                        <small style={{ display: 'block', color: 'var(--accent)', marginTop: '0.25rem', fontWeight: 'normal' }}>
-                          {description}
-                        </small>
-                      </label>
-                      <textarea
-                        value={formatJsonValue(formData[key as keyof ProfileData])}
-                        onChange={(e) => handleInputChange(key as keyof ProfileData, e.target.value)}
-                        className={`${styles.textarea} ${
-                          jsonErrors[key] ? styles.textareaError : ''
-                        }`}
-                        placeholder={`{
-  "titulo": "${label} AEG",
-  "descripcion": "${description} con los más altos estándares de calidad y experiencia.",
-  "duracion": "2-4 horas",
-  "precio": "Consultar",
-  "garantia": "6 meses"
-}`}
-                        rows={8}
-                      />
-                      {jsonErrors[key] && (
-                        <p className={styles.error}>{jsonErrors[key]}</p>
-                      )}
-                    </div>
-                  ))}
+                  ].map(({ key, label, description }) => {
+                     const service = getServiceData(key);
+                     return (
+                       <div key={key} className={styles.serviceCard}>
+                         <h4 className={styles.serviceTitle}>
+                           {label}
+                           <small className={styles.serviceDescription}>
+                             {description}
+                           </small>
+                         </h4>
+                         
+                         <div className={styles.serviceGrid}>
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Título del servicio</label>
+                            <input
+                              type="text"
+                              value={service.titulo || ''}
+                              onChange={(e) => updateServiceData(key, 'titulo', e.target.value)}
+                              className={styles.input}
+                              placeholder={`Servicio de ${label}`}
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Duración</label>
+                            <input
+                              type="text"
+                              value={service.duracion || ''}
+                              onChange={(e) => updateServiceData(key, 'duracion', e.target.value)}
+                              className={styles.input}
+                              placeholder="2-4 horas"
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Precio</label>
+                            <input
+                              type="text"
+                              value={service.precio || ''}
+                              onChange={(e) => updateServiceData(key, 'precio', e.target.value)}
+                              className={styles.input}
+                              placeholder="Consultar"
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Garantía</label>
+                            <input
+                              type="text"
+                              value={service.garantia || ''}
+                              onChange={(e) => updateServiceData(key, 'garantia', e.target.value)}
+                              className={styles.input}
+                              placeholder="6 meses"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
+                          <label className={styles.label}>Descripción completa</label>
+                          <textarea
+                            value={service.descripcion || ''}
+                            onChange={(e) => updateServiceData(key, 'descripcion', e.target.value)}
+                            className={styles.textarea}
+                            placeholder={`${description} con los más altos estándares de calidad y experiencia.`}
+                            rows={4}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
