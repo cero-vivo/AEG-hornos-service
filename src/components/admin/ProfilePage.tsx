@@ -370,15 +370,7 @@ export default function ProfilePage() {
               </button>
             </div>
 
-            <div style={{ 
-              marginTop: '2rem', 
-              paddingTop: '1.5rem', 
-              borderTop: '1px solid rgba(234, 88, 12, 0.1)',
-              textAlign: 'center',
-              color: 'var(--accent)',
-              fontSize: '0.875rem'
-            }}>
-            </div>
+
           </div>
         </div>
       </div>

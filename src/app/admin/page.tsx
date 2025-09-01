@@ -205,6 +205,13 @@ export default function AdminPanel() {
                         Perfil
                     </button>
                     <button
+                        className={`${styles.button} ${styles.suggestionsButton}`}
+                        onClick={() => window.location.href = '/admin/suggestions'}
+                        title="Ver sugerencias y reportes de bugs"
+                    >
+                        Sugerencias
+                    </button>
+                    <button
                         className={`${styles.button} ${styles.helpButton}`}
                         onClick={() => setShowHelpModal(true)}
                         title="Ayuda - Cómo funciona el panel"
