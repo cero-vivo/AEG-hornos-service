@@ -182,9 +182,6 @@ export default function ProfilePage() {
                   <div className={styles.formGroup}>
                     <label className={styles.label}>
                       Email de Contacto
-                      <small style={{ display: 'block', color: 'var(--accent)', marginTop: '0.25rem', fontWeight: 'normal' }}>
-                        Correo principal para consultas de clientes
-                      </small>
                     </label>
                     <input
                       type="email"
@@ -198,9 +195,6 @@ export default function ProfilePage() {
                   <div className={styles.formGroup}>
                     <label className={styles.label}>
                       Teléfono
-                      <small style={{ display: 'block', color: 'var(--accent)', marginTop: '0.25rem', fontWeight: 'normal' }}>
-                        Línea directa de atención al cliente
-                      </small>
                     </label>
                     <input
                       type="tel"
@@ -214,9 +208,6 @@ export default function ProfilePage() {
                   <div className={styles.formGroup}>
                     <label className={styles.label}>
                       WhatsApp
-                      <small style={{ display: 'block', color: 'var(--accent)', marginTop: '0.25rem', fontWeight: 'normal' }}>
-                        Atención rápida y personalizada
-                      </small>
                     </label>
                     <input
                       type="tel"
@@ -230,9 +221,6 @@ export default function ProfilePage() {
                   <div className={styles.formGroup}>
                     <label className={styles.label}>
                       Usuario Instagram
-                      <small style={{ display: 'block', color: 'var(--accent)', marginTop: '0.25rem', fontWeight: 'normal' }}>
-                        Red social para mostrar trabajos y testimonios
-                      </small>
                     </label>
                     <input
                       type="text"
@@ -247,7 +235,7 @@ export default function ProfilePage() {
 
               {/* Servicios */}
               <div>
-                <h3 style={{ marginBottom: '1rem' }} className={styles.sectionTitle}>Servicios</h3>
+                <h3 style={{ marginTop: '1rem' }} className={styles.sectionTitle}>Servicios</h3>
                 <div className={styles.section}>
                   {[
                     { key: 'servicio_asesoria', label: 'Asesoría Virtual' },
@@ -275,6 +263,7 @@ export default function ProfilePage() {
                             <label className={styles.label}>Icono</label>
                             <input
                               type="text"
+                              disabled
                               value={service.icono || ''}
                               onChange={(e) => updateServiceData(key, 'icono', e.target.value)}
                               className={styles.input}
