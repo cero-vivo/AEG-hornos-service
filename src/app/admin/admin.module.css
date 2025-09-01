@@ -335,25 +335,41 @@
   color: #721c24;
 }
 
-.helpButton {
-  background: #17a2b8;
-  color: white;
-  border: none;
+.profileButton {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent-light);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  font-size: 16px;
 }
 
-.helpButton:hover {
-  background: #138496;
-  transform: scale(1.1);
+.profileButton:hover:not(:disabled) {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+.helpButton {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent-light);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.helpButton:hover:not(:disabled) {
+  background: var(--accent-light);
+  color: var(--accent-dark);
 }
 
 @media (max-width: 768px) {

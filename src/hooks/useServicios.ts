@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { remoteConfig } from '@/lib/firebase';
-import { getValue, fetchAndActivate } from 'firebase/remote-config';
+import { useProfile } from './useProfile';
 
 export interface Servicio {
   titulo: string;
@@ -22,30 +20,18 @@ const KEYS = [
 ];
 
 export function useServicios() {
-  const [servicios, setServicios] = useState<Servicio[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, loading } = useProfile();
 
-  useEffect(() => {
-    async function fetchServicios() {
-      remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60; // 1 minuto
-      await fetchAndActivate(remoteConfig);
-
-      const result: Servicio[] = [];
-      for (const key of KEYS) {
-        const value = getValue(remoteConfig, key).asString();
-        if (value) {
-          try {
-            result.push(JSON.parse(value));
-          } catch {
-            // Si el JSON está mal, lo ignora
-          }
-        }
+  const servicios: Servicio[] = [];
+  
+  if (data) {
+    for (const key of KEYS) {
+      const value = data[key as keyof typeof data];
+      if (value && typeof value === 'object') {
+        servicios.push(value as Servicio);
       }
-      setServicios(result);
-      setLoading(false);
     }
-    fetchServicios();
-  }, []);
+  }
 
   return { servicios, loading };
-} 
+}

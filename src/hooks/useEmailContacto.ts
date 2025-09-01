@@ -1,28 +1,11 @@
-import { useEffect, useState } from 'react';
-import { getValue, fetchAndActivate } from 'firebase/remote-config';
-import { remoteConfig } from '@/lib/firebase';
+import { useProfile } from './useProfile';
 
-export function useEmailContacto() {
-  const [emailContacto, setEmailContacto] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchEmail() {
-      try {
-        remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60;
-        await fetchAndActivate(remoteConfig);
-        const value = getValue(remoteConfig, 'email_contacto').asString();
-        setEmailContacto(value || null);
-      } catch (error) {
-        console.error('Error fetching email contacto:', error);
-        setEmailContacto(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchEmail();
-  }, []);
-
-  return { emailContacto, loading };
-} 
+export const useEmailContacto = () => {
+  const { data, loading, error } = useProfile();
+  
+  return { 
+    emailContacto: data?.email_contacto || '', 
+    loading, 
+    error 
+  };
+};

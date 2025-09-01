@@ -194,6 +194,13 @@ export default function AdminPanel() {
                         ).length})
                     </button>
                     <button
+                        className={`${styles.button} ${styles.profileButton}`}
+                        onClick={() => window.location.href = '/admin/profile'}
+                        title="Configurar información del perfil"
+                    >
+                        ⚙️
+                    </button>
+                    <button
                         className={`${styles.button} ${styles.helpButton}`}
                         onClick={() => setShowHelpModal(true)}
                         title="Ayuda - Cómo funciona el panel"
