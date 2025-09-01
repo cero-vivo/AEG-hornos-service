@@ -8,6 +8,9 @@ export interface ServiceData {
   duracion?: string;
   precio?: string;
   garantia?: string;
+  icono?: string;
+  cta?: string;
+  ubicacion?: string;
 }
 
 export interface ProfileData {

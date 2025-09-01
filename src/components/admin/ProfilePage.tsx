@@ -53,7 +53,7 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     // Validar campos JSON
-    const jsonFields = ['servicio_asesoria', 'servicio_diagnostico', 'servicio_instalacion', 'servicio_mantenimiento', 'servicio_reparacion'];
+      const jsonFields = ['servicio_asesoria', 'servicio_diagnostico', 'servicio_instalacion', 'servicio_mantenimiento', 'servicio_reparacion'];
     let hasErrors = false;
 
     for (const field of jsonFields) {
@@ -250,42 +250,35 @@ export default function ProfilePage() {
                 <h3 style={{ marginBottom: '1rem' }} className={styles.sectionTitle}>Servicios</h3>
                 <div className={styles.section}>
                   {[
-                    { key: 'servicio_asesoria', label: 'Asesoría', description: 'Consultoría experta en hornos industriales' },
-                    { key: 'servicio_diagnostico', label: 'Diagnóstico', description: 'Evaluación técnica completa de equipos' },
-                    { key: 'servicio_instalacion', label: 'Instalación', description: 'Instalación profesional de hornos' },
-                    { key: 'servicio_mantenimiento', label: 'Mantenimiento', description: 'Mantenimiento preventivo y correctivo' },
-                    { key: 'servicio_reparacion', label: 'Reparación', description: 'Reparación integral de fallas técnicas' },
-                  ].map(({ key, label, description }) => {
+                    { key: 'servicio_asesoria', label: 'Asesoría Virtual' },
+                    { key: 'servicio_diagnostico', label: 'Diagnóstico Profesional' },
+                    { key: 'servicio_instalacion', label: 'Instalación Completa' },
+                    { key: 'servicio_mantenimiento', label: 'Mantenimiento Premium' },
+                    { key: 'servicio_reparacion', label: 'Reparación Integral' },
+                  ].map(({ key, label }) => {
                      const service = getServiceData(key);
                      return (
                        <div key={key} className={styles.serviceCard}>
-                         <h4 className={styles.serviceTitle}>
-                           {label}
-                           <small className={styles.serviceDescription}>
-                             {description}
-                           </small>
-                         </h4>
-                         
                          <div className={styles.serviceGrid}>
                           <div className={styles.formGroup}>
-                            <label className={styles.label}>Título del servicio</label>
+                            <label className={styles.label}>{label} - Título</label>
                             <input
                               type="text"
                               value={service.titulo || ''}
                               onChange={(e) => updateServiceData(key, 'titulo', e.target.value)}
                               className={styles.input}
-                              placeholder={`Servicio de ${label}`}
+                              placeholder="Ingrese el título del servicio"
                             />
                           </div>
                           
                           <div className={styles.formGroup}>
-                            <label className={styles.label}>Duración</label>
+                            <label className={styles.label}>Icono</label>
                             <input
                               type="text"
-                              value={service.duracion || ''}
-                              onChange={(e) => updateServiceData(key, 'duracion', e.target.value)}
+                              value={service.icono || ''}
+                              onChange={(e) => updateServiceData(key, 'icono', e.target.value)}
                               className={styles.input}
-                              placeholder="2-4 horas"
+                              placeholder="Ej: Video, Search, Settings, Sparkles, Wrench"
                             />
                           </div>
                           
@@ -296,7 +289,40 @@ export default function ProfilePage() {
                               value={service.precio || ''}
                               onChange={(e) => updateServiceData(key, 'precio', e.target.value)}
                               className={styles.input}
-                              placeholder="Consultar"
+                              placeholder="Ej: 20000, 35000, Consultar"
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Duración</label>
+                            <input
+                              type="text"
+                              value={service.duracion || ''}
+                              onChange={(e) => updateServiceData(key, 'duracion', e.target.value)}
+                              className={styles.input}
+                              placeholder="Ej: 30 minutos, 1h, 2-3 horas"
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>Ubicación</label>
+                            <input
+                              type="text"
+                              value={service.ubicacion || ''}
+                              onChange={(e) => updateServiceData(key, 'ubicacion', e.target.value)}
+                              className={styles.input}
+                              placeholder="Ej: Sólo en CABA y AMBA, Vamos a domicilio"
+                            />
+                          </div>
+                          
+                          <div className={styles.formGroup}>
+                            <label className={styles.label}>CTA (Call to Action)</label>
+                            <input
+                              type="text"
+                              value={service.cta || ''}
+                              onChange={(e) => updateServiceData(key, 'cta', e.target.value)}
+                              className={styles.input}
+                              placeholder="Ej: Agendar videollamada, Solicitar análisis"
                             />
                           </div>
                           
@@ -307,7 +333,7 @@ export default function ProfilePage() {
                               value={service.garantia || ''}
                               onChange={(e) => updateServiceData(key, 'garantia', e.target.value)}
                               className={styles.input}
-                              placeholder="6 meses"
+                              placeholder="Ej: 6 meses, 1 año"
                             />
                           </div>
                         </div>
@@ -318,7 +344,7 @@ export default function ProfilePage() {
                             value={service.descripcion || ''}
                             onChange={(e) => updateServiceData(key, 'descripcion', e.target.value)}
                             className={styles.textarea}
-                            placeholder={`${description} con los más altos estándares de calidad y experiencia.`}
+                            placeholder="Descripción detallada del servicio..."
                             rows={4}
                           />
                         </div>
