@@ -3,15 +3,18 @@
 import { useState } from 'react';
 import SuggestionForm from './SuggestionForm';
 import SuggestionsManager from './SuggestionsManager';
-import { MessageSquare, Settings, Plus } from 'lucide-react';
+import { MessageSquare, Plus } from 'lucide-react';
+import { useSuggestions } from '@/hooks/useSuggestions';
 import styles from './SuggestionsPanel.module.css';
 
 export default function SuggestionsPanel() {
   const [showForm, setShowForm] = useState(false);
+  const { suggestions, loading, error, refreshSuggestions } = useSuggestions();
 
   const handleFormSuccess = () => {
     setShowForm(false);
-    // Optionally refresh the list
+    // Actualizar la lista automáticamente después de enviar
+    refreshSuggestions();
   };
 
   return (
@@ -26,9 +29,14 @@ export default function SuggestionsPanel() {
         </p>
       </div>
 
-      {/* Lista de sugerencias - siempre visible */}
+      {/* Lista de sugerencias - siempre visible y actualizable */}
       <div className={styles.content}>
-        <SuggestionsManager />
+        <SuggestionsManager 
+          suggestions={suggestions}
+          loading={loading}
+          error={error}
+          onRefresh={refreshSuggestions}
+        />
       </div>
 
       {/* Floating action button for quick access */}

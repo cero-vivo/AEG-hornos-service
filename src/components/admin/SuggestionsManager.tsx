@@ -46,10 +46,20 @@ const categoryLabels = {
 
 interface SuggestionsManagerProps {
   onClose?: () => void;
+  suggestions: Suggestion[];
+  loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
 }
 
-export default function SuggestionsManager({ onClose }: SuggestionsManagerProps) {
-  const { suggestions, loading, error, updateSuggestion, deleteSuggestion } = useSuggestions();
+export default function SuggestionsManager({ 
+  onClose, 
+  suggestions, 
+  loading, 
+  error, 
+  onRefresh 
+}: SuggestionsManagerProps) {
+  const { updateSuggestion, deleteSuggestion } = useSuggestions();
   const [filterCategory, setFilterCategory] = useState<SuggestionCategory | 'all'>('all');
   const [filterStatus, setFilterStatus] = useState<SuggestionStatus | 'all'>('all');
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -65,6 +75,7 @@ export default function SuggestionsManager({ onClose }: SuggestionsManagerProps)
   const handleStatusChange = async (id: string, newStatus: SuggestionStatus) => {
     try {
       await updateSuggestion(id, { status: newStatus });
+      onRefresh(); // Actualizar la lista automáticamente
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -74,6 +85,7 @@ export default function SuggestionsManager({ onClose }: SuggestionsManagerProps)
     if (window.confirm('¿Estás seguro de que quieres eliminar esta sugerencia?')) {
       try {
         await deleteSuggestion(id);
+        onRefresh(); // Actualizar la lista automáticamente
       } catch (error) {
         console.error('Error deleting suggestion:', error);
       }
@@ -90,6 +102,7 @@ export default function SuggestionsManager({ onClose }: SuggestionsManagerProps)
       await updateSuggestion(id, { adminNotes: editingNotes });
       setEditingId(null);
       setEditingNotes('');
+      onRefresh(); // Actualizar la lista automáticamente
     } catch (error) {
       console.error('Error saving notes:', error);
     }
