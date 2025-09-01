@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useProfile, ProfileData } from '@/hooks/useProfile';
+import { useProfile, ProfileData, ServiceData } from '@/hooks/useProfile';
 import styles from './ProfilePage.module.css';
 import { ArrowLeftIcon } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export default function ProfilePage() {
     }
   }, [data]);
 
-  const handleInputChange = (field: keyof ProfileData, value: string) => {
+  const handleInputChange = (field: keyof ProfileData, value: string | ServiceData) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
     // Limpiar error de JSON si existe
@@ -27,7 +27,7 @@ export default function ProfilePage() {
     }
   };
 
-  const validateJson = (field: string, value: any): boolean => {
+  const validateJson = (field: string, value: unknown): boolean => {
     if (!value) return true;
     
     // Si ya es un objeto, está válido
@@ -42,7 +42,7 @@ export default function ProfilePage() {
       try {
         JSON.parse(value);
         return true;
-      } catch (e) {
+      } catch {
         setJsonErrors(prev => ({ ...prev, [field]: 'JSON inválido' }));
         return false;
       }
@@ -79,14 +79,15 @@ export default function ProfilePage() {
         const value = formData[field as keyof ProfileData];
         if (typeof value === 'string' && value.trim()) {
           try {
-            processedData[field as keyof ProfileData] = JSON.parse(value) as any;
+            const parsedValue = JSON.parse(value);
+            (processedData as Record<string, unknown>)[field] = parsedValue;
           } catch {
             // Si no es JSON válido, mantener como string
-            processedData[field as keyof ProfileData] = value;
+            (processedData as Record<string, unknown>)[field] = value;
           }
         } else if (typeof value === 'object' && value !== null) {
           // Ya es un objeto, mantenerlo así
-          processedData[field as keyof ProfileData] = value;
+          (processedData as Record<string, unknown>)[field] = value;
         }
       }
 
@@ -98,7 +99,7 @@ export default function ProfilePage() {
 
       setSaveMessage('Perfil guardado exitosamente');
       setTimeout(() => setSaveMessage(''), 3000);
-    } catch (error) {
+    } catch {
       setSaveMessage('Error al guardar el perfil');
       setTimeout(() => setSaveMessage(''), 3000);
     } finally {
@@ -106,17 +107,12 @@ export default function ProfilePage() {
     }
   };
 
-  const formatJsonValue = (value: any): string => {
-    if (typeof value === 'object') {
-      return JSON.stringify(value, null, 2);
-    }
-    return value || '';
-  };
 
-  const getServiceData = (serviceKey: string) => {
+
+  const getServiceData = (serviceKey: string): ServiceData => {
     const service = formData[serviceKey as keyof ProfileData];
     if (typeof service === 'object' && service !== null) {
-      return service as any;
+      return service as ServiceData;
     }
     return {
       titulo: '',

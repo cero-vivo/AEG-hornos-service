@@ -2,16 +2,24 @@ import { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
+export interface ServiceData {
+  titulo?: string;
+  descripcion?: string;
+  duracion?: string;
+  precio?: string;
+  garantia?: string;
+}
+
 export interface ProfileData {
   email_contacto?: string;
   numero_tel?: string;
   numero_wsp?: string;
   usuario_instagram?: string;
-  servicio_asesoria?: any;
-  servicio_diagnostico?: any;
-  servicio_instalacion?: any;
-  servicio_mantenimiento?: any;
-  servicio_reparacion?: any;
+  servicio_asesoria?: ServiceData | string;
+  servicio_diagnostico?: ServiceData | string;
+  servicio_instalacion?: ServiceData | string;
+  servicio_mantenimiento?: ServiceData | string;
+  servicio_reparacion?: ServiceData | string;
 }
 
 interface UseProfileReturn {

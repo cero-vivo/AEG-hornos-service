@@ -198,7 +198,7 @@ export default function AdminPanel() {
                         onClick={() => window.location.href = '/admin/profile'}
                         title="Configurar información del perfil"
                     >
-                        ⚙️
+                        Perfil
                     </button>
                     <button
                         className={`${styles.button} ${styles.helpButton}`}
