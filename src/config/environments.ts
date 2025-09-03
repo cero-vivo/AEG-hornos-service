@@ -15,6 +15,9 @@ export interface EnvironmentConfig {
   resend: {
     apiKey: string;
     fromDomain: string;
+    // IMPORTANTE: Asegúrate de configurar DMARC en tu DNS
+    // Agrega un registro TXT: _dmarc.tudominio.com
+    // Valor: v=DMARC1; p=none; rua=mailto:dmarc@tudominio.com
   };
   general: {
     nodeEnv: 'development' | 'production' | 'test';
