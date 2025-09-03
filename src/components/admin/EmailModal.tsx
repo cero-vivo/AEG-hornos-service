@@ -38,8 +38,8 @@ const emailTemplates = {
 
 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
   <p><strong>¿Necesitas ayuda urgente?</strong></p>
-  <p>📞 Teléfono: 11-1234-5678<br>
-  📧 Email: contacto@aeghornos.com.ar</p>
+  <p>📞 Teléfono: 1164624270<br>
+  📧 Email: agarciadigital2018@gmail.com</p>
 </div>`
   },
   followup: {
@@ -51,9 +51,9 @@ const emailTemplates = {
 
 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
   <h3>¿Cómo agendar un servicio?</h3>
-  <p>📞 Llamanos: 11-1234-5678<br>
-  📱 WhatsApp: +54 9 11 1234-5678<br>
-  📧 Email: contacto@aeghornos.com.ar</p>
+  <p>📞 Llamanos: 1164624270<br>
+  📱 WhatsApp: +5491164624270<br>
+  📧 Email: agarciadigital2018@gmail.com</p>
 </div>`
   },
   promotion: {
@@ -149,7 +149,7 @@ export default function EmailModal({ customers, onClose }: EmailModalProps) {
               <strong>Destinatarios:</strong>
               <button 
                 type="button" 
-                onClick={() => alert(`📧 Información de Email:\n\n• Límite máximo: ${BATCH_LIMIT} destinatarios por envío\n• Se envían individualmente para mejor control\n• Las plantillas soportan personalización con {{name}} y {{email}}\n• Los emails llegan desde: ${process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL || 'contacto@aeghornos.com.ar'}\n\n💡 Tip: Selecciona hasta ${BATCH_LIMIT} clientes para enviar en una sola tanda.`)}
+                onClick={() => alert(`📧 Información de Email:\n\n• Límite máximo: ${BATCH_LIMIT} destinatarios por envío\n• Se envían individualmente para mejor control\n• Las plantillas soportan personalización con {{name}} y {{email}}\n• Los emails llegan desde: ${process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL || 'agarciadigital2018@gmail.com'}\n\n💡 Tip: Selecciona hasta ${BATCH_LIMIT} clientes para enviar en una sola tanda.`)}
                 style={{background: 'none', border: 'none', cursor: 'pointer', padding: '4px'}}
                 title="Ver información sobre el envío de emails"
               >

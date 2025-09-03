@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const from = process.env.RESEND_FROM_DOMAIN || 'contacto@aeghornos.com.ar';
+    const from = process.env.RESEND_FROM_DOMAIN || 'agarciadigital2018@gmail.com';
     let successCount = 0;
     const errors = [];
 
