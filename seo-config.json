@@ -1,0 +1,79 @@
+{
+  "seo": {
+    "title": "AEG Hornos - Reparación y Service de Hornos Cerámicos Profesionales",
+    "description": "Servicio técnico especializado en reparación de hornos cerámicos AEG. Cobertura en CABA, AMBA y Zona Norte. Técnicos certificados, garantía escrita.",
+    "keywords": [
+      "reparación hornos cerámica",
+      "hornos cerámica",
+      "service hornos cerámica",
+      "reparación hornos industriales",
+      "mantenimiento hornos",
+      "instalación hornos",
+      "service técnico hornos CABA",
+      "reparación hornos Zona Norte",
+      "service hornos AMBA",
+      "técnico hornos Pilar",
+      "reparación hornos Vicente López",
+      "service hornos San Isidro",
+      "mantenimiento hornos Tigre",
+      "reparación hornos Belgrano",
+      "service hornos Palermo"
+    ],
+    "locations": [
+      "CABA",
+      "AMBA",
+      "Zona Norte",
+      "Pilar",
+      "Vicente López",
+      "San Isidro",
+      "San Fernando",
+      "Tigre",
+      "Escobar",
+      "Malvinas Argentinas",
+      "José C. Paz",
+      "San Miguel",
+      "Hurlingham",
+      "Morón",
+      "Merlo",
+      "Moreno",
+      "La Matanza",
+      "Lomas de Zamora",
+      "Lanús",
+      "Quilmes",
+      "Belgrano",
+      "Palermo",
+      "Recoleta",
+      "Núñez"
+    ]
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "AEG Hornos Service",
+    "description": "Servicio técnico especializado en reparación de hornos cerámicos AEG",
+    "url": "https://reparacionhornosceramica.com",
+    "telephone": "+5411-XXXX-XXXX",
+    "email": "info@reparacionhornosceramica.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Buenos Aires",
+      "addressRegion": "CABA",
+      "addressCountry": "AR"
+    },
+    "areaServed": [
+      "CABA",
+      "AMBA",
+      "Zona Norte",
+      "Pilar",
+      "Vicente López",
+      "San Isidro",
+      "Tigre"
+    ],
+    "serviceType": [
+      "Reparación de hornos cerámicos",
+      "Service técnico de hornos",
+      "Mantenimiento de hornos",
+      "Instalación de hornos"
+    ]
+  }
+}
